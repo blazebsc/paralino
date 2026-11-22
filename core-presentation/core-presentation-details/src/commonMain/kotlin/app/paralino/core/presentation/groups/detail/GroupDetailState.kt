@@ -70,7 +70,6 @@ sealed class GroupDetailScreenEvent() {
     object GroupDeleted : GroupDetailScreenEvent()
     object GroupMemberAdd : GroupDetailScreenEvent()
     data class OpenRawMemberData(val memberId: String) : GroupDetailScreenEvent()
-    data object OpenPaywall : GroupDetailScreenEvent()
     data object OpenMap : GroupDetailScreenEvent()
     object GroupMemberDeleted : GroupDetailScreenEvent()
     object UserBlockActionCompleted : GroupDetailScreenEvent()

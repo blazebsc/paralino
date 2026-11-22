@@ -34,7 +34,6 @@ import app.paralino.core.presentation.common.MemberLocationContextMapper
 import app.paralino.core.presentation.common.MemberLocationVisibilityType
 import app.paralino.core.presentation.common.PlaceListItemData
 import app.paralino.core.presentation.common.SnackbarDuration
-import app.paralino.core.presentation.common.onAction
 import app.paralino.core.presentation.groups.detail.GroupDetailScreenEvent.OpenRawMemberData
 import app.paralino.core.presentation.share.ApproximateLocationDistancePair
 import app.paralino.core.provider.DistanceType
@@ -317,15 +316,12 @@ class GroupDetailViewModel(
                     }
                 }
                 if (group.group.isCurrentUserOwner) {
-                    showSnackbarForResult(
+                    showSnackbar(
                         data = AppSnackbarData(
                             text = MR.strings.plan_limit_overLimit_groupOwner_banner_title.localizedString(),
-                            duration = SnackbarDuration.Forever,
-                            actionText = MR.strings.plans_banner_settings_action_small.localizedString()
+                            duration = SnackbarDuration.Forever
                         )
-                    )?.result?.onAction {
-                        _eventChannel.trySend(GroupDetailScreenEvent.OpenPaywall)
-                    }
+                    )
                 } else {
                     showSnackbar(
                         text = MR.strings.plan_limit_overLimit_groupMember_banner_title.localizedString(),
@@ -620,10 +616,6 @@ class GroupDetailViewModel(
             when (
                 val premiumStatus = premiumStatusManager.checkMemberCountLimits(groupId = state.groupId)
             ) {
-                is PremiumStatusLimitState.PlanLimitReached -> {
-                    _eventChannel.send(GroupDetailScreenEvent.OpenPaywall)
-                }
-
                 is PremiumStatusLimitState.ServiceLimitReached -> {
                     _uiState.update {
                         it.mapSuccess {
@@ -641,7 +633,7 @@ class GroupDetailViewModel(
                     _eventChannel.send(GroupDetailScreenEvent.GroupMemberAdd)
                 }
 
-                null -> {}
+                else -> {}
             }
         }
     }

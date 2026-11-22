@@ -33,6 +33,4 @@ sealed interface BatteryNotificationScreenUiEvent {
     data class ToggleBatterySettingForItem(val alertItemId: String) : BatteryNotificationScreenUiEvent
 }
 
-sealed interface BatteryNotificationScreenEvent {
-    data object OpenPaywall : BatteryNotificationScreenEvent
-}
+sealed interface BatteryNotificationScreenEvent

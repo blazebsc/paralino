@@ -8,7 +8,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,8 +51,6 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import app.paralino.core.resources.moko.*
-import app.paralino.core.models.base.ImageModel
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.common.GroupMemberItemEvent
 import app.paralino.core.presentation.common.GroupMemberItemState
 import app.paralino.core.presentation.common.PlaceListItemData
@@ -65,18 +62,14 @@ import app.paralino.core.provider.localizedString
 import app.paralino.core.resources.CoreAppIcons
 import app.paralino.core.resources.CoreAppIcons.asPainterResource
 import app.paralino.core.ui.components.ConditionErrorItem
-import app.paralino.core.ui.components.DataInfoChip
 import app.paralino.core.ui.components.DefaultEmptyState
 import app.paralino.core.ui.components.FilledButton
-import app.paralino.core.ui.components.ImageModelImage
 import app.paralino.core.ui.groups.components.GroupMember
 import app.paralino.core.ui.groups.components.GroupMemberActionButton
 import app.paralino.core.ui.places.PlaceListItem
 import app.paralino.core.ui.theme.AppColors
 import app.paralino.core.ui.theme.ButtonStyle
 import app.paralino.core.ui.theme.LocalScreenDimensionType
-import app.paralino.core.utils.Emojis
-import app.paralino.core.utils.extensions.dashedDotDashedBorder
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -316,7 +309,6 @@ fun MapHomeSheetContent(
                         canStopTracking = readyState.personalSpaceSharingContract != null && readyState.isPersonalSpace,
                         canStopSharing = readyState.selectedGroupSharingContract != null && !readyState.isPersonalSpace,
                         canAddNewMember = !readyState.isPersonalSpace && readyState.isCurrentUserOwnerOfSelectedGroup,
-                        hasUpgradeBanner = !readyState.hasPersonalSpaceIntroBanner && !readyState.groupPlanConfig.hasOngoingRealtime && (readyState.isPersonalSpace || readyState.isCurrentUserOwnerOfSelectedGroup),
                         showManageButton = !readyState.hasPersonalSpaceIntroBanner,
                         members = members,
                         memberEvent = {
@@ -327,9 +319,6 @@ fun MapHomeSheetContent(
                         },
                         onOpenSettings = {
                             onEvent(MapHomeScreenUiEvent.OpenGroupDetails(readyState.groupOrSpaceId))
-                        },
-                        onBannerTap = {
-                            onEvent(MapHomeScreenUiEvent.OpenPaywall(type = BillingScreenSourceType.UPGRADE_MAP_SHEET))
                         },
                         stopLocationSharing = {
                             onEvent(MapHomeScreenUiEvent.StopLocationSharing(groupOrSpaceId = readyState.groupOrSpaceId))
@@ -410,12 +399,10 @@ private fun LazyListScope.membersList(
     canStopSharing: Boolean,
     canStopTracking: Boolean,
     canAddNewMember: Boolean,
-    hasUpgradeBanner: Boolean,
     showManageButton: Boolean,
     members: List<GroupMemberItemState>,
     memberEvent: (GroupMemberItemEvent) -> Unit,
     onAddNewMember: () -> Unit,
-    onBannerTap: () -> Unit,
     onOpenSettings: () -> Unit,
     stopLocationSharing: () -> Unit,
 ) {
@@ -449,64 +436,6 @@ private fun LazyListScope.membersList(
                     onClick = onAddNewMember
                 )
             }
-        }
-    }
-
-    if (hasUpgradeBanner) {
-        this.item("premium_info") {
-            DataInfoChip(
-                modifier = Modifier
-                    .padding(top = 20.dp)
-                    .fillMaxWidth()
-                    .dashedDotDashedBorder(
-                        width = 1.dp,
-                        color = if (isSystemInDarkTheme()) {
-                            AppColors.accentDark
-                        } else {
-                            AppColors.accentLight
-                        },
-                        shape = RoundedCornerShape(10.dp),
-                        dashLength = 6.dp
-                    ),
-                shape = RoundedCornerShape(10.dp),
-                imageOrIcon = {
-                    ImageModelImage(
-                        imageModel = ImageModel.emoji(Emojis.lightBulb),
-                        modifier = Modifier.size(16.dp),
-                        useBackgroundForEmoji = false,
-                        clipShape = CircleShape
-                    )
-                    Spacer(Modifier.size(4.dp))
-                },
-                text = {
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = stringResource(MR.strings.plans_banner_inline_realtime_location),
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.7f)
-                    )
-                },
-                endSection = {
-                    Icon(
-                        modifier = Modifier
-                            .size(24.dp)
-                            .background(
-                                color = if (isSystemInDarkTheme()) {
-                                    AppColors.accent.copy(alpha = 0.8f)
-                                } else {
-                                    AppColors.accentDark.copy(alpha = 0.2f)
-                                },
-                                shape = CircleShape
-                            )
-                            .padding(2.dp),
-                        painter = CoreAppIcons.ChevronRight.asPainterResource(),
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.primary,
-                    )
-                },
-                backgroundColor = AppColors.accentLight.copy(0.1f),
-                onClick = onBannerTap
-            )
         }
     }
 

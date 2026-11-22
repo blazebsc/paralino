@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import app.paralino.android.ui.main.MainAppState
 import app.paralino.android.ui.navigation.AppScreen
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.common.AlertDialogAction
 import app.paralino.core.presentation.history.LocationHistoryScreenEvent
 import app.paralino.core.presentation.history.LocationHistoryScreenUiState
@@ -38,14 +37,6 @@ fun LocationHistoryScreenEventHandler(
                 LocationHistoryScreenEvent.OpenHistorySettings -> {
                     appState.navController.navigate(
                         AppScreen.MainHome.LocationHistoryDelete(groupId = uiState.groupOrSpaceId.id)
-                    )
-                }
-
-                LocationHistoryScreenEvent.OpenPaywall -> {
-                    appState.navController.navigate(
-                        AppScreen.Common.BillingPaywall(
-                            type = BillingScreenSourceType.UPGRADE_DEFAULT
-                        )
                     )
                 }
 
