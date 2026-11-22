@@ -18,7 +18,7 @@
  */
 
 import { ok, fail, readBody } from "../lib/envelope.js";
-import { listDocuments, Query } from "../lib/appwrite.js";
+import { config, listDocuments, Query } from "../lib/appwrite.js";
 
 const DEFAULT_ALG = {
   encoding: "b64u",
@@ -45,7 +45,7 @@ export async function login({ req, res, log }) {
   }
 
   // email -> user id via the Appwrite users API (console-injected key has users.read)
-  const { host, project, key } = (await import("../lib/appwrite.js")).config();
+  const { host, project, key } = config();
   let userId = null;
   try {
     const res2 = await fetch(`${host}/users?queries[]=${encodeURIComponent(JSON.stringify({ method: "equal", attribute: "email", values: [email] }))}`, {
