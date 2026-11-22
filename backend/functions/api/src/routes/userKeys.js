@@ -67,7 +67,8 @@ export async function updateUserKeys({ req, res, log, user }) {
   };
 
   let doc;
-  if (!latest) {
+  if (!latest || latest.userKeyVersion === version - 1) {
+    // first key, or legitimate rotation to next version
     const created = await createDocument(DB, COL, {
       documentId: toDocId(`k${user.id}${version}`),
       data,

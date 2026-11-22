@@ -72,7 +72,6 @@ const ROUTES = {
   "POST /keys/member": null, // KEYS_UPDATE_MEMBERS
   "POST /keys/location": null, // KEYS_UPDATE_LOCATIONS
   "POST /keys/personal_code": null, // KEYS_UPDATE_CODE
-  "POST /keys/user": null, // KEYS_UPDATE_USER
   "POST /keys/space": null, // KEYS_UPDATE_SPACE
 
   // personal codes ("Paralino IDs")

@@ -3,23 +3,32 @@
  * Zero deps — the Appwrite Node SDK would work too, this is ~60 lines.
  *
  * Reads happen client-side with the user's session; the function only writes.
- * Env: APPWRITE_ENDPOINT, APPWRITE_PROJECT_ID, APPWRITE_API_KEY (databases.* scope).
+ *
+ * Env works on both Appwrite Cloud (platform-injected APPWRITE_FUNCTION_* vars,
+ * per-execution key via the function's `scopes` config) and self-hosted
+ * (explicit APPWRITE_ENDPOINT/APPWRITE_PROJECT_ID/APPWRITE_API_KEY).
  */
 
-const HOST = (process.env.APPWRITE_ENDPOINT || "").replace(/\/+$/, "");
-const PROJECT = process.env.APPWRITE_PROJECT_ID;
-const KEY = process.env.APPWRITE_API_KEY;
+function config() {
+  return {
+    host: (process.env.APPWRITE_ENDPOINT || process.env.APPWRITE_FUNCTION_API_ENDPOINT || "").replace(/\/+$/, ""),
+    project: process.env.APPWRITE_PROJECT_ID || process.env.APPWRITE_FUNCTION_PROJECT_ID,
+    key: process.env.APPWRITE_API_KEY,
+  };
+}
 
 function assertConfig() {
-  if (!HOST || !PROJECT || !KEY) {
+  const { host, project, key } = config();
+  if (!host || !project || !key) {
     throw new Error("Missing APPWRITE_ENDPOINT / APPWRITE_PROJECT_ID / APPWRITE_API_KEY env vars");
   }
 }
 
 function headers(extra = {}) {
+  const { project, key } = config();
   return {
-    "X-Appwrite-Project": PROJECT,
-    "X-Appwrite-Key": KEY,
+    "X-Appwrite-Project": project,
+    "X-Appwrite-Key": key,
     "Content-Type": "application/json",
     ...extra,
   };
@@ -36,7 +45,8 @@ export function ownerPermissions(userId) {
 
 async function request(method, path, body) {
   assertConfig();
-  const res = await fetch(`${HOST}${path}`, {
+  const { host } = config();
+  const res = await fetch(`${host}${path}`, {
     method,
     headers: headers(),
     body: body ? JSON.stringify(body) : undefined,

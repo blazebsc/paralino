@@ -1,5 +1,9 @@
 // Route tests for /keys/user and /v2/user/devices with a fake Appwrite backend.
 // Run: node backend/functions/api/test/routes.test.mjs
+process.env.APPWRITE_ENDPOINT = "http://fake/v1";
+process.env.APPWRITE_PROJECT_ID = "test-project";
+process.env.APPWRITE_API_KEY = "test-key";
+
 import assert from "node:assert/strict";
 import handler from "../src/main.js";
 
@@ -96,8 +100,8 @@ const KEY_PAYLOAD = {
   console.log("ok: keys/user idempotent on same version");
 }
 {
-  // stale version -> 409
-  const res = await call("POST", "/keys/user", { ...KEY_PAYLOAD, matchingKeyVersion: 3 }, "other-user-12345678");
+  // stale version -> 409 (same user, latest is v1, client claims v3)
+  const res = await call("POST", "/keys/user", { ...KEY_PAYLOAD, matchingKeyVersion: 3 });
   assert.equal(res.statusCode, 409);
   console.log("ok: keys/user 409 on version jump");
 }
