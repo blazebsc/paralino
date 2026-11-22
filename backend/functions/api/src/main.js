@@ -118,6 +118,11 @@ const ROUTES = {
 // createExecution calls (possibly full "/functions/{id}/executions{path}") and
 // tighten to exact matching once observed. Suffix match is safe against
 // over-matching as long as route keys stay unique.
+//
+// Routes that don't need user context (liveness probes). Everything else
+// requires the Appwrite-injected x-appwrite-user-id from the caller's session.
+const NO_AUTH = new Set(["POST /api-test"]);
+
 export default async ({ req, res, log }) => {
   const path = (req.path || "").replace(/\/+$/, "");
   const routeKey = `${req.method} ${path}`;
@@ -144,7 +149,7 @@ export default async ({ req, res, log }) => {
 
   try {
     const user = currentUser(req);
-    if (!user) {
+    if (!user && !NO_AUTH.has(routeKey)) {
       return fail(res, 401, "unauthorized", "No user context on execution");
     }
     return await handler({ req, res, log, user });
