@@ -25,12 +25,15 @@ import { userConfig } from "./routes/userConfig.js";
 import { updateUserKeys } from "./routes/userKeys.js";
 import { updateUserDevice } from "./routes/userDevices.js";
 import { apiTest } from "./routes/apiTest.js";
+import { login } from "./routes/login.js";
+import { accountReset } from "./routes/accountReset.js";
 import { serverConfig } from "./routes/serverConfig.js";
 
 // Key = "<METHOD> <path>". Implemented: see src/routes/. Stubs stay registered
 // so unknown-yet routes fail loudly (501), not with 404.
 const ROUTES = {
   "POST /api-test": apiTest, // TEST_API / TEST_PING / TEST_LOCATION_UPLOAD / TEST_HISTORY_UPLOAD
+  "POST /login": login, // public: KDF params by email (LoginDetailsRaw)
   "GET /config": serverConfig, // public bootstrap: serverUrl + projectId + unlimited plan
 
   // account / user
@@ -38,7 +41,7 @@ const ROUTES = {
   "PUT /v2/user/devices": updateUserDevice,
   "POST /keys/user": updateUserKeys,
   "DELETE /user": null, // ACCOUNT_DELETE
-  "POST /user/reset": null, // ACCOUNT_RESET
+  "POST /user/reset": accountReset,
   "PATCH /user/email": null, // ACCOUNT_CHANGE_EMAIL
   "DELETE /user/devices": null, // USER_DEVICE_DELETE
 
@@ -124,7 +127,7 @@ const ROUTES = {
 //
 // Routes that don't need user context (liveness probes). Everything else
 // requires the Appwrite-injected x-appwrite-user-id from the caller's session.
-const NO_AUTH = new Set(["POST /api-test", "GET /config"]);
+const NO_AUTH = new Set(["POST /api-test", "GET /config", "POST /login"]);
 
 export default async ({ req, res, log }) => {
   const path = (req.path || "").replace(/\/+$/, "");
