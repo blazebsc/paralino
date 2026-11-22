@@ -93,15 +93,31 @@ backend/
 `core-domain/.../models/raw/` — attribute names and optionality come from that
 model, not guesses.
 
-## Running (target flow, not yet complete)
+## Running (verified on Appwrite Cloud)
 
-1. Install Appwrite: https://appwrite.io/docs/installation
+1. Install Appwrite (self-host) or create a Cloud project
 2. `APPWRITE_HOST=... APPWRITE_PROJECT_ID=... APPWRITE_API_KEY=... node backend/provision/provision.mjs`
-3. Deploy `backend/functions/api` (Appwrite console or CLI), set API key env var
+3. Deploy `backend/functions/api` (console, CLI, or release-asset URL), set
+   runtime **node-22**, entrypoint `src/main.js`, `execute: ["users"]`, and
+   **scopes** (`databases.read/write`, `documents.read/write`,
+   `documentsdb.read/write`) — no manual API key needed: Appwrite injects an
+   ephemeral scoped key per execution as the `x-appwrite-key` request header,
+   which the function reads (`setRequestKey` in `src/lib/appwrite.js`)
 4. Serve `backend/public-api/` with any static server
 5. Client: `user.properties` in repo root with
    `devServerUrl`, `devServerKey`, `devPublicServerUrl` → build `directDebug`
    or `directReleaseTest` (build types that read it; `releaseLocal` does **not** — fork TODO)
+
+### Platform facts learned during E2E verification
+
+- Appwrite 2.7.x wants **JSON-format queries** (`{"method":"equal",...}`); the
+  vendored client SDK emits the same format, so direct client reads are compatible
+- Ephemeral function keys arrive in `req.headers["x-appwrite-key"]`, not env
+- Cloud free tier: 1 database/project (→ single-database mode), 2 functions
+  (→ single-function mode), 65535-byte document row limit (utf8mb4: ~4 bytes
+  per declared string char), 5-function soft disable threshold
+- `x-appwrite-user-id` is injected by the platform from the caller's session;
+  clients cannot spoof it (explicit `x-appwrite-*` headers are rejected)
 
 ## Roadmap
 
