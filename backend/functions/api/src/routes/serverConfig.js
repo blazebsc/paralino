@@ -46,9 +46,12 @@ const PLANS = [
 ];
 
 export async function serverConfig({ res }) {
+  // The client builds its endpoint as `${serverUrl}/v1`, so serverUrl must be
+  // the bare origin — strip the /v1 the injected env var carries.
+  const serverUrl = (process.env.APPWRITE_FUNCTION_API_ENDPOINT || "").replace(/\/v1\/?$/, "");
   return ok(res, {
     // fork extension: lets the app self-configure from a single url
-    serverUrl: process.env.APPWRITE_FUNCTION_API_ENDPOINT || "",
+    serverUrl,
     projectId: process.env.APPWRITE_FUNCTION_PROJECT_ID || "",
     bulkLocationApiThreshold: 3,
     planGracePeriodFallbackSeconds: 43200,
