@@ -60,9 +60,7 @@ data class LocationSettingsHistory(
 //    val isSelected: Boolean
 //)
 
-sealed interface LocationSettingsScreenEvent {
-    data object OpenPaywall : LocationSettingsScreenEvent
-}
+sealed interface LocationSettingsScreenEvent
 
 sealed interface LocationSettingsScreenUiEvent {
     data object ToggleBalancedAutoPause : LocationSettingsScreenUiEvent

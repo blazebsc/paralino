@@ -153,7 +153,6 @@ data class GroupOptionItem(
 )
 
 sealed interface GenericSettingsScreenEvent {
-    data object OpenPaywall : GenericSettingsScreenEvent
     data object OpenNotificationSocketChannelSettings : GenericSettingsScreenEvent
     data object AskForNotificationPermission : GenericSettingsScreenEvent
     data object AskForBackgroundAccessPermission : GenericSettingsScreenEvent

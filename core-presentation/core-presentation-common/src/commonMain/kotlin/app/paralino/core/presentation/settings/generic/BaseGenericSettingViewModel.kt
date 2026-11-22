@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 abstract class BaseGenericSettingViewModel(
     val initialScreenTitle: String,
@@ -37,11 +36,6 @@ abstract class BaseGenericSettingViewModel(
                     is MainAlertDialog.LocationPerformancePremiumInfo -> {
                         _uiState.update {
                             it.copy(alertDialog = null)
-                        }
-                        if (event.action.action == MainAlertDialog.Buttons.buttonOk) {
-                            coroutineScope.launch {
-                                _eventChannel.send(GenericSettingsScreenEvent.OpenPaywall)
-                            }
                         }
                     }
 

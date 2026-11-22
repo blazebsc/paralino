@@ -177,12 +177,7 @@ class MainViewModel constructor(
             }
 
             is DeeplinkType.PaywallScreen -> {
-                if (deeplinkType.action == "refresh") {
-                    billingRefreshMonitor.triggerRefresh()
-                } else {
-                    logg.w("billing", "Set billing deeplink")
-                    _uiState.update { it.copy(pendingDeeplinkType = deeplinkType) }
-                }
+                // fork: no billing — billing deeplinks are dropped
             }
 
             is DeeplinkType.PushNotificationServiceScreen -> {

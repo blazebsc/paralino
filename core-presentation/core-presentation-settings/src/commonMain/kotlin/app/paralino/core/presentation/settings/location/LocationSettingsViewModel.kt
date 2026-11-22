@@ -63,11 +63,6 @@ class LocationSettingsViewModel(
                 when (event.action.dialog) {
                     is MainAlertDialog.LocationPerformancePremiumInfo -> {
                         _uiState.update { it.copy(alertDialog = null) }
-                        if (event.action.action == MainAlertDialog.Buttons.buttonOk) {
-                            coroutineScope.launch {
-                                _eventChannel.send(LocationSettingsScreenEvent.OpenPaywall)
-                            }
-                        }
                     }
 
                     else -> {}
