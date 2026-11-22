@@ -113,3 +113,11 @@ model, not guesses.
 - `BlocklistRaw` and remaining document shapes — read the `*Raw` model when implementing each route
 - Whether any `api` route responses include fields beyond the parsed `*Raw` models
 - Push dispatch: which component consumes FCM/UnifiedPush registrations (client sends tokens via `api` routes)
+
+## Schema sizing note (Appwrite Cloud)
+
+Cloud enforces a 65535-byte per-document row limit, and utf8mb4 string
+attributes cost ~4 bytes per declared char. Blob attributes are sized for the
+real payloads (base64 sodium-sealed keys ~100-500B) with margin, not for
+arbitrary 16KB values. If a client value ever exceeds a size, the write fails
+loudly — adjust the attribute, don't guess bigger.

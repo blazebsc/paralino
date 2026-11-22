@@ -55,14 +55,16 @@ const COLLECTIONS = [
     db: "data_main",
     id: "user_keys",
     name: "user_keys",
-    // from UserCryptoKeyRaw.kt — user's E2EE master key material
+    // from UserCryptoKeyRaw.kt — user's E2EE master key material.
+    // Blob sizes: base64 of sodium-sealed Ed25519/X25519 keys is ~100-500B;
+    // oldMasterKeys accumulates across rotations. Total doc < 65535 (Cloud limit).
     attributes: [
       { type: "string", key: "ownerUserId", size: 64, required: true },
-      { type: "string", key: "encryptedSymmetricKey", size: 16000, required: true },
-      { type: "string", key: "encryptedPrivateKey", size: 16000, required: true },
-      { type: "string", key: "encryptedPublicKey", size: 16000, required: true },
-      { type: "string", key: "publicKey", size: 16000, required: true },
-      { type: "string", key: "oldMasterKeys", size: 16000, required: false },
+      { type: "string", key: "encryptedSymmetricKey", size: 1000, required: true },
+      { type: "string", key: "encryptedPrivateKey", size: 1000, required: true },
+      { type: "string", key: "encryptedPublicKey", size: 1000, required: true },
+      { type: "string", key: "publicKey", size: 200, required: true },
+      { type: "string", key: "oldMasterKeys", size: 4000, required: false },
       { type: "string", key: "loginSalt", size: 256, required: true },
       { type: "string", key: "dataSalt", size: 256, required: false },
       { type: "string", key: "loginAlg", size: 64, required: true },
@@ -72,7 +74,7 @@ const COLLECTIONS = [
     ],
   },
   {
-    db: "product",
+    db: "data_main",
     id: "plans",
     name: "plans",
     // from UserPlanRaw.kt — per-user plan grants. Fork: the api function
@@ -93,22 +95,22 @@ const COLLECTIONS = [
     id: "devices",
     name: "devices",
     // from UserDeviceRaw.kt — one doc per client device (doc id = deviceId).
-    // Blob sizes generous: several fields are client-encrypted payloads or
-    // serialized JSON configs; FCM/UnifiedPush tokens are long.
+    // Tokens/configs/blobs are client-encrypted payloads or serialized JSON;
+    // sized for the 65535 doc limit with margin.
     attributes: [
       { type: "string", key: "ownerUserId", size: 64, required: true },
       { type: "string", key: "deviceId", size: 64, required: true },
       { type: "string", key: "sessionId", size: 64, required: true },
       { type: "string", key: "deviceType", size: 32, required: true },
       { type: "string", key: "pushProvider", size: 64, required: true },
-      { type: "string", key: "pushToken", size: 8000, required: false },
-      { type: "string", key: "locationPushToken", size: 8000, required: false },
-      { type: "string", key: "pushProviderConfig", size: 8000, required: false },
+      { type: "string", key: "pushToken", size: 1000, required: false },
+      { type: "string", key: "locationPushToken", size: 1000, required: false },
+      { type: "string", key: "pushProviderConfig", size: 1000, required: false },
       { type: "string", key: "pushTargetId", size: 64, required: false },
-      { type: "string", key: "deviceData", size: 16000, required: false },
-      { type: "string", key: "encryptedSenderKey", size: 16000, required: false },
+      { type: "string", key: "deviceData", size: 2000, required: false },
+      { type: "string", key: "encryptedSenderKey", size: 1000, required: false },
       { type: "integer", key: "userKeyVersion", required: false },
-      { type: "string", key: "batteryAlertSettings", size: 4000, required: false },
+      { type: "string", key: "batteryAlertSettings", size: 1000, required: false },
     ],
   },
   // TODO(roadmap phase): user_config, push_notifications, blocked,
