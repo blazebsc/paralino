@@ -17,10 +17,6 @@ import app.paralino.core.presentation.rawdata.RawDataPresentationViewModel
 import app.paralino.core.presentation.settings.SettingsViewModel
 import app.paralino.core.presentation.settings.appstatus.AppStatusDebugViewModel
 import app.paralino.core.presentation.settings.status.AppStatusViewModel
-import app.paralino.core.presentation.settings.billing.PaywallScreenEvent
-import app.paralino.core.presentation.settings.billing.PaywallViewModel
-import app.paralino.core.presentation.settings.billing.SubscriptionViewModel
-import app.paralino.core.presentation.settings.billing.licence.LicenceCodeViewModel
 import app.paralino.core.presentation.settings.blocklist.BlocklistViewModel
 import app.paralino.core.presentation.settings.userdevices.UserDevicesViewModel
 import app.paralino.core.presentation.settings.convertaccount.ConvertAccountViewModel
@@ -42,9 +38,6 @@ import app.paralino.core.ui.settings.GenericSettingsScreenCore
 import app.paralino.core.ui.settings.LicencesScreenCore
 import app.paralino.core.ui.settings.RawDataScreenCore
 import app.paralino.core.ui.settings.SettingsScreenCore
-import app.paralino.core.ui.settings.billing.PaywallScreenCore
-import app.paralino.core.ui.settings.billing.SubscriptionScreenCore
-import app.paralino.core.ui.settings.billing.licence.LicenceCodeScreenCore
 import app.paralino.core.ui.settings.location.LocationSettingsScreenCore
 import app.paralino.core.ui.settings.profile.AccountScreenCore
 import app.paralino.core.ui.settings.profile.UserDevicesScreenCore
@@ -63,8 +56,6 @@ object SettingsScreens {
         openBlockList: () -> Unit,
         openGeneralInfo: () -> Unit,
         openStatus: () -> Unit,
-        openSubscriptions: () -> Unit,
-        openPaywall: () -> Unit,
         openAppSettings: () -> Unit,
         openLocationSettings: () -> Unit,
         onShare: (String) -> Unit,
@@ -81,8 +72,6 @@ object SettingsScreens {
                 openBlockList = openBlockList,
                 openGeneralInfo = openGeneralInfo,
                 openStatus = openStatus,
-                openSubscriptions = openSubscriptions,
-                openPaywall = openPaywall,
                 openAppSettings = openAppSettings,
                 openLocationSettings = openLocationSettings,
                 onShareCode = onShare,
@@ -242,65 +231,8 @@ object SettingsScreens {
         }
     }
 
-    fun SubscriptionsScreenVC(
-        vm: SubscriptionViewModel,
-        onNavigateBack: () -> Unit,
-        openBillingStore: () -> Unit,
-        openPaywall: () -> Unit,
-        openLicenceScreen: () -> Unit,
-    ) = ComposeUIViewController {
-        RootScreenIOS {
-            SubscriptionScreenCore(
-                appState = it,
-                vm = vm,
-                paddingValues = PaddingValues(bottom = 30.dp),
-                onNavigateBack = onNavigateBack,
-                openBillingStore = openBillingStore,
-                openPaywall = openPaywall,
-                openLicenceScreen = openLicenceScreen
-            )
-        }
-    }
 
-    fun PaywallScreenVC(
-        vm: PaywallViewModel,
-        paddingValues: AppleScreenPaddingValues,
-        onNavigateBack: (Boolean) -> Unit,
-        onStartPurchase: (PaywallScreenEvent.OnStartPurchase) -> Unit,
-        onRestorePurchase: (PaywallScreenEvent.OnRestorePurchase) -> Unit,
-        openLicenceScreen: () -> Unit,
-        openBillingStore: () -> Unit
-    ) = ComposeUIViewController {
-        RootScreenIOS {
-            PaywallScreenCore(
-                appState = it,
-                vm = vm,
-                paddingValues = paddingValues.toComposePaddingValues(),
-                onNavigateBack = onNavigateBack,
-                onStartPurchase = onStartPurchase,
-                onRestorePurchase = onRestorePurchase,
-                openLicenceScreen = openLicenceScreen,
-                openBillingStore = openBillingStore
-            )
-        }
-    }
 
-    fun LicenceCodeScreenVC(
-        vm: LicenceCodeViewModel,
-        onNavigateBack: () -> Unit,
-    ) = ComposeUIViewController(
-        configure = {
-            onFocusBehavior = OnFocusBehavior.DoNothing
-        }
-    ) {
-        RootScreenIOS {
-            LicenceCodeScreenCore(
-                appState = it,
-                vm = vm,
-                onNavigateBack = onNavigateBack,
-            )
-        }
-    }
 
     fun AppStatusDebugScreenVC(
         vm: AppStatusDebugViewModel
@@ -370,7 +302,6 @@ object SettingsScreens {
 
     fun LocationSettingsScreenVC(
         vm: LocationSettingsViewModel,
-        openPaywall: () -> Unit,
         openWifiNetworks: () -> Unit,
     ) = ComposeUIViewController {
         RootScreenIOS {
@@ -378,7 +309,6 @@ object SettingsScreens {
                 coreUiState = it,
                 vm = vm,
                 paddingValues = PaddingValues(bottom = 20.dp),
-                openPaywall = openPaywall,
                 openWifiNetworks = openWifiNetworks
             )
         }
@@ -415,7 +345,6 @@ object SettingsScreens {
 
     fun GenericSettingsScreenVC(
         vm: BaseGenericSettingViewModel,
-        openPaywall: () -> Unit,
         askNotificationPermission: () -> Unit,
         askBackgroundAccessPermission: () -> Unit,
         applyAppTheme: (AppThemeType) -> Unit,
@@ -428,7 +357,6 @@ object SettingsScreens {
                 coreUiState = it,
                 paddingValues = PaddingValues(),
                 vm = vm,
-                openPaywall = openPaywall,
                 mapContent = { item ->
                     UIKitViewController(
                         modifier = Modifier.fillMaxSize(),

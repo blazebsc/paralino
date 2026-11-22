@@ -48,7 +48,6 @@ import app.paralino.core.models.settings.RawPresentationDataType
 import app.paralino.core.notifications.IOSNSEPlaceCreatedNotificationProcessor
 import app.paralino.core.notifications.IOSNSEPrivacyZoneCreatedNotificationProcessor
 import app.paralino.core.notifications.IOSNSEPushNotificationHandler
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.common.NetworkQualityMonitor
 import app.paralino.core.presentation.groups.add_member.MemberInviteViewModel
 import app.paralino.core.presentation.groups.detail.GroupDetailViewModel
@@ -87,10 +86,6 @@ import app.paralino.core.presentation.rawdata.RawDataPresentationViewModel
 import app.paralino.core.presentation.settings.SettingsViewModel
 import app.paralino.core.presentation.settings.appstatus.AppStatusDebugViewModel
 import app.paralino.core.presentation.settings.status.AppStatusViewModel
-import app.paralino.core.presentation.settings.billing.PaywallViewModel
-import app.paralino.core.presentation.settings.billing.PlanInfoViewModel
-import app.paralino.core.presentation.settings.billing.SubscriptionViewModel
-import app.paralino.core.presentation.settings.billing.licence.LicenceCodeViewModel
 import app.paralino.core.presentation.settings.blocklist.BlocklistViewModel
 import app.paralino.core.presentation.settings.userdevices.UserDevicesViewModel
 import app.paralino.core.presentation.settings.convertaccount.ConvertAccountViewModel
@@ -379,9 +374,6 @@ object KoinIOS {
             factory { UserDevicesViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(),) }
             factory { AppStatusDebugViewModel(get(), get()) }
             factory { AppStatusViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
-            factory { SubscriptionViewModel(get(), get(), get(), get(), get(), get()) }
-            factory { (type: BillingScreenSourceType) -> PaywallViewModel(type, get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
-            factory { PlanInfoViewModel(get(), get()) }
             factory { GeneralInfoViewModel(get(), get()) }
             factory { LocationSettingsViewModel(get(), get(), get(), get(), get(), get(), get()) }
             factory { WelcomeOnboardingViewModel(get(), get()) }
@@ -402,7 +394,6 @@ object KoinIOS {
             factory { (groupId: String, placeId: String) -> FalseLocationsViewModel(groupId = groupId, placeId = placeId, get(), get(), get(), get(), get()) }
             factory { params -> WifiNetworksViewModel(placeId = params.getOrNull<String>(), get(), get(), get(), get()) }
             factory { AppSettingsViewModel(get(), get()) }
-            factory { LicenceCodeViewModel(get(), get()) }
         }
     }
 
@@ -498,9 +489,6 @@ object KoinIOS {
         ) = get<CreatePrivacyZoneViewModel> { parametersOf(groupId, zoneId, editStep, lat, lng) }
         val appStatusDebugVM get() = get<AppStatusDebugViewModel>()
         val appStatusVM get() = get<AppStatusViewModel>()
-        val subscriptionVM get() = get<SubscriptionViewModel>()
-        fun paywallVM(type: BillingScreenSourceType) = get<PaywallViewModel> { parametersOf(type) }
-        val planInfoVM get() = get<PlanInfoViewModel>()
         val generalInfoVM get() = get<GeneralInfoViewModel>()
         val locationSettingsVM get() = get<LocationSettingsViewModel>()
         val welcomeOnboardingVM get() = get<WelcomeOnboardingViewModel>()
@@ -521,6 +509,5 @@ object KoinIOS {
         fun falseLocationsVM(groupId: String, placeId: String) = get<FalseLocationsViewModel>() { parametersOf(groupId, placeId) }
         fun wifiNetworksVM(placeId: String?) = get<WifiNetworksViewModel>() { parametersOf(placeId) }
         val appSettingsVM get() = get<AppSettingsViewModel>()
-        val licenceCodeVM get() = get<LicenceCodeViewModel>()
     }
 }

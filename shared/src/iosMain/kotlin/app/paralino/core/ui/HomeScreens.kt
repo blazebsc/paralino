@@ -16,7 +16,6 @@ import androidx.compose.ui.viewinterop.UIKitInteropProperties
 import androidx.compose.ui.viewinterop.UIKitViewController
 import androidx.compose.ui.window.ComposeUIViewController
 import app.paralino.core.models.base.GroupOrSpaceId
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.common.BottomSheetPickerType
 import app.paralino.core.presentation.common.PlaceListItemData
 import app.paralino.core.presentation.groups.add_member.MemberInviteViewModel
@@ -40,7 +39,6 @@ import app.paralino.core.presentation.privacyzones.detail.PrivacyZoneDetailScree
 import app.paralino.core.presentation.privacyzones.detail.PrivacyZoneDetailViewModel
 import app.paralino.core.presentation.privacyzones.list.PrivacyZonesListScreenState
 import app.paralino.core.presentation.privacyzones.list.PrivacyZonesViewModel
-import app.paralino.core.presentation.settings.billing.PlanInfoViewModel
 import app.paralino.core.presentation.share.SharingStartViewModel
 import app.paralino.core.ui.groups.BatteryNotificationsScreenCore
 import app.paralino.core.ui.groups.GroupCreateScreenCore
@@ -48,7 +46,6 @@ import app.paralino.core.ui.groups.GroupDetailScreenCore
 import app.paralino.core.ui.groups.GroupSettingsScreenCore
 import app.paralino.core.ui.history.LocationHistoryDeleteScreenCore
 import app.paralino.core.ui.invite.MemberInviteScreenCore
-import app.paralino.core.ui.onboarding.FreePlanInfoScreenCore
 import app.paralino.core.ui.onboarding.GroupJoinWelcomeScreenCore
 import app.paralino.core.ui.onboarding.account.AccountOnboardingScreenCore
 import app.paralino.core.ui.personal_space.PersonalSpaceScreenCore
@@ -70,7 +67,6 @@ object HomeScreens {
         paddingValues: AppleScreenPaddingValues,
         onCreateGroup: () -> Unit,
         openPersonalCodes: () -> Unit,
-        openPaywall: (BillingScreenSourceType) -> Unit,
         onSharePersonalCode: (String) -> Unit,
         openSharingScreen: (GroupOrSpaceId) -> Unit,
         askNotificationPermission: () -> Unit,
@@ -83,7 +79,6 @@ object HomeScreens {
                 vm = vm,
                 onCreateGroup = onCreateGroup,
                 openPersonalCodes = openPersonalCodes,
-                openPaywall = openPaywall,
                 onSharePersonalCode = onSharePersonalCode,
                 openSharingScreen = openSharingScreen,
                 askNotificationPermission = askNotificationPermission,
@@ -124,7 +119,6 @@ object HomeScreens {
         openGroupSettings: () -> Unit,
         openMemberRawData: (String) -> Unit,
         openSharing: () -> Unit,
-        openPaywall: () -> Unit,
         onNavigateBack: () -> Unit,
         askNotificationPermission: () -> Unit,
         askLocationService: () -> Unit,
@@ -146,7 +140,6 @@ object HomeScreens {
                 openGroupSettings = openGroupSettings,
                 openMemberRawData = openMemberRawData,
                 openSharing = openSharing,
-                openPaywall = openPaywall,
                 onNavigateBack = onNavigateBack,
                 askNotificationPermission = askNotificationPermission,
                 askLocationService = askLocationService,
@@ -180,14 +173,12 @@ object HomeScreens {
     fun BatteryNotificationsSettingsScreenVC(
         vm: BatteryNotificationsViewModel,
         paddingValues: AppleScreenPaddingValues,
-        openPaywall: () -> Unit,
     ) = ComposeUIViewController {
         RootScreenIOS {
             BatteryNotificationsScreenCore(
                 appState = it,
                 vm = vm,
                 contentPadding = paddingValues.toComposePaddingValues(),
-                openPaywall = openPaywall
             )
         }
     }
@@ -196,7 +187,6 @@ object HomeScreens {
         vm: MemberInviteViewModel,
         isOnboarding: Boolean,
         onPickGroup: (BottomSheetPickerType.GroupPickerBottomSheet) -> Unit,
-        openPaywall: (BillingScreenSourceType) -> Unit,
         onMemberAdded: () -> Unit,
         onSkipOnboarding: () -> Unit
     ) = ComposeUIViewController(
@@ -211,7 +201,6 @@ object HomeScreens {
                 isOnboarding = isOnboarding,
                 contentPadding = PaddingValues(),
                 onPickGroup = onPickGroup,
-                openPaywall = openPaywall,
                 onMemberAdded = onMemberAdded,
                 onSkipOnboarding = onSkipOnboarding
             )
@@ -227,7 +216,6 @@ object HomeScreens {
         openPlaces: () -> Unit,
         openPlace: (GroupSpaceFocusedFeatureChildItem) -> Unit,
         openSharing: () -> Unit,
-        openPaywall: () -> Unit,
         askNotificationPermission: () -> Unit,
         askLocationService: () -> Unit,
         askLocationPermission: () -> Unit,
@@ -244,7 +232,6 @@ object HomeScreens {
                 openPlaces = openPlaces,
                 openPlace = openPlace,
                 openSharing = openSharing,
-                openPaywall = openPaywall,
                 askNotificationPermission = askNotificationPermission,
                 askLocationService = askLocationService,
                 askLocationPermission = askLocationPermission,
@@ -277,7 +264,6 @@ object HomeScreens {
         onPickGroup: (BottomSheetPickerType.GroupPickerBottomSheet) -> Unit,
         onSharingStarted: () -> Unit,
         onSkipOnboarding: () -> Unit,
-        openSubscriptions: () -> Unit,
         askNotificationPermission: () -> Unit,
         askLocationService: () -> Unit,
         askLocationPermission: () -> Unit,
@@ -295,7 +281,6 @@ object HomeScreens {
                 onPickGroup = onPickGroup,
                 onSharingStarted = onSharingStarted,
                 onSkipOnboarding = onSkipOnboarding,
-                openSubscriptions = openSubscriptions,
                 askNotificationPermission = askNotificationPermission,
                 askLocationService = askLocationService,
                 askLocationPermission = askLocationPermission,
@@ -311,7 +296,6 @@ object HomeScreens {
         vm: PlacesViewModel,
         paddingValues: AppleScreenPaddingValues,
         addNewPlace: () -> Unit,
-        openPaywall: () -> Unit,
         onSkipOnboarding: () -> Unit,
         openPlaceDetailScreen: (place: PlaceListItemData) -> Unit,
         askNotificationPermission: () -> Unit,
@@ -330,7 +314,6 @@ object HomeScreens {
                 contentPadding = paddingValues.toComposePaddingValues(),
                 askNotificationPermission = askNotificationPermission,
                 addNewPlace = addNewPlace,
-                openPaywall = openPaywall,
                 onSkipOnboarding = onSkipOnboarding,
                 openPlaceDetails = openPlaceDetailScreen,
                 mapContent = { state ->
@@ -356,7 +339,6 @@ object HomeScreens {
         vm: PrivacyZonesViewModel,
         paddingValues: AppleScreenPaddingValues,
         addNewPrivacyZone: () -> Unit,
-        openPaywall: () -> Unit,
         onSkipOnboarding: () -> Unit,
         openPrivacyZoneDetailScreen: (zone: PlaceListItemData) -> Unit,
         mapUIView: (PrivacyZonesListScreenState) -> UIViewController,
@@ -372,7 +354,6 @@ object HomeScreens {
                 userScrollEnabled = userScroll,
                 contentPadding = paddingValues.toComposePaddingValues(),
                 addNewPrivacyZone = addNewPrivacyZone,
-                openPaywall = openPaywall,
                 onSkipOnboarding = onSkipOnboarding,
                 openPrivacyZoneDetails = openPrivacyZoneDetailScreen,
                 mapContent = { state ->
@@ -581,20 +562,6 @@ object HomeScreens {
         }
     }
 
-    fun FreePlanInfoScreenVC(
-        vm: PlanInfoViewModel,
-        paddingValues: AppleScreenPaddingValues,
-        onContinue: () -> Unit,
-    ) = ComposeUIViewController {
-        RootScreenIOS {
-            FreePlanInfoScreenCore(
-                coreUiState = it,
-                vm = vm,
-                paddingValues = paddingValues.toComposePaddingValues(),
-                onContinue = onContinue,
-            )
-        }
-    }
 
     fun GroupJoinWelcomeScreenVC(
         vm: GroupJoinWelcomeViewModel,
