@@ -123,6 +123,9 @@ class AppPrefs(
         const val keyPlaceSearchLocation = "prefs.device.pleaseSearchLocation"
         const val keyMapTilerToken = "prefs.device.mapsTilerToken"
         const val keyMapTilerStylesToken = "prefs.device.mapTilerStylesToken"
+        const val keySelfHostServerUrl = "prefs.device.selfHost.serverUrl"
+        const val keySelfHostProjectId = "prefs.device.selfHost.projectId"
+        const val keySelfHostPublicUrl = "prefs.device.selfHost.publicUrl"
         const val keyMapTilerSatelliteToken = "prefs.device.mapsTilerSatelliteToken"
         const val keyMapSDKProviderLocation = "prefs.device.mapsSDK"
         const val keyMapSDKProviderLightStyle = "prefs.device.mapsSDK.lightStyle"
@@ -801,6 +804,22 @@ class AppPrefs(
                 provider.userSettings.putString(keyMapTilerToken, value)
             }
         }
+
+    /** Fork: user-entered self-host server config (set during onboarding setup). */
+    var selfHostServerUrl: String
+        get() = provider.userSettings.getString(keySelfHostServerUrl, "")
+        set(value) = provider.userSettings.putString(keySelfHostServerUrl, value)
+
+    var selfHostProjectId: String
+        get() = provider.userSettings.getString(keySelfHostProjectId, "")
+        set(value) = provider.userSettings.putString(keySelfHostProjectId, value)
+
+    var selfHostPublicUrl: String
+        get() = provider.userSettings.getString(keySelfHostPublicUrl, "")
+        set(value) = provider.userSettings.putString(keySelfHostPublicUrl, value)
+
+    val hasSelfHostConfig: Boolean
+        get() = selfHostServerUrl.isNotBlank() && selfHostProjectId.isNotBlank() && selfHostPublicUrl.isNotBlank()
 
     var mapTilerStylesToken: String?
         get() = provider.userSettings.getStringOrNull(keyMapTilerStylesToken)

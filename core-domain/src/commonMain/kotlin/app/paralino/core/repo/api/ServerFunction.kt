@@ -1,6 +1,5 @@
 package app.paralino.core.repo.api
 
-import app.paralino.core.models.AppBuildConfig
 
 enum class ServerFunction constructor(
     val method: String,
@@ -92,9 +91,12 @@ enum class ServerFunction constructor(
     TEST_LOCATION_UPLOAD(method = "POST", path = "/api-test"),
     TEST_HISTORY_UPLOAD(method = "POST", path = "/api-test"),
 
-    CONFIG(method = "GET", path = "/config", functionId = AppBuildConfig.instance.apiServerConfig.publicServerUrl, useSdk = false),
-    BILLING_CONFIG(method = "GET", path = "/billing-config", functionId = AppBuildConfig.instance.apiServerConfig.publicServerUrl, useSdk = false),
-    LOGIN(method = "POST", path = "/login", functionId = AppBuildConfig.instance.apiServerConfig.publicServerUrl, useSdk = false)
+    // fork: public-server routes resolve their base URL at call time
+    // (BaseFunctionsApi reads AppBuildConfig.instance) so a user-entered
+    // server config works without enum-capture at class-load time
+    CONFIG(method = "GET", path = "/config", functionId = "", useSdk = false),
+    BILLING_CONFIG(method = "GET", path = "/billing-config", functionId = "", useSdk = false),
+    LOGIN(method = "POST", path = "/login", functionId = "", useSdk = false)
     ;
 
 }

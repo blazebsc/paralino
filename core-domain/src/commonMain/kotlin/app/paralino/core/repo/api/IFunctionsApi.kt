@@ -36,7 +36,14 @@ abstract class BaseFunctionsApi(
                 }
             }
         }
-        val response = client.request(urlString = function.functionId + function.path) {
+        // fork: non-SDK calls resolve the public server URL at call time
+        // so a user-entered server config applies without restarts of the enum
+        val baseUrl = if (function.useSdk) {
+            function.functionId
+        } else {
+            AppBuildConfig.instance.apiServerConfig.publicServerUrl
+        }
+        val response = client.request(urlString = baseUrl + function.path) {
             method = HttpMethod.parse(function.method)
             headers {
                 if (data != null) {

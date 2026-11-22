@@ -219,8 +219,15 @@ object KoinSetup {
                 "playStore" -> AppFlavor.ANDROID_GOOGLE
                 else -> throw IllegalArgumentException("Wrong app flavor")
             }
+            // fork: user-entered self-host config (onboarding setup) wins over everything
+            val appPrefs = get<AppPrefs>()
+            val selfHostConfig = ApiServerConfig(
+                serverUrl = appPrefs.selfHostServerUrl,
+                projectId = appPrefs.selfHostProjectId,
+                publicServerUrl = appPrefs.selfHostPublicUrl,
+            ).takeIf { appPrefs.hasSelfHostConfig }
             AppBuildConfig(
-                prodServerConfig = BackendResourceIDs.productionServerConfig,
+                prodServerConfig = selfHostConfig ?: BackendResourceIDs.productionServerConfig,
                 devServerConfig = ApiServerConfig(
                     serverUrl = BuildConfig.devServerUrl,
                     projectId = BuildConfig.devServerKey,

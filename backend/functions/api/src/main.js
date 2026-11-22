@@ -25,11 +25,13 @@ import { userConfig } from "./routes/userConfig.js";
 import { updateUserKeys } from "./routes/userKeys.js";
 import { updateUserDevice } from "./routes/userDevices.js";
 import { apiTest } from "./routes/apiTest.js";
+import { serverConfig } from "./routes/serverConfig.js";
 
 // Key = "<METHOD> <path>". Implemented: see src/routes/. Stubs stay registered
 // so unknown-yet routes fail loudly (501), not with 404.
 const ROUTES = {
   "POST /api-test": apiTest, // TEST_API / TEST_PING / TEST_LOCATION_UPLOAD / TEST_HISTORY_UPLOAD
+  "GET /config": serverConfig, // public bootstrap: serverUrl + projectId + unlimited plan
 
   // account / user
   "POST /v2/user/config": userConfig,
@@ -122,7 +124,7 @@ const ROUTES = {
 //
 // Routes that don't need user context (liveness probes). Everything else
 // requires the Appwrite-injected x-appwrite-user-id from the caller's session.
-const NO_AUTH = new Set(["POST /api-test"]);
+const NO_AUTH = new Set(["POST /api-test", "GET /config"]);
 
 export default async ({ req, res, log }) => {
   const path = (req.path || "").replace(/\/+$/, "");
