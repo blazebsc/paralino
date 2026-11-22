@@ -18,7 +18,7 @@ export function setRequestKey(req) {
   runtimeKey = req?.headers?.["x-appwrite-key"] || null;
 }
 
-function config() {
+export function config() {
   return {
     host: (process.env.APPWRITE_ENDPOINT || process.env.APPWRITE_FUNCTION_API_ENDPOINT || "").replace(/\/+$/, ""),
     project: process.env.APPWRITE_PROJECT_ID || process.env.APPWRITE_FUNCTION_PROJECT_ID,
