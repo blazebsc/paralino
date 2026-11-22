@@ -18,9 +18,6 @@ struct LocationSettingsScreen: View {
             ComposeRepresentable {
                 ScreensIOS.shared.settings.LocationSettingsScreenVC(
                     vm: appState.vm,
-                    openPaywall: {
-                        path.append(.settings(.paywall(groupId: nil, type: .upgradeDefault)))
-                    },
                     openWifiNetworks: {
                         path.append(.home(.wifiNetworks(placeId: nil)))
                     }

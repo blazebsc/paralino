@@ -36,8 +36,6 @@ struct MapRootScreen: View {
                             case .appStatusDebug: AppStatusDebugScreen(path: $mainAppState.userReadyGraph)
                             case .appStatus: AppStatusScreen(path: $mainAppState.userReadyGraph)
                             case .licences: LicencesScreen(path: $mainAppState.userReadyGraph)
-                            case .subscriptions: SubscriptionsScreen(path: $mainAppState.userReadyGraph)
-                            case .paywall(let groupId, let type): PaywallScreen(path: $mainAppState.userReadyGraph, state: PaywallScreenState(groupId: groupId, type: type))
                             case .generalInfo: GeneralInfoScreen(path: $mainAppState.userReadyGraph)
                             case .locationSettings: LocationSettingsScreen(path: $mainAppState.userReadyGraph)
                             case .onboarding: WelcomeOnboardingScreen(
@@ -54,7 +52,6 @@ struct MapRootScreen: View {
                             case .navigationAppSettings: GenericSettingsScreen(path: $mainAppState.userReadyGraph, appState: GenericSettingsScreenState(vm: KoinIOS.ViewModels.shared.navigationAppVM))
                             case .placeSearchSettings: GenericSettingsScreen(path: $mainAppState.userReadyGraph, appState: GenericSettingsScreenState(vm: KoinIOS.ViewModels.shared.placeSearchSettingsVM))
                             case .personalSpaceSettings: GenericSettingsScreen(path: $mainAppState.userReadyGraph, appState: GenericSettingsScreenState(vm: KoinIOS.ViewModels.shared.personalSpaceFeatureSettingsVM))
-                            case .licenceCode: LicenceCodeScreen(path: $mainAppState.userReadyGraph)
                             }
                         case let .home(homeGraph):
                             switch homeGraph {
@@ -148,7 +145,6 @@ struct MapRootScreen: View {
                                         lng: lng
                                     )
                                 )
-                            case .freePlanInfo: FreePlanInfoScreen(path: $mainAppState.userReadyGraph)
                             case .locationHistorySettings(groupId: let groupId): LocationHistoryDeleteScreen(path: $mainAppState.userReadyGraph, appState: LocationHistoryDeleteScreen.createState(groupId: groupId))
                             case .personalSpace: PersonalSpaceScreen(path: $mainAppState.userReadyGraph, appState: PersonalSpaceScreen.createState())
                             case .personalSpaceSettings: PersonalSpaceSettingsScreen(path: $mainAppState.userReadyGraph)

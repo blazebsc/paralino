@@ -43,12 +43,6 @@ struct SettingsScreen: View {
                     openStatus: {
                         path.append(.settings(.appStatus))
                     },
-                    openSubscriptions: {
-                        path.append(.settings(.subscriptions))
-                    },
-                    openPaywall: {
-                        path.append(.settings(.paywall(type: BillingScreenSourceType.normal)))
-                    },
                     openAppSettings: {
                         path.append(.settings(.appSettings))
                     },

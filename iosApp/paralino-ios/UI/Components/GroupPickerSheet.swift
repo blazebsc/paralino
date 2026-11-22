@@ -26,7 +26,6 @@ struct GroupPickerSheet: ViewModifier {
     var onEditGroup: ((GroupItemState) -> Void)?
     var onCreateGroup: (() -> Void)?
     var onJoinGroup: (() -> Void)?
-    var onOpenSubscription: (() -> Void)?
     
     var isShowingSheet: Binding<Bool> {
         Binding(get: { bottomSheet != nil }, set: { _ in bottomSheet = nil })
@@ -80,7 +79,6 @@ struct GroupPickerSheet: ViewModifier {
                                     canCreateGroup: bottomSheet?.canCreateGroup ?? true,
                                     onCreateGroup: onCreateGroup,
                                     onJoinGroup: onJoinGroup,
-                                    onOpenSubscription: onOpenSubscription
                                 )
                             }
                         }
@@ -100,8 +98,7 @@ extension View {
         onEditGroup: @escaping (GroupItemState) -> Void,
         onCreateGroup: @escaping () -> Void,
         onJoinGroup: @escaping () -> Void,
-        onOpenSubscription: @escaping () -> Void
     ) -> some View {
-        self.modifier(GroupPickerSheet(bottomSheet: data, onSelectGroup: onSelectGroup, onEditGroup: onEditGroup, onCreateGroup: onCreateGroup, onJoinGroup: onJoinGroup, onOpenSubscription: onOpenSubscription))
+        self.modifier(GroupPickerSheet(bottomSheet: data, onSelectGroup: onSelectGroup, onEditGroup: onEditGroup, onCreateGroup: onCreateGroup, onJoinGroup: onJoinGroup))
     }
 }

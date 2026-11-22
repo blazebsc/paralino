@@ -23,9 +23,6 @@ struct MemberInviteScreen: View {
                     vm: appState.vm,
                     isOnboarding: appState.isOnboarding,
                     onPickGroup: { sheet in groupPicker = sheet },
-                    openPaywall: { type in
-                        path.append(.settings(.paywall(groupId: appState.vm.currentGroupId, type: type)))
-                    },
                     onMemberAdded: {
                         if appState.isOnboarding {
                             path.append(.home(HomeGraph.places(groupId: appState.groupId!, isOnboarding: appState.isOnboarding)))
@@ -55,8 +52,7 @@ struct MemberInviteScreen: View {
             },
             onEditGroup: { group in },
             onCreateGroup: {},
-            onJoinGroup: {},
-            onOpenSubscription: {}
+            onJoinGroup: {}
         )
     }
     

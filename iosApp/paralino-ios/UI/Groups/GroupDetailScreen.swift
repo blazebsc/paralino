@@ -61,9 +61,6 @@ struct GroupDetailScreen: View {
                     openSharing: {
                         path.append(.home(.sharingStart(groupId: appState.vm.groupId, presentation: .full)))
                     },
-                    openPaywall: {
-                        path.append(.settings(.paywall(type: BillingScreenSourceType.upgradeDefault)))
-                    },
                     onNavigateBack: {
                         path.removeLast()
                     },

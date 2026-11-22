@@ -30,7 +30,6 @@ enum HomeGraph: Hashable {
     case map
     case groupInit
     case groupJoinWelcome(groupId: String)
-    case freePlanInfo
     case groupCreate(groupId: String?)
     case groupDetail(groupId: String)
     case groupSettings(groupId: String)
@@ -63,8 +62,6 @@ enum SettingsGraph: Hashable {
     case convertAccount
     case blocklist
     case userDevices
-    case subscriptions
-    case paywall(groupId: String? = nil, type: BillingScreenSourceType)
     case rawData(type: RawPresentationDataType)
     case appStatusDebug
     case appStatus
@@ -80,5 +77,4 @@ enum SettingsGraph: Hashable {
     case navigationAppSettings
     case placeSearchSettings
     case personalSpaceSettings
-    case licenceCode
 }

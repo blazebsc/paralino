@@ -31,9 +31,6 @@ struct PrivacyZonesScreen: View {
                     addNewPrivacyZone: {
                         path.append(.home(.privacyZoneCreate(groupId: appState.groupId, zoneId: nil, editStep: nil, lat: nil, lng: nil)))
                     },
-                    openPaywall: {
-                        path.append(.settings(.paywall(type: BillingScreenSourceType.upgradeDefault)))
-                    },
                     onSkipOnboarding: {
                         path.append(.home(.sharingStart(groupId: appState.groupId, presentation: appState.isOnboarding ? .groupCreateOnboarding : .full)))
                     },

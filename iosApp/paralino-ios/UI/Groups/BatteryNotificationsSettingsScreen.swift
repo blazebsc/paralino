@@ -25,10 +25,7 @@ struct BatteryNotificationsSettingsScreen: View {
                         top: 0,
                         end: safeAreaInsets.end,
                         bottom: safeAreaInsets.bottom
-                    ),
-                    openPaywall: {
-                        path.append(.settings(.paywall(type: BillingScreenSourceType.upgradeDefault)))
-                    }
+                    )
                 )
             }
             .toolbarTitleDisplayMode(.inline)

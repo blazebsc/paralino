@@ -61,14 +61,6 @@ class MainAppObject: ObservableObject {
                 self?.userReadyGraph.append(.home(.memberInvite(groupId: nil, code: actualDeeplink.paralinoID, isOnboarding: false)))
                 self?.vm.setDeeplink(deeplinkType: nil)
             }
-        } else if accountState.data is AppAccountState.USER_READY,
-                  let _ = deeplink as? DeeplinkType.PaywallScreen {
-            deeplinkTask?.cancel()
-            deeplinkTask = Task { [weak self] in
-                try? await Task.sleep(nanoseconds: 500 * 1_000_000)
-                self?.userReadyGraph.append(.settings(.paywall(groupId: nil, type: BillingScreenSourceType.normal)))
-                self?.vm.setDeeplink(deeplinkType: nil)
-            }
         } else if accountState.data is AppAccountState.NO_USER,
                   let actualDeeplink = deeplink as? DeeplinkType.PasswordReset {
             deeplinkTask?.cancel()

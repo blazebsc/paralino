@@ -35,9 +35,6 @@ struct SharingStartScreen: View {
                             finishWithSharingScreen()
                         }
                     },
-                    openSubscriptions: {
-                        path.append(.settings(.paywall(groupId: appState.currentGroupId, type: .upgradeDefault)))
-                    },
                     askNotificationPermission: {
                         appDelegate.notificationPermissionHandler.requestNotificationPermission(
                             messageDispather: appState.vm
@@ -86,37 +83,12 @@ struct SharingStartScreen: View {
             },
             onEditGroup: { group in },
             onCreateGroup: {},
-            onJoinGroup: {},
-            onOpenSubscription: {}
+            onJoinGroup: {}
         )
     }
     
     private func finishWithSharingScreen() {
-        if appState.vm.shouldProceedToPaywall {
-            if let index = path.firstIndex(where: { $0 == .home(.map) }) {
-                path.removeSubrange(index+1..<path.count)
-            }
-            
-            if appState.vm.isPersonalSpace {
-                path.append(
-                    .settings(
-                        .paywall(
-                            groupId: appState.currentGroupId,
-                            type: appState.isCreateOnboarding ? BillingScreenSourceType.personalSpaceOnboarding : BillingScreenSourceType.upgradeDefault
-                        )
-                    )
-                )
-            } else {
-                path.append(
-                    .settings(
-                        .paywall(
-                            groupId: appState.currentGroupId,
-                            type: appState.isCreateOnboarding ? BillingScreenSourceType.groupOnboarding : BillingScreenSourceType.upgradeDefault
-                        )
-                    )
-                )
-            }
-        } else if appState.isCreateOnboarding {
+        if appState.isCreateOnboarding {
             if let index = path.firstIndex(where: { $0 == .home(.map) }) {
                 path.removeSubrange(index+1..<path.count)
             }

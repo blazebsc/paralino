@@ -77,9 +77,6 @@ struct MapHomeScreen: View {
                     onCreateGroup: {
                         path.append(.home(.groupCreate(groupId: nil)))
                     },
-                    openPaywall: { type in
-                        path.append(.settings(.paywall(type: type)))
-                    },
                     openPersonalSpace: {
                         path.append(.home(.personalSpace))
                     },
@@ -178,10 +175,6 @@ struct MapHomeScreen: View {
                 groupPicker = nil
                 path.append(.settings(.personalCodes))
             },
-            onOpenSubscription: {
-                groupPicker = nil
-                path.append(.settings(.paywall(groupId: nil, type: .upgradeDefault)))
-            }
         )
         .sheet(item: $shareText) { shareText in
             ActivityView(text: shareText.text)

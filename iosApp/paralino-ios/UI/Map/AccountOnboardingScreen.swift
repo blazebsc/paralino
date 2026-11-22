@@ -31,9 +31,6 @@ struct AccountOnboardingScreen: View {
                     ),
                     onCreateGroup: { path.append(.home(.groupCreate(groupId: nil))) },
                     openPersonalCodes: { path.append(.settings(.personalCodes)) },
-                    openPaywall: { type in
-                        path.append(.settings(.paywall(groupId: nil, type: type)))
-                    },
                     onSharePersonalCode: { data in
                         shareText = ShareText(text: data)
                     },

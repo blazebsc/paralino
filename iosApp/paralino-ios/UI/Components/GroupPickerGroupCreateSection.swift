@@ -14,7 +14,6 @@ struct GroupPickerGroupCreateSection: View {
     
     var onCreateGroup: (() -> Void)?
     var onJoinGroup: (() -> Void)?
-    var onOpenSubscription: (() -> Void)?
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -45,29 +44,7 @@ struct GroupPickerGroupCreateSection: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 20)
                 
-                if !canCreateGroup {
-                    Button(action: { onOpenSubscription?() }) {
-                        HStack {
-                            Text(MR.shared.strings.dashboard_groups_create_plan_limit.localizedString())
-                                .foregroundColor(.red)
-                                .font(.system(size: 12))
-                                .lineLimit(1)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            Image(systemName: "chevron.right")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .padding(8)
-                                .frame(width: 24, height: 24)
-                                .foregroundColor(Color.themePrimary)
-                                .background(Color.lightBackground)
-                                .clipShape(Circle())
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 12)
-                    }
-                }
-            }
+                            }
             .background(canCreateGroup ? Color.accentLight.opacity(0.2) : Color.errorBackground)
             .background(Color.themeSurface)
             .cornerRadius(12)
