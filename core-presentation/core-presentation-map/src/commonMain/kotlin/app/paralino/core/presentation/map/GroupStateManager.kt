@@ -8,7 +8,6 @@ import app.paralino.core.models.base.asGroupOrSpaceId
 import app.paralino.core.models.data
 import app.paralino.core.models.group.UserGroup
 import app.paralino.core.models.group.UserGroupWithMetadata
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.common.ICoreMessageDispatcher
 import app.paralino.core.presentation.common.GroupItemState
 import app.paralino.core.provider.localizedString
@@ -17,10 +16,8 @@ import app.paralino.core.repo.base.RemoteConfigRepository
 import app.paralino.core.repo.group.UserGroupLocalDataSource
 import app.paralino.core.repo.user.UserPersonalSpaceLocalDataSource
 import app.paralino.core.repo.user.UserRepository
-import app.paralino.core.presentation.common.AppSnackbarData
 import app.paralino.core.presentation.common.BottomSheetPickerType
 import app.paralino.core.presentation.common.SnackbarDuration
-import app.paralino.core.presentation.common.onAction
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
@@ -99,15 +96,10 @@ class GroupStateManager(
         if (newGroup != null && newGroup.isGroupOverLimits(remoteConfig.getConfigOnce())) {
             if (newGroup.group.isCurrentUserOwner) {
                 delay(500.milliseconds)
-                messageDispatcher.showSnackbarForResult(
-                    data = AppSnackbarData(
-                        text = MR.strings.plan_limit_overLimit_groupOwner_banner_title.localizedString(),
-                        duration = SnackbarDuration.Forever,
-                        actionText = MR.strings.plans_banner_settings_action_small.localizedString()
-                    )
-                )?.result?.onAction {
-                    eventChannel.trySend(MapHomeScreenEvent.OpenPaywall(type = BillingScreenSourceType.UPGRADE_DEFAULT))
-                }
+                messageDispatcher.showSnackbar(
+                    text = MR.strings.plan_limit_overLimit_groupOwner_banner_title.localizedString(),
+                    duration = SnackbarDuration.Forever
+                )
             } else {
                 messageDispatcher.showSnackbar(
                     text = MR.strings.plan_limit_overLimit_groupMember_banner_title.localizedString(),
@@ -126,15 +118,10 @@ class GroupStateManager(
         groupIdData.update { UserGroup.groupPersonalDevicesId.asGroupOrSpaceId() }
         val personalSpace = personalSpaceRepo.personalSpaceState.value.data
         if (personalSpace?.isSpaceOverLimits() == true) {
-            messageDispatcher.showSnackbarForResult(
-                data = AppSnackbarData(
-                    text = MR.strings.plan_limit_overLimit_personalSpace_banner_title.localizedString(),
-                    duration = SnackbarDuration.Forever,
-                    actionText = MR.strings.plans_banner_settings_action_small.localizedString()
-                )
-            )?.result?.onAction {
-                eventChannel.trySend(MapHomeScreenEvent.OpenPaywall(type = BillingScreenSourceType.UPGRADE_DEFAULT))
-            }
+            messageDispatcher.showSnackbar(
+                text = MR.strings.plan_limit_overLimit_personalSpace_banner_title.localizedString(),
+                duration = SnackbarDuration.Forever
+            )
         }
     }
 
@@ -147,8 +134,6 @@ class GroupStateManager(
             if (maxGroupLimit != null && groupCount >= maxGroupLimit) {
                 // This would need to be handled by the main ViewModel to update alertDialog
                 eventChannel.trySend(MapHomeScreenEvent.ShowPlanLimitAlert(limit))
-            } else if (limit in 0..groupCount) {
-                eventChannel.trySend(MapHomeScreenEvent.OpenPaywall(type = BillingScreenSourceType.UPGRADE_MORE_GROUPS))
             } else {
                 eventChannel.trySend(MapHomeScreenEvent.OpenGroupCreateScreen)
             }

@@ -24,7 +24,6 @@ import app.paralino.core.presentation.common.SnackbarDuration
 import app.paralino.core.presentation.common.MainAlertDialog.Buttons
 import app.paralino.core.presentation.common.MainAlertDialog.DeleteLocationHistoryEntry
 import app.paralino.core.presentation.common.MainAlertDialog.DeleteLocationHistoryRange
-import app.paralino.core.presentation.common.onAction
 import app.paralino.core.provider.IDeviceApiProvider
 import app.paralino.core.utils.extensions.isoToLocalDateTime
 import kotlinx.coroutines.CoroutineScope
@@ -501,12 +500,9 @@ class LocationHistoryViewModelController(
                                         title = null,
                                         hasCloseButton = true
                                     ),
-                                    actionText = MR.strings.button_continue.localizedString(),
                                     duration = SnackbarDuration.Forever
                                 )
-                            )?.result?.onAction {
-                                _eventChannel.trySend(LocationHistoryScreenEvent.OpenPaywall)
-                            }
+                            )
                         }
                     }
 

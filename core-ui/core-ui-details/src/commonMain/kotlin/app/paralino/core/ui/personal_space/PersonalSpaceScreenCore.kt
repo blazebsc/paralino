@@ -66,7 +66,6 @@ fun PersonalSpaceScreenCore(
     openPlaces: () -> Unit,
     openPlace: (GroupSpaceFocusedFeatureChildItem) -> Unit,
     openSharing: () -> Unit,
-    openPaywall: () -> Unit,
     askNotificationPermission: () -> Unit,
     askLocationService: () -> Unit,
     askLocationPermission: () -> Unit,
@@ -80,7 +79,6 @@ fun PersonalSpaceScreenCore(
     LaunchedEffect(key1 = Unit) {
         vm.events.collectLatest { event ->
             when (event) {
-                PersonalSpaceScreenEvent.OpenPaywall -> openPaywall()
                 PersonalSpaceScreenEvent.OpenPlaces -> openPlaces()
                 is PersonalSpaceScreenEvent.OpenPlace -> openPlace(event.item)
                 PersonalSpaceScreenEvent.OpenSharingScreen -> openSharing()
@@ -234,17 +232,6 @@ fun PersonalSpaceScreenCore(
                         onSettingsClick = openSettings,
                         onSharingClick = { vm.onEvent(PersonalSpaceScreenUiEvent.OpenSharingScreen) },
                     )
-                }
-
-                if (uiState.shouldShowPlanBanner) {
-                    this.item(key = "plan_upgrade_banner") {
-                        PremiumPlanBannerSmall(
-                            modifier = Modifier.zIndex(1f),
-                            description = stringResource(MR.strings.plans_banner_inline_personal_space),
-                            onClick = { vm.onEvent(PersonalSpaceScreenUiEvent.OpenPaywall) }
-                        )
-                        Spacer(modifier = Modifier.size(30.dp))
-                    }
                 }
 
                 this.stickyHeader(key = "active_devices_list_header") {

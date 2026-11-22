@@ -37,7 +37,6 @@ fun GenericSettingsScreenCore(
     vm: BaseGenericSettingViewModel,
     paddingValues: PaddingValues,
     mapContent: @Composable (GenericSettingListItem.Map) -> Unit,
-    openPaywall: () -> Unit,
     openNotificationSocketChannelSettings: () -> Unit,
     askNotificationPermission: () -> Unit,
     askBackgroundAccessPermission: () -> Unit,
@@ -51,7 +50,6 @@ fun GenericSettingsScreenCore(
     LaunchedEffect(key1 = Unit) {
         vm.events.collectLatest { event ->
             when (event) {
-                GenericSettingsScreenEvent.OpenPaywall -> openPaywall()
                 GenericSettingsScreenEvent.OpenNotificationSocketChannelSettings -> openNotificationSocketChannelSettings()
                 GenericSettingsScreenEvent.AskForNotificationPermission -> askNotificationPermission()
                 GenericSettingsScreenEvent.AskForBackgroundAccessPermission -> askBackgroundAccessPermission()

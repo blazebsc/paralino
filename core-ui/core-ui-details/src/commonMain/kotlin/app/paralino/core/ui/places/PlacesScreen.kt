@@ -57,7 +57,6 @@ import app.paralino.core.ui.components.MessageDispatcherEffect
 import app.paralino.core.ui.components.NoticeInfoChip
 import app.paralino.core.ui.components.OnboardingSkipButton
 import app.paralino.core.ui.components.PlanLimitCount
-import app.paralino.core.ui.components.PremiumPlanBannerSmall
 import app.paralino.core.ui.components.SmallActionButton
 import app.paralino.core.ui.components.dialogs.Show
 import app.paralino.core.ui.theme.AppColors
@@ -75,7 +74,6 @@ fun PlacesScreenCore(
     contentPadding: PaddingValues,
     askNotificationPermission: () -> Unit,
     addNewPlace: () -> Unit,
-    openPaywall: () -> Unit,
     onSkipOnboarding: () -> Unit,
     openPlaceDetails: (place: PlaceListItemData) -> Unit,
     mapContent: @Composable (PlacesListScreenState) -> Unit
@@ -93,10 +91,6 @@ fun PlacesScreenCore(
 
                 PlacesScreenEvent.SkipOnboarding -> {
                     onSkipOnboarding()
-                }
-
-                is PlacesScreenEvent.OpenPaywall -> {
-                    openPaywall()
                 }
 
                 PlacesScreenEvent.MissingNotificationPermission -> {
@@ -145,7 +139,6 @@ fun PlacesScreenCore(
                     vm.onEvent(PlacesScreenUiEvent.OnNextClick)
                 },
                 onSkipOnboarding = onSkipOnboarding,
-                onPlanBannerClick = openPaywall,
                 onErrorItemClick = {
                     askNotificationPermission()
                 },
@@ -170,7 +163,6 @@ private fun PlacesScreen(
     onCreatePlaceClick: () -> Unit,
     onNextClick: () -> Unit,
     onSkipOnboarding: () -> Unit,
-    onPlanBannerClick: () -> Unit,
     onPostSampleNotification: (String) -> Unit,
     mapContent: @Composable (PlacesListScreenState) -> Unit
 ) {
@@ -314,17 +306,6 @@ private fun PlacesScreen(
                             }
                         }
                         Spacer(modifier = Modifier.size(30.dp))
-                    }
-
-                    if (state.shouldShowPlanBanner) {
-                        this.item(key = "plan_upgrade_banner") {
-                            PremiumPlanBannerSmall(
-                                modifier = Modifier.zIndex(5f),
-                                description = stringResource(MR.strings.plans_banner_inline_places),
-                                onClick = onPlanBannerClick
-                            )
-                            Spacer(modifier = Modifier.size(30.dp))
-                        }
                     }
 
                     this.stickyHeader(key = "count_header") {

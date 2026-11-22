@@ -26,7 +26,6 @@ import app.paralino.core.presentation.settings.generic.GenericSettingsScreenUiEv
 import app.paralino.core.ui.components.DefaultToolbar
 import app.paralino.core.ui.components.ToolbarButtons
 import app.paralino.core.ui.settings.GenericSettingsScreenCore
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -95,9 +94,6 @@ fun GenericSettingsScreen(
                         onMapLongPress = { lat, lng -> }
                     )
                 }
-            },
-            openPaywall = {
-                appState.navController.navigate(AppScreen.Common.BillingPaywall(type = BillingScreenSourceType.UPGRADE_DEFAULT))
             },
             openNotificationSocketChannelSettings = {
                 context.openNotificationChannelSettings(PushServiceNotificationHandler.channelId)

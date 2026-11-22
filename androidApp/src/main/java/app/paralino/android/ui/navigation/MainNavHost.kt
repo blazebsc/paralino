@@ -29,7 +29,6 @@ import app.paralino.android.ui.login.ResetPasswordScreen
 import app.paralino.android.ui.login.VerifyEmailScreen
 import app.paralino.android.ui.main.MainAppState
 import app.paralino.android.ui.map.MapHomeScreen
-import app.paralino.android.ui.onboarding.FreePlanInfoScreen
 import app.paralino.android.ui.onboarding.GroupJoinWelcomeScreen
 import app.paralino.android.ui.onboarding.WelcomeOnboardingScreen
 import app.paralino.android.ui.personal_space.PersonalSpaceScreen
@@ -51,9 +50,6 @@ import app.paralino.android.ui.settings.LicencesScreen
 import app.paralino.android.ui.settings.LocationSettingsScreen
 import app.paralino.android.ui.settings.RawDataScreen
 import app.paralino.android.ui.settings.SettingsScreen
-import app.paralino.android.ui.settings.billing.LicenceCodeScreen
-import app.paralino.android.ui.settings.billing.PaywallScreen
-import app.paralino.android.ui.settings.billing.SubscriptionScreen
 import app.paralino.android.ui.settings.profile.AccountScreen
 import app.paralino.android.ui.settings.profile.ChangeEmailScreen
 import app.paralino.android.ui.settings.profile.ChangePasswordScreen
@@ -187,9 +183,6 @@ fun EntryProviderScope<NavKey>.homeEntries(
             lng = key.lng.takeIf { key.lat != null }
         )
     }
-    entry<AppScreen.MainHome.FreePlanNoticeScreen> {
-        FreePlanInfoScreen(appState)
-    }
     entry<AppScreen.MainHome.LocationHistoryDelete> {
         LocationHistoryDeleteScreen(
             appState = appState,
@@ -263,9 +256,6 @@ fun EntryProviderScope<NavKey>.settingsEntries(appState: MainAppState) {
     }
     entry<AppScreen.Settings.Licences> {
         LicencesScreen(appState)
-    }
-    entry<AppScreen.Settings.LicenceCode> {
-        LicenceCodeScreen(appState)
     }
     entry<AppScreen.Settings.AppStatusDebug> {
         AppStatusDebugScreen(appState)
@@ -341,12 +331,6 @@ fun EntryProviderScope<NavKey>.settingsEntries(appState: MainAppState) {
 fun EntryProviderScope<NavKey>.commonEntries(appState: MainAppState) {
     entry<AppScreen.Common.RawDataScreen> {
         RawDataScreen(appState = appState, type = it.type)
-    }
-    entry<AppScreen.Common.Subscriptions> {
-        SubscriptionScreen(appState)
-    }
-    entry<AppScreen.Common.BillingPaywall> {
-        PaywallScreen(appState, groupId = it.groupId, type = it.type)
     }
 }
 

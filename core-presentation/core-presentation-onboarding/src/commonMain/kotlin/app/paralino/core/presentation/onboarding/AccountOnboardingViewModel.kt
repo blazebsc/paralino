@@ -12,8 +12,6 @@ import app.paralino.core.models.data
 import app.paralino.core.models.user.UserMe
 import app.paralino.core.models.user.UserPersonalCode
 import app.paralino.core.presentation.CoreViewModel
-import app.paralino.core.presentation.billing.BillingScreenSourceType
-import app.paralino.core.presentation.onboarding.AccountOnboardingScreenEvent.OpenPaywall
 import app.paralino.core.presentation.paralinoid.PersonalCodeScreenCodeData
 import app.paralino.core.provider.DeviceStatusData
 import app.paralino.core.provider.ICoreMessageDispatcherEvent
@@ -76,11 +74,6 @@ class AccountOnboardingViewModel(
     val canDisplayMap: Flow<Resource<Boolean>> = uiState
         .map { state ->
             state.mapReady { it.canDisplayMap }
-        }
-
-    private val shouldProceedToPaywall: Boolean
-        get() {
-            return !userRepo.userPlans.value.highestValidPlanConfig.isPremium
         }
 
     init {
@@ -282,11 +275,7 @@ class AccountOnboardingViewModel(
 
             AccountOnboardingContent.GroupChoice -> {
                 // "I'll decide later"
-                if (uiState.value.data?.didShareParalinoID == true) {
-                    finishOnboarding()
-                } else {
-                    finishOnboardingOrGoToPayment()
-                }
+                finishOnboarding()
             }
 
             AccountOnboardingContent.GroupCreate -> {
@@ -338,18 +327,6 @@ class AccountOnboardingViewModel(
             it.mapReady {
                 it.copy(onboardingStep = AccountOnboardingContent.GroupCreate)
             }
-        }
-    }
-
-    private fun finishOnboardingOrGoToPayment() {
-        if (shouldProceedToPaywall) {
-            _eventChannel.trySend(OpenPaywall(type = BillingScreenSourceType.SKIPPED_ONBOARDING))
-            coroutineScope.launch {
-                delay(1000)
-                finishOnboarding()
-            }
-        } else {
-            finishOnboarding()
         }
     }
 

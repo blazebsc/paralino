@@ -28,7 +28,6 @@ data class PrivacyZonesListScreenState constructor(
 
 sealed class PrivacyZonesScreenEvent() {
     object AddPrivacyZone : PrivacyZonesScreenEvent()
-    data object OpenPaywall : PrivacyZonesScreenEvent()
 }
 
 sealed interface PrivacyZonesScreenUiEvent {

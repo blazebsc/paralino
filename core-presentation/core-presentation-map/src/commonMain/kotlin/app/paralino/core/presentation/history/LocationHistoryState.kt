@@ -664,7 +664,6 @@ sealed interface LocationHistoryScreenEvent {
 
     data object NavigateBack : LocationHistoryScreenEvent
     data object OpenHistorySettings : LocationHistoryScreenEvent
-    data object OpenPaywall : LocationHistoryScreenEvent
 
     data class OpenCreatePlace(
         val groupId: String,

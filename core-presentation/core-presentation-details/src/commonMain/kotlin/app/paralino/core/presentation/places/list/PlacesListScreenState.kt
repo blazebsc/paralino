@@ -33,7 +33,6 @@ data class PlacesListScreenState constructor(
 
 sealed class PlacesScreenEvent() {
     object AddPlace : PlacesScreenEvent()
-    data object OpenPaywall : PlacesScreenEvent()
     data object SkipOnboarding : PlacesScreenEvent()
     data object MissingNotificationPermission : PlacesScreenEvent()
 }

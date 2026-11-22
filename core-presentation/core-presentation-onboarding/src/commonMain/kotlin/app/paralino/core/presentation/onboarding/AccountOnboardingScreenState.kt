@@ -2,7 +2,6 @@ package app.paralino.core.presentation.onboarding
 
 import app.paralino.core.models.base.GroupOrSpaceId
 import app.paralino.core.models.base.ImageModel
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.paralinoid.PersonalCodeScreenCodeData
 
 data class AccountOnboardingScreenState constructor(
@@ -24,7 +23,6 @@ sealed interface AccountOnboardingScreenEvent {
     data object OpenGroupCreate: AccountOnboardingScreenEvent
     data class OpenGroupJoinWelcome(val groupId: String): AccountOnboardingScreenEvent
     data class OpenSharingStart(val groupId: GroupOrSpaceId): AccountOnboardingScreenEvent
-    data class OpenPaywall(val type: BillingScreenSourceType): AccountOnboardingScreenEvent
     data class SharePersonalCode(val code: String): AccountOnboardingScreenEvent
 }
 

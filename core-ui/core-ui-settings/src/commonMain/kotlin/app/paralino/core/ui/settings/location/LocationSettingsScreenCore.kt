@@ -71,7 +71,6 @@ fun LocationSettingsScreenCore(
     coreUiState: CoreUiState,
     vm: LocationSettingsViewModel,
     paddingValues: PaddingValues,
-    openPaywall: () -> Unit,
     openWifiNetworks: () -> Unit,
 ) {
     MessageDispatcherEffect(vm, coreUiState)
@@ -80,7 +79,6 @@ fun LocationSettingsScreenCore(
     LaunchedEffect(key1 = Unit) {
         vm.events.collectLatest { event ->
             when (event) {
-                LocationSettingsScreenEvent.OpenPaywall -> openPaywall()
                 null -> {
                     /* do nothing */
                 }

@@ -3,7 +3,6 @@ package app.paralino.core.presentation.map
 import app.paralino.core.db.AppPrefs
 import app.paralino.core.domain.group.PendingGroupJoinWelcomeUseCase
 import app.paralino.core.models.group.PendingGroupJoinWelcome
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.repo.base.RemoteConfigRepository
 import app.paralino.core.utils.extensions.isOlderThan
 import kotlinx.coroutines.CoroutineScope
@@ -85,7 +84,6 @@ class MapHomeScreenOvertakeController(
 
             is MapOvertakeScreenType.FreePromo -> {
                 appPrefs.dismissedFreePlanPromoBillingId = overtakeType.promoBillingId
-                eventChannel.trySend(MapHomeScreenEvent.OpenPaywall(type = BillingScreenSourceType.UPGRADE_BILLING_PROMO))
             }
         }
     }

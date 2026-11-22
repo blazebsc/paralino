@@ -67,7 +67,6 @@ import app.paralino.core.models.AppHost
 import app.paralino.core.models.base.BackendResourceIDs
 import app.paralino.core.models.base.asGroupOrSpaceId
 import app.paralino.core.models.settings.RawPresentationDataType
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.groups.add_member.MemberInviteViewModel
 import app.paralino.core.presentation.groups.detail.GroupDetailViewModel
 import app.paralino.core.presentation.groups.edit.CreateGroupViewModel
@@ -105,10 +104,6 @@ import app.paralino.core.presentation.rawdata.RawDataPresentationViewModel
 import app.paralino.core.presentation.settings.SettingsViewModel
 import app.paralino.core.presentation.settings.appstatus.AppStatusDebugViewModel
 import app.paralino.core.presentation.settings.status.AppStatusViewModel
-import app.paralino.core.presentation.settings.billing.PaywallViewModel
-import app.paralino.core.presentation.settings.billing.PlanInfoViewModel
-import app.paralino.core.presentation.settings.billing.SubscriptionViewModel
-import app.paralino.core.presentation.settings.billing.licence.LicenceCodeViewModel
 import app.paralino.core.presentation.settings.blocklist.BlocklistViewModel
 import app.paralino.core.presentation.settings.userdevices.UserDevicesViewModel
 import app.paralino.core.presentation.settings.convertaccount.ConvertAccountViewModel
@@ -298,10 +293,6 @@ object KoinSetup {
         viewModel { UserDevicesViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(),) }
         viewModel { AppStatusDebugViewModel(get(), get()) }
         viewModel { AppStatusViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
-        viewModel { SubscriptionViewModel(get(), get(), get(), get(), get(), get()) }
-        viewModel { (type: BillingScreenSourceType) -> PaywallViewModel(type, get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
-        viewModel { LicenceCodeViewModel(get(), get()) }
-        viewModel { PlanInfoViewModel(get(), get()) }
         viewModel { GeneralInfoViewModel(get(), get()) }
         viewModel { LocationSettingsViewModel(get(), get(), get(), get(), get(), get(), get()) }
         viewModel { WelcomeOnboardingViewModel(get(), get()) }

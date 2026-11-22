@@ -141,9 +141,7 @@ class PrivacyZonesViewModel(
 
             when (premiumStatus) {
                 is PremiumStatusLimitState.PlanLimitReached -> {
-                    if (premiumStatus.payload.isOwner) {
-                        _eventChannel.send(PrivacyZonesScreenEvent.OpenPaywall)
-                    } else {
+                    if (!premiumStatus.payload.isOwner) {
                         _uiState.update {
                             it.mapSuccess {
                                 it.copy(

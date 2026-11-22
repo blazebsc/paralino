@@ -291,13 +291,7 @@ fun MainAppScreen(
             }
 
             is DeeplinkType.PaywallScreen -> {
-                logg.w("billing", "Open billing deeplink -> type: ${pendingDeeplink.type} - action: ${pendingDeeplink.action}")
-                appState.navController.navigate(
-                    AppScreen.Common.BillingPaywall(
-                        groupId = null,
-                        type = BillingScreenSourceType.NORMAL
-                    )
-                )
+                // fork: no billing — billing deeplinks are dropped
                 onDeeplinkComplete()
             }
 

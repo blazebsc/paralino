@@ -81,9 +81,6 @@ fun PersonalSpaceScreen(
                     AppScreen.MainHome.SharingStart(UserGroup.groupPersonalDevicesId)
                 )
             },
-            openPaywall = {
-                appState.navController.navigate(AppScreen.Common.BillingPaywall())
-            },
             askNotificationPermission = { notificationPermissionHandler.askNotificationPermission() },
             askLocationService = { locationPermissionHandler.askLocationService() },
             askLocationPermission = { locationPermissionHandler.askLocationPermission() },

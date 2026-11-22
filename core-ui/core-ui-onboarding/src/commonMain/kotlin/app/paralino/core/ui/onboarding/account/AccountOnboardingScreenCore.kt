@@ -15,7 +15,6 @@ import app.paralino.core.presentation.onboarding.AccountOnboardingViewModel
 import app.paralino.core.ui.CoreUiState
 import app.paralino.core.ui.components.MessageDispatcherEffect
 import app.paralino.core.ui.components.dialogs.LoadingDialog
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.flow.collectLatest
 
@@ -27,7 +26,6 @@ fun AccountOnboardingScreenCore(
     vm: AccountOnboardingViewModel,
     onCreateGroup: () -> Unit,
     openPersonalCodes: () -> Unit,
-    openPaywall: (BillingScreenSourceType) -> Unit,
     onSharePersonalCode: (String) -> Unit,
     openSharingScreen: (GroupOrSpaceId) -> Unit,
     askNotificationPermission: () -> Unit,
@@ -45,7 +43,6 @@ fun AccountOnboardingScreenCore(
                 AccountOnboardingScreenEvent.OpenPersonalCodes -> openPersonalCodes()
                 AccountOnboardingScreenEvent.OpenGroupCreate -> onCreateGroup()
                 is AccountOnboardingScreenEvent.OpenGroupJoinWelcome -> openGroupJoinWelcome(event.groupId)
-                is AccountOnboardingScreenEvent.OpenPaywall -> openPaywall(event.type)
                 is AccountOnboardingScreenEvent.OpenSharingStart -> openSharingScreen(event.groupId)
 
                 null -> {

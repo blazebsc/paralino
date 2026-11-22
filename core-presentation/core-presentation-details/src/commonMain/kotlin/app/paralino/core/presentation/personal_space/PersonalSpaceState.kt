@@ -37,7 +37,6 @@ data class PersonalSpaceScreenState(
 }
 
 sealed interface PersonalSpaceScreenEvent {
-    data object OpenPaywall : PersonalSpaceScreenEvent
     data object OpenPlaces : PersonalSpaceScreenEvent
     data class OpenPlace(val item: GroupSpaceFocusedFeatureChildItem) : PersonalSpaceScreenEvent
     data object OpenSharingScreen : PersonalSpaceScreenEvent
@@ -47,7 +46,6 @@ sealed interface PersonalSpaceScreenEvent {
 
 sealed interface PersonalSpaceScreenUiEvent {
     data class DialogAction(val action: AlertDialogAction) : PersonalSpaceScreenUiEvent
-    data object OpenPaywall : PersonalSpaceScreenUiEvent
     data object OpenPlaces : PersonalSpaceScreenUiEvent
     data class OpenPlace(val item: GroupSpaceFocusedFeatureChildItem) : PersonalSpaceScreenUiEvent
     data object OpenSharingScreen : PersonalSpaceScreenUiEvent

@@ -59,8 +59,6 @@ fun SettingsScreenCore(
     openBlockList: () -> Unit,
     openGeneralInfo: () -> Unit,
     openStatus: () -> Unit,
-    openSubscriptions: () -> Unit,
-    openPaywall: () -> Unit,
     openLocationSettings: () -> Unit,
     openAppSettings: () -> Unit,
     askNotificationPermission: () -> Unit,
@@ -137,13 +135,6 @@ fun SettingsScreenCore(
             )
         }
 
-        AnimatedVisibility(visible = readyState?.showUpgradeBanner == true) {
-            PremiumPlanBanner(
-                modifier = Modifier.padding(top = 20.dp),
-                onClick = openPaywall
-            )
-        }
-
         Spacer(modifier = Modifier.size(20.dp))
 
         if (readyState != null) {
@@ -152,13 +143,6 @@ fun SettingsScreenCore(
                 icon = CoreAppIcons.Person.asPainterResource()
             ) {
                 openProfileDetails()
-            }
-
-            SettingsActionItem(
-                name = stringResource(MR.strings.plans_management_screen_title),
-                icon = CoreAppIcons.StarFamily.asPainterResource()
-            ) {
-                openSubscriptions()
             }
 
             SettingsActionItem(

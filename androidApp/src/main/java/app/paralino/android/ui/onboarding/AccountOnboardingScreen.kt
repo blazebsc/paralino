@@ -32,11 +32,6 @@ fun AccountOnboardingScreen(
         onCreateGroup = {
             appState.navController.navigate(AppScreen.MainHome.GroupCreate(null))
         },
-        openPaywall = {
-            appState.navController.navigate(
-                AppScreen.Common.BillingPaywall(groupId = null, type = it)
-            )
-        },
         openPersonalCodes = { appState.navController.navigate(AppScreen.Settings.PersonalCodes) },
         onSharePersonalCode = { context.share(it) },
         openSharingScreen = {

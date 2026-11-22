@@ -83,9 +83,6 @@ fun PrivacyZonesScreen(
                     )
                 )
             },
-            openPaywall = {
-                appState.navController.navigate(AppScreen.Common.BillingPaywall())
-            },
             mapContent = { state ->
                 SimpleGenericMapComposable(
                     mapsSDKProvider = state.androidMapSDKProvider,

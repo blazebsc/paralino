@@ -14,10 +14,7 @@ import app.paralino.core.models.base.asGroupOrSpaceId
 import app.paralino.core.models.data
 import app.paralino.core.models.group.UserGroup
 import app.paralino.core.presentation.CoreViewModel
-import app.paralino.core.presentation.common.AppSnackbarData
 import app.paralino.core.presentation.common.PlaceListItemData
-import app.paralino.core.presentation.common.SnackbarDuration
-import app.paralino.core.presentation.common.onAction
 import app.paralino.core.presentation.groups.detail.GroupSpaceFocusedFeatureChildItem
 import app.paralino.core.presentation.groups.detail.LocationSharingState
 import app.paralino.core.presentation.share.ApproximateLocationDistancePair
@@ -42,11 +39,8 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -228,23 +222,6 @@ class PersonalSpaceViewModel(
             }
             .flowOn(Dispatchers.IO)
             .launchIn(coroutineScope)
-
-        _uiState
-            .filter { it.isSpaceOverLimit == true }
-            .map { it.isSpaceOverLimit == true }
-            .distinctUntilChanged()
-            .onEach {
-                showSnackbarForResult(
-                    data = AppSnackbarData(
-                        text = MR.strings.plan_limit_overLimit_personalSpace_banner_title.localizedString(),
-                        duration = SnackbarDuration.Forever,
-                        actionText = MR.strings.plans_banner_settings_action_small.localizedString()
-                    )
-                )?.result?.onAction {
-                    _eventChannel.trySend(PersonalSpaceScreenEvent.OpenPaywall)
-                }
-            }
-            .launchIn(coroutineScope)
     }
 
     fun onEvent(event: PersonalSpaceScreenUiEvent) {
@@ -286,12 +263,6 @@ class PersonalSpaceViewModel(
 
             is PersonalSpaceScreenUiEvent.DialogAction -> {
                 devicesHandler.onDialogAction(event.action)
-            }
-
-            PersonalSpaceScreenUiEvent.OpenPaywall -> {
-                coroutineScope.launch {
-                    _eventChannel.send(PersonalSpaceScreenEvent.OpenPaywall)
-                }
             }
         }
     }

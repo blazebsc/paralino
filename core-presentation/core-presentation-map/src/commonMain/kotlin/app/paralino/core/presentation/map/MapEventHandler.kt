@@ -11,8 +11,6 @@ import app.paralino.core.models.group.UserGroup
 import app.paralino.core.models.map.MapHomeScreenFocusType
 import app.paralino.core.models.map.MapHomeScreenFocusType.LOCATION_HISTORY
 import app.paralino.core.models.settings.MapInteractionsType
-import app.paralino.core.presentation.billing.BillingScreenSourceType
-import app.paralino.core.presentation.common.AppSnackbarData
 import app.paralino.core.presentation.common.GroupMemberItemEvent
 import app.paralino.core.presentation.common.GroupMemberItemStateWithFullStateLocations
 import app.paralino.core.presentation.common.GroupMemberItemStateWithLocations
@@ -20,13 +18,11 @@ import app.paralino.core.presentation.common.GroupMemberItemStateWithOneLocation
 import app.paralino.core.presentation.common.ICoreMessageDispatcher
 import app.paralino.core.presentation.common.MainAlertDialog
 import app.paralino.core.presentation.common.SnackbarDuration
-import app.paralino.core.presentation.common.onAction
 import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenCreatePlace
 import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenCreatePrivacyZone
 import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenGroupDetails
 import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenGroupPicker
 import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenMemberInviteScreen
-import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenPaywall
 import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenPlaces
 import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenPrivacyZones
 import app.paralino.core.presentation.map.MapHomeScreenEvent.OpenSharingStart
@@ -396,10 +392,6 @@ class MapEventHandler(
                 }
             }
 
-            is MapHomeScreenUiEvent.OpenPaywall -> {
-                eventChannel.trySend(OpenPaywall(type = event.type))
-            }
-
             is MapHomeScreenUiEvent.StopLocationSharing -> {
                 if (event.groupOrSpaceId.isPersonalSpace) {
                     coroutineScope.launch {
@@ -585,30 +577,20 @@ class MapEventHandler(
 
     private suspend fun showOverLimitInfoMessage() {
         if (uiState.value.isPersonalSpace) {
-            messageDispatcher.showSnackbarForResult(
-                data = AppSnackbarData(
-                    text = MR.strings.plan_limit_overLimit_personalSpace_banner_title.localizedString(),
-                    duration = SnackbarDuration.Forever,
-                    actionText = MR.strings.plans_banner_settings_action_small.localizedString()
-                )
-            )?.result?.onAction {
-                eventChannel.trySend(MapHomeScreenEvent.OpenPaywall(type = BillingScreenSourceType.UPGRADE_DEFAULT))
-            }
+            messageDispatcher.showSnackbar(
+                text = MR.strings.plan_limit_overLimit_personalSpace_banner_title.localizedString(),
+                duration = SnackbarDuration.Forever
+            )
         } else {
             val group = groupLocal.allGroupsState.value.data?.firstOrNull {
                 it.id == uiState.value.selectedGroupId
             }
 
             if (group?.group?.isCurrentUserOwner == true) {
-                messageDispatcher.showSnackbarForResult(
-                    data = AppSnackbarData(
-                        text = MR.strings.plan_limit_overLimit_groupOwner_banner_title.localizedString(),
-                        duration = SnackbarDuration.Forever,
-                        actionText = MR.strings.plans_banner_settings_action_small.localizedString()
-                    )
-                )?.result?.onAction {
-                    eventChannel.trySend(MapHomeScreenEvent.OpenPaywall(type = BillingScreenSourceType.UPGRADE_DEFAULT))
-                }
+                messageDispatcher.showSnackbar(
+                    text = MR.strings.plan_limit_overLimit_groupOwner_banner_title.localizedString(),
+                    duration = SnackbarDuration.Forever
+                )
             } else {
                 messageDispatcher.showSnackbar(
                     text = MR.strings.plan_limit_overLimit_groupMember_banner_title.localizedString(),

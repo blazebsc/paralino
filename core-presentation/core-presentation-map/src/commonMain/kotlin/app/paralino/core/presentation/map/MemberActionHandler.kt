@@ -7,15 +7,12 @@ import app.paralino.core.domain.location.LocationRequestUseCase
 import app.paralino.core.logg
 import app.paralino.core.models.base.GroupOrSpaceId
 import app.paralino.core.models.base.asGroupOrSpaceId
-import app.paralino.core.presentation.billing.BillingScreenSourceType
-import app.paralino.core.presentation.common.AppSnackbarData
 import app.paralino.core.presentation.common.GroupItemState
 import app.paralino.core.presentation.common.GroupMemberItemState
 import app.paralino.core.presentation.common.ICoreMessageDispatcher
 import app.paralino.core.presentation.common.LocationRequestItemState
 import app.paralino.core.presentation.common.MemberActionType
 import app.paralino.core.presentation.common.SnackbarDuration
-import app.paralino.core.presentation.common.onAction
 import app.paralino.core.provider.localizedString
 import app.paralino.core.repo.LocationSharingManager
 import app.paralino.core.utils.exceptions.asRemoteException
@@ -157,15 +154,10 @@ class MemberActionHandler(
                 val group = getAllGroupsItemState().firstOrNull { it.id == stateWithLocation.memberState.groupId.asGroupOrSpaceId() }
                 if (group != null) {
                     if (group.isCurrentUserOwner) {
-                        messageDispatcher.showSnackbarForResult(
-                            data = AppSnackbarData(
-                                text = MR.strings.plan_limit_locationRequest_groupOwner_message.localizedString(),
-                                actionText = MR.strings.button_continue.localizedString(),
-                                duration = SnackbarDuration.Long
-                            )
-                        )?.result?.onAction {
-                            eventChannel.trySend(MapHomeScreenEvent.OpenPaywall(type = BillingScreenSourceType.UPGRADE_DEFAULT))
-                        }
+                        messageDispatcher.showSnackbar(
+                            text = MR.strings.plan_limit_locationRequest_groupOwner_message.localizedString(),
+                            duration = SnackbarDuration.Long
+                        )
                     } else {
                         messageDispatcher.showSnackbar(MR.strings.plan_limit_locationRequest_groupMember_message.localizedString())
                     }

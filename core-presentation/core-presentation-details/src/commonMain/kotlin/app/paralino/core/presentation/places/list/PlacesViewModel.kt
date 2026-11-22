@@ -251,9 +251,7 @@ class PlacesViewModel(
 
             when (premiumStatus) {
                 is PremiumStatusLimitState.PlanLimitReached -> {
-                    if (premiumStatus.payload.isOwner) {
-                        _eventChannel.send(PlacesScreenEvent.OpenPaywall)
-                    } else {
+                    if (!premiumStatus.payload.isOwner) {
                         _uiState.update {
                             it.mapSuccess {
                                 it.copy(

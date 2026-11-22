@@ -2,7 +2,6 @@ package app.paralino.android.ui.navigation
 
 import androidx.navigation3.runtime.NavKey
 import app.paralino.core.models.settings.RawPresentationDataType
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.login.LoginScreenUiType
 import app.paralino.core.presentation.places.create.CreatePlaceScreenStep
 import app.paralino.core.presentation.privacyzones.create.CreatePrivacyZoneScreenStep
@@ -177,9 +176,6 @@ sealed interface AppScreen : NavKey {
         data object Licences : AppScreen
 
         @Serializable
-        data object LicenceCode : AppScreen
-
-        @Serializable
         data object AppStatusDebug : AppScreen
 
         @Serializable
@@ -230,13 +226,5 @@ sealed interface AppScreen : NavKey {
         @Serializable
         data class RawDataScreen(val type: RawPresentationDataType) : AppScreen
 
-        @Serializable
-        data object Subscriptions : AppScreen
-
-        @Serializable
-        data class BillingPaywall(
-            val groupId: String? = null,
-            val type: BillingScreenSourceType = BillingScreenSourceType.UPGRADE_DEFAULT
-        ) : AppScreen
     }
 }

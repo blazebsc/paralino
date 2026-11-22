@@ -66,7 +66,6 @@ import app.paralino.core.ui.components.MessageDispatcherEffect
 import app.paralino.core.ui.components.NoticeInfoChip
 import app.paralino.core.ui.components.OnboardingSkipButton
 import app.paralino.core.ui.components.PlanLimitCount
-import app.paralino.core.ui.components.PremiumPlanBannerSmall
 import app.paralino.core.ui.components.SmallActionButton
 import app.paralino.core.ui.components.dialogs.Show
 import app.paralino.core.ui.places.PlaceListItem
@@ -82,7 +81,6 @@ fun PrivacyZonesScreenCore(
     userScrollEnabled: Boolean,
     contentPadding: PaddingValues,
     addNewPrivacyZone: () -> Unit,
-    openPaywall: () -> Unit,
     onSkipOnboarding: () -> Unit,
     openPrivacyZoneDetails: (zone: PlaceListItemData) -> Unit,
     mapContent: @Composable (PrivacyZonesListScreenState) -> Unit,
@@ -94,7 +92,6 @@ fun PrivacyZonesScreenCore(
         vm.events.collectLatest { event ->
             when (event) {
                 PrivacyZonesScreenEvent.AddPrivacyZone -> addNewPrivacyZone()
-                is PrivacyZonesScreenEvent.OpenPaywall -> openPaywall()
                 null -> { /* do nothing */
                 }
             }
@@ -132,7 +129,6 @@ fun PrivacyZonesScreenCore(
                     vm.onEvent(PrivacyZonesScreenUiEvent.CreatePrivacyZone)
                 },
                 onSkipOnboarding = onSkipOnboarding,
-                onPlanBannerClick = openPaywall,
                 mapContent = mapContent
             )
         }
@@ -149,7 +145,6 @@ private fun PrivacyZonesScreen(
     onZoneClick: (PlaceListItemData) -> Unit,
     onCreatePrivacyZone: () -> Unit,
     onSkipOnboarding: () -> Unit,
-    onPlanBannerClick: () -> Unit,
     mapContent: @Composable (PrivacyZonesListScreenState) -> Unit,
 ) {
     BaseOnboardingScreen(
@@ -282,18 +277,6 @@ private fun PrivacyZonesScreen(
                     }
                     Spacer(modifier = Modifier.size(30.dp))
                 }
-
-                if (state.shouldShowPlanBanner) {
-                    this.item(key = "plan_upgrade_banner") {
-                        PremiumPlanBannerSmall(
-                            modifier = Modifier
-                                .zIndex(5f)
-                                .padding(horizontal = 20.dp),
-                            description = stringResource(MR.strings.plans_banner_inline_privacy_zones),
-                            onClick = onPlanBannerClick
-                        )
-                        Spacer(modifier = Modifier.size(30.dp))
-                    }
                 }
 
                 this.stickyHeader(key = "count_header") {
