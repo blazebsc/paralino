@@ -4,8 +4,8 @@ import app.paralino.core.models.ApiServerConfig
 
 enum class BackendDatabaseType(val id: String) {
     DATA(id = BackendResourceIDs.databaseDataID),
-    KEYS(id = BackendResourceIDs.databaseKeysID),
-    PRODUCT(id = BackendResourceIDs.databaseProductID)
+    KEYS(id = BackendResourceIDs.databaseDataID),
+    PRODUCT(id = BackendResourceIDs.databaseDataID)
 }
 
 object BackendResourceIDs {

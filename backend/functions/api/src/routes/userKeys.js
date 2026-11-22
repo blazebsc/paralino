@@ -22,7 +22,7 @@
 import { ok, fail, readBody } from "../lib/envelope.js";
 import { createDocument, updateDocument, deleteDocument, listDocuments, Query, ownerPermissions, toDocId } from "../lib/appwrite.js";
 
-const DB = "data_keys";
+const DB = "data_main"; // single-database mode (see backend/README.md)
 const COL = "user_keys";
 
 const REQUIRED = ["encryptedPublicKey", "encryptedSymmetricKey", "encryptedPrivateKey", "publicKey", "loginSalt", "loginAlg", "dataAlg"];

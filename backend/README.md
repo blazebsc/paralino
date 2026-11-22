@@ -65,6 +65,14 @@ Request body: `{"satelliteMaps": bool, "premiumMapStyles": bool}`
 Response: `{"data": {"billingCustomerId": null, "mapTilerStyleToken": null, "mapTilerSatelliteToken": null}}`
 (billing + MapTiler tokens are optional; nulls are valid — `UserConfigModel.fromRemote`).
 
+## Single-database mode
+
+All collections live in **one database (`data_main`)** — the client's
+`BackendDatabaseType` routes DATA/KEYS/PRODUCT to the same database ID, and
+collection IDs keep everything distinguishable. This fits Appwrite Cloud's
+free tier (1 database per project) and simplifies self-host provisioning; on
+unlimited self-hosted installs nothing prevents splitting later.
+
 ## Layout
 
 ```

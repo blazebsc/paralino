@@ -41,17 +41,18 @@ async function api(method, path, body) {
   throw new Error(`${method} ${path} -> ${res.status}: ${text}`);
 }
 
+// Single-database mode: all collections live in data_main. Collection IDs are
+// unique within a database, and this fits Appwrite Cloud's free tier (1
+// database/project) while staying correct on self-hosted Appwrite.
 const DATABASES = {
   data_main: "data_main",
-  data_keys: "data_keys",
-  product: "product",
 };
 
 // documentSecurity: true -> authorization is per-document (the api function
 // sets read permissions when writing). Collections start with no permissions.
 const COLLECTIONS = [
   {
-    db: "data_keys",
+    db: "data_main",
     id: "user_keys",
     name: "user_keys",
     // from UserCryptoKeyRaw.kt — user's E2EE master key material

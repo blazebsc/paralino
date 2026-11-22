@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import handler from "../src/main.js";
 
 // ---- fake Appwrite: in-memory document store keyed by db/col/docId ----
-const STORE = { "data_keys/user_keys": new Map(), "data_main/devices": new Map() };
+const STORE = { "data_main/user_keys": new Map(), "data_main/devices": new Map() };
 
 const origFetch = globalThis.fetch;
 globalThis.fetch = async (url, init) => {
@@ -95,7 +95,7 @@ const KEY_PAYLOAD = {
   const res = await call("POST", "/keys/user", { ...KEY_PAYLOAD, publicKey: "pk2" });
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.data.publicKey, "pk2");
-  const store = STORE["data_keys/user_keys"];
+  const store = STORE["data_main/user_keys"];
   assert.equal(store.size, 1);
   console.log("ok: keys/user idempotent on same version");
 }
@@ -110,7 +110,7 @@ const KEY_PAYLOAD = {
   const res = await call("POST", "/keys/user", { ...KEY_PAYLOAD, matchingKeyVersion: 2, removeOldKeys: true });
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.data.userKeyVersion, 2);
-  assert.equal(STORE["data_keys/user_keys"].size, 1);
+  assert.equal(STORE["data_main/user_keys"].size, 1);
   console.log("ok: keys/user rotation + removeOldKeys");
 }
 {
