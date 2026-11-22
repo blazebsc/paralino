@@ -59,7 +59,8 @@ globalThis.fetch = async (url, init) => {
 };
 
 function jsonRes(status, body) {
-  return { ok: status < 400, status, json: async () => body };
+  const text = JSON.stringify(body);
+  return { ok: status < 400, status, json: async () => body, text: async () => text };
 }
 
 // ---- harness ----

@@ -90,11 +90,11 @@ export async function listDocuments(db, col, queries = []) {
   return request("GET", `/databases/${db}/collections/${col}/documents${qs ? `?${qs}` : ""}`);
 }
 
-// Appwrite Query helpers (string form the REST API expects)
+// Appwrite Query helpers — JSON-string format (Appwrite 2.x)
 export const Query = {
-  equal: (attr, values) => `equal("${attr}",[${values.map((v) => JSON.stringify(v)).join(",")}])`,
-  orderDesc: (attr) => `orderDesc("${attr}")`,
-  limit: (n) => `limit(${n})`,
+  equal: (attr, values) => JSON.stringify({ method: "equal", attribute: attr, values }),
+  orderDesc: (attr) => JSON.stringify({ method: "orderDesc", attribute: attr }),
+  limit: (n) => JSON.stringify({ method: "limit", values: [n] }),
 };
 
 /** Sanitize a client-supplied string into a valid Appwrite document ID (<=36 chars). */
