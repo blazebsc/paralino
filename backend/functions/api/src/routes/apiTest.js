@@ -8,6 +8,8 @@
 
 import { ok } from "../lib/envelope.js";
 
-export async function apiTest({ res }) {
+export async function apiTest({ res, log }) {
+  // Env var NAMES only (never values) — helps diagnose injected variables.
+  log(`env keys: ${Object.keys(process.env).filter((k) => k.startsWith("APPWRITE")).join(",") || "none"}`);
   return ok(res, {});
 }
