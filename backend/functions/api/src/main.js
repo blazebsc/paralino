@@ -20,6 +20,7 @@
 
 import { fail } from "./lib/envelope.js";
 import { currentUser } from "./lib/auth.js";
+import { setRequestKey } from "./lib/appwrite.js";
 import { userConfig } from "./routes/userConfig.js";
 import { updateUserKeys } from "./routes/userKeys.js";
 import { updateUserDevice } from "./routes/userDevices.js";
@@ -148,6 +149,7 @@ export default async ({ req, res, log }) => {
   }
 
   try {
+    setRequestKey(req); // ephemeral scoped key for server-side doc writes
     const user = currentUser(req);
     if (!user && !NO_AUTH.has(routeKey)) {
       return fail(res, 401, "unauthorized", "No user context on execution");

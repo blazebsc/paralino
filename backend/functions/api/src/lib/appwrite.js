@@ -4,23 +4,35 @@
  *
  * Reads happen client-side with the user's session; the function only writes.
  *
- * Env works on both Appwrite Cloud (platform-injected APPWRITE_FUNCTION_* vars,
- * per-execution key via the function's `scopes` config) and self-hosted
- * (explicit APPWRITE_ENDPOINT/APPWRITE_PROJECT_ID/APPWRITE_API_KEY).
+ * Auth: the ephemeral per-execution API key (from the function's `scopes`
+ * config) arrives in the `x-appwrite-key` request header — see
+ * https://appwrite.io/docs/products/functions/develop#ephemeral-api-key.
+ * Self-hosted deployments can alternatively set APPWRITE_API_KEY env.
+ * Endpoint/project come from Appwrite-injected env (or explicit env on self-host).
  */
+
+let runtimeKey = null;
+
+/** Call once per request, before any document operations. */
+export function setRequestKey(req) {
+  runtimeKey = req?.headers?.["x-appwrite-key"] || null;
+}
 
 function config() {
   return {
     host: (process.env.APPWRITE_ENDPOINT || process.env.APPWRITE_FUNCTION_API_ENDPOINT || "").replace(/\/+$/, ""),
     project: process.env.APPWRITE_PROJECT_ID || process.env.APPWRITE_FUNCTION_PROJECT_ID,
-    key: process.env.APPWRITE_API_KEY,
+    key: runtimeKey || process.env.APPWRITE_API_KEY || null,
   };
 }
 
 function assertConfig() {
   const { host, project, key } = config();
   if (!host || !project || !key) {
-    throw new Error("Missing APPWRITE_ENDPOINT / APPWRITE_PROJECT_ID / APPWRITE_API_KEY env vars");
+    throw new Error(
+      "Missing Appwrite config — need x-appwrite-key request header (ephemeral key, requires function scopes) " +
+      "or APPWRITE_API_KEY env, plus APPWRITE_FUNCTION_API_ENDPOINT/APPWRITE_FUNCTION_PROJECT_ID"
+    );
   }
 }
 
