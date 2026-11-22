@@ -155,27 +155,32 @@ data class PlanConfig(
     }
 
     companion object {
+        /**
+         * Fork fallback plan: everything unlocked. Used when the server config
+         * provides no plans. The self-hosted backend serves the same unlimited
+         * plan via /config, so no limit ever trips.
+         */
         val default = PlanConfig(
             planType = PlanType.FREE.key,
             planOrder = PlanType.FREE.order,
             planName = PlanType.FREE.name,
-            groupsLimit = 1,
-            membersLimit = 2,
-            devicesLimit = 1,
-            personalDevicesLimit = 1,
-            placesLimit = 2,
-            personalPlacesLimit = 1,
-            privacyZonesLimit = 1,
-            historyDaysLimit = 0,
-            personalHistoryDaysLimit = 0,
-            paralinoIdsLimit = 1,
-            hasLocationRequests = false,
-            hasOngoingRealtime = false,
-            hasBestLocationPerformance = false,
-            hasPremiumMapStyles = false,
-            hasSharingAlerts = false,
+            groupsLimit = 999999,
+            membersLimit = 999999,
+            devicesLimit = 999999,
+            personalDevicesLimit = 999999,
+            placesLimit = 999999,
+            personalPlacesLimit = 999999,
+            privacyZonesLimit = 999999,
+            historyDaysLimit = -1,
+            personalHistoryDaysLimit = -1,
+            paralinoIdsLimit = 999999,
+            hasLocationRequests = true,
+            hasOngoingRealtime = true,
+            hasBestLocationPerformance = true,
+            hasPremiumMapStyles = true,
+            hasSharingAlerts = true,
             hasLowBatteryAlerts = true,
-            hasPersonalSpace = false,
+            hasPersonalSpace = true,
             isPaid = false,
             isPremium = false,
             isActive = true,
