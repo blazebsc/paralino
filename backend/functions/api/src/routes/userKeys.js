@@ -45,7 +45,7 @@ export async function updateUserKeys({ req, res, log, user }) {
     Query.limit(100),
   ]);
   if (!existing.ok) {
-    log(`listDocuments failed: ${existing.status}`);
+    log(`listDocuments failed: ${existing.status} ${JSON.stringify(existing.json)}`);
     return fail(res, 500, "general_error", "Failed to read existing keys");
   }
   const docs = existing.json.documents;

@@ -63,7 +63,9 @@ async function request(method, path, body) {
     headers: headers(),
     body: body ? JSON.stringify(body) : undefined,
   });
-  const json = res.ok ? await res.json() : null;
+  const text = await res.text();
+  let json = null;
+  try { json = text ? JSON.parse(text) : null; } catch { json = { raw: text }; }
   return { status: res.status, ok: res.ok, json };
 }
 
