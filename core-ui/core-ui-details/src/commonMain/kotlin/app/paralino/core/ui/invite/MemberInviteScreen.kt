@@ -31,7 +31,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.paralino.core.resources.moko.*
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.common.AlertDialogAction
 import app.paralino.core.presentation.common.BottomSheetPickerType
 import app.paralino.core.presentation.groups.add_member.MemberInviteScreenEvent
@@ -50,7 +49,6 @@ import app.paralino.core.ui.components.MainInputField
 import app.paralino.core.ui.components.MessageDispatcherEffect
 import app.paralino.core.ui.components.NoticeInfoChip
 import app.paralino.core.ui.components.OnboardingSkipButton
-import app.paralino.core.ui.components.PlanLimitSmallUpgradeButton
 import app.paralino.core.ui.components.SettingsSectionHeader
 import app.paralino.core.ui.components.dialogs.Show
 import app.paralino.core.ui.groups.components.GroupListItem
@@ -67,7 +65,6 @@ fun MemberInviteScreenCore(
     isOnboarding: Boolean,
     contentPadding: PaddingValues,
     onPickGroup: (BottomSheetPickerType.GroupPickerBottomSheet) -> Unit,
-    openPaywall: (BillingScreenSourceType) -> Unit,
     onMemberAdded: () -> Unit,
     onSkipOnboarding: () -> Unit,
 ) {
@@ -79,7 +76,6 @@ fun MemberInviteScreenCore(
         vm.events.collectLatest { event ->
             when (event) {
                 MemberInviteScreenEvent.MemberAdded -> onMemberAdded()
-                is MemberInviteScreenEvent.OpenPaywall -> openPaywall(event.type)
 
                 null -> {
                     /* do nothing */
@@ -118,8 +114,7 @@ fun MemberInviteScreenCore(
                 val groupPickerState = vm.getGroupPickerState()
                 onPickGroup(groupPickerState)
             }
-        },
-        openPaywall = openPaywall
+        }
     )
 }
 
@@ -132,7 +127,6 @@ private fun MemberInviteScreen(
     onConfirm: () -> Unit,
     onSkipOnboarding: () -> Unit,
     onPickGroup: () -> Unit,
-    openPaywall: (BillingScreenSourceType) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -166,14 +160,6 @@ private fun MemberInviteScreen(
         skipButton = if (isOnboarding) {
             @Composable {
                 OnboardingSkipButton(onSkip = onSkipOnboarding)
-            }
-        }  else if (state.shouldUpgradePlan) {
-            @Composable {
-                PlanLimitSmallUpgradeButton(
-                    modifier = Modifier.padding(top = 8.dp),
-                    text = stringResource(MR.strings.invite_plan_limit_chip_owner),
-                    onClick = { openPaywall(BillingScreenSourceType.UPGRADE_DEFAULT) }
-                )
             }
         } else {
             null

@@ -8,7 +8,6 @@ import app.paralino.core.presentation.common.GroupItemState
 import app.paralino.core.presentation.common.BottomSheetPickerType
 import app.paralino.core.presentation.common.AlertDialogAction
 import app.paralino.core.presentation.common.MainAlertDialog
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.utils.Emojis
 
 data class MemberInviteScreenState(
@@ -44,5 +43,4 @@ sealed interface MemberInviteScreenUiEvent {
 sealed class MemberInviteScreenEvent() {
     object MemberAdded : MemberInviteScreenEvent()
     data class ShowGroupPicker(val sheetState: BottomSheetPickerType.GroupPickerBottomSheet) : MemberInviteScreenEvent()
-    data class OpenPaywall(val type: BillingScreenSourceType) : MemberInviteScreenEvent()
 }

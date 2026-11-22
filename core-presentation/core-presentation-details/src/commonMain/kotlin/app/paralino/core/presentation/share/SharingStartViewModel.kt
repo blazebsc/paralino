@@ -84,7 +84,7 @@ class SharingStartViewModel(
     val deviceApiProvider: IDeviceApiProvider,
     private val registerDevice: RegisterDeviceForSharingUseCase,
     private val userMemberIdUseCase: UserMemberIdUseCase,
-    private val userRepo: UserRepository,
+    userRepo: UserRepository,
     private val personalSpaceRepo: UserPersonalSpaceLocalDataSource,
     private val premiumStatusManager: PremiumStatusManager,
     private val refreshEverythingUseCase: RefreshEverythingUseCase,
@@ -142,18 +142,6 @@ class SharingStartViewModel(
 
     private var permissionRequestJob: Job? = null
     private var pendingPermissionRequest: PendingPermissionRequest? = null
-
-    val shouldProceedToPaywall: Boolean
-        get() {
-            val isOwner = when (val item = currentGroup.value) {
-                is GroupOrUserSpace.Group -> item.group.group.isCurrentUserOwner
-                is GroupOrUserSpace.PersonalSpace -> true
-                null -> false
-            }
-            return isGroupCreateOnboarding
-                    && isOwner
-                    && !userRepo.userPlans.value.highestValidPlanConfig.isPremium
-        }
 
     init {
 
@@ -741,17 +729,13 @@ class SharingStartViewModel(
                 if (isDeviceRegistered) {
                     return true
                 } else {
-                    if (group.isCurrentUserOwner) {
-                        _eventChannel.send(SharingStartScreenEvent.OpenPaywall)
-                    } else {
-                        _uiState.update {
-                            it.copy(
-                                alertDialog = MainAlertDialog.PlanLimitForMembers(
-                                    content = MR.strings.plan_limit_devices_alert_info.localizedString(),
-                                    limit = premiumStatus.payload.limit ?: -1
-                                )
+                    _uiState.update {
+                        it.copy(
+                            alertDialog = MainAlertDialog.PlanLimitForMembers(
+                                content = MR.strings.plan_limit_devices_alert_info.localizedString(),
+                                limit = premiumStatus.payload.limit ?: -1
                             )
-                        }
+                        )
                     }
                     return false
                 }
@@ -983,28 +967,15 @@ class SharingStartViewModel(
     }
 
     private fun toggleNotifyOthers(state: Boolean) {
-        if (_uiState.value.showNotifyOthers) {
-            if (!_uiState.value.isNotifyOtherEnabledInPlan) {
-                if (_uiState.value.isOwner) {
-                    _eventChannel.trySend(SharingStartScreenEvent.OpenPaywall)
-                } else {
-                    // do nothing
-                }
-            } else {
-                _uiState.update {
-                    it.copy(notifyOthers = state)
-                }
+        if (_uiState.value.showNotifyOthers && _uiState.value.isNotifyOtherEnabledInPlan) {
+            _uiState.update {
+                it.copy(notifyOthers = state)
             }
-        } else {
-            _eventChannel.trySend(SharingStartScreenEvent.OpenPaywall)
         }
     }
 
     private fun toggleRealtimeUpdates(state: Boolean) {
         if (!_uiState.value.isRealtimeSharingEnabledInPlan) {
-            if (_uiState.value.isOwner) {
-                _eventChannel.trySend(SharingStartScreenEvent.OpenPaywall)
-            }
             return
         }
 

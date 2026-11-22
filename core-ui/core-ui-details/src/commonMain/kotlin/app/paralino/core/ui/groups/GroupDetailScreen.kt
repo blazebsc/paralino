@@ -55,7 +55,6 @@ import app.paralino.core.ui.components.ImageModelImage
 import app.paralino.core.ui.components.MessageDispatcherEffect
 import app.paralino.core.ui.components.NoticeInfoChip
 import app.paralino.core.ui.components.PlanLimitCount
-import app.paralino.core.ui.components.PremiumPlanBannerSmall
 import app.paralino.core.ui.components.SmallActionButton
 import app.paralino.core.ui.components.dialogs.LoadingDialog
 import app.paralino.core.ui.components.dialogs.Show
@@ -83,7 +82,6 @@ fun GroupDetailScreenCore(
     openGroupSettings: () -> Unit,
     openMemberRawData: (String) -> Unit,
     openSharing: () -> Unit,
-    openPaywall: () -> Unit,
     onNavigateBack: () -> Unit,
     askNotificationPermission: () -> Unit,
     askLocationService: () -> Unit,
@@ -105,7 +103,6 @@ fun GroupDetailScreenCore(
             when (event) {
                 GroupDetailScreenEvent.GroupDeleted -> onNavigateBack()
                 GroupDetailScreenEvent.GroupMemberAdd -> openMemberAdd()
-                GroupDetailScreenEvent.OpenPaywall -> openPaywall()
                 GroupDetailScreenEvent.OpenMap -> openMap()
 
                 is GroupDetailScreenEvent.OpenRawMemberData -> {
@@ -268,17 +265,6 @@ fun GroupDetailScreenCore(
                                 onPlaceClick = openPlace,
                                 onPrivacyZoneClick = openPrivacyZone,
                             )
-                        }
-                    }
-
-                    if (state.data.shouldShowPlanBanner && !state.data.isMemberFocused) {
-                        this.item(key = "plan_upgrade_banner") {
-                            PremiumPlanBannerSmall(
-                                modifier = Modifier.zIndex(1f).animateItem(),
-                                description = stringResource(MR.strings.plans_banner_inline_group_detail),
-                                onClick = openPaywall
-                            )
-                            Spacer(modifier = Modifier.size(30.dp).animateItem())
                         }
                     }
 

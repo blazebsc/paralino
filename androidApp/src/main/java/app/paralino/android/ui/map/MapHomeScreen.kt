@@ -209,10 +209,6 @@ private fun MapHomeContent(
                         appState.navController.navigate(AppScreen.Settings.PersonalCodes)
                     }
 
-                    GroupPickerAction.OpenSubscriptions -> {
-                        appState.navController.navigate(AppScreen.Common.BillingPaywall())
-                    }
-
                     GroupPickerAction.Close -> {}
                 }
             }

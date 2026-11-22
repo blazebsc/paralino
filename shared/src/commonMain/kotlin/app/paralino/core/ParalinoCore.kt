@@ -95,7 +95,6 @@ import app.paralino.core.domain.user.PersonalSpaceFeatureUseCase
 import app.paralino.core.domain.user.DeletePersonalDeviceUseCase
 import app.paralino.core.domain.user.ExpiredSessionHandler
 import app.paralino.core.domain.user.ExpiredSessionRecovery
-import app.paralino.core.domain.user.GetDirectCheckoutWebPortalUseCase
 import app.paralino.core.domain.user.GetMapSDKProviderUseCase
 import app.paralino.core.domain.user.LoginUseCase
 import app.paralino.core.domain.user.LogoutUseCase
@@ -108,7 +107,6 @@ import app.paralino.core.domain.user.RefreshEverythingUseCase
 import app.paralino.core.domain.user.ResetPasswordUseCase
 import app.paralino.core.domain.user.SessionRenewalHandler
 import app.paralino.core.domain.user.ServerConnectionTestUseCase
-import app.paralino.core.domain.user.StartDirectCheckoutUseCase
 import app.paralino.core.domain.user.UpdateUserDataUseCase
 import app.paralino.core.domain.user.UserCryptoKeyRefreshUseCase
 import app.paralino.core.domain.user.UserSessionMonitor
@@ -398,8 +396,6 @@ val coreModule = module {
     single { PremiumStatusManager(get(), get(), get(), get(), get(), get(), get()) }
     factory { GetMapSDKProviderUseCase(get(), get(), get()) }
     factory { ServerConnectionTestUseCase(get(), get(), get(), get()) }
-    single { StartDirectCheckoutUseCase(get()) }
-    single { GetDirectCheckoutWebPortalUseCase(get()) }
 
     single { GroupValidityVerification(get(), get(), get(), get()) }
     single { LocationSharingManager(get(), get()) }

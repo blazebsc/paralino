@@ -167,9 +167,7 @@ internal fun MapHomeScreenEventHandler(
                 }
 
                 is MapHomeScreenEvent.ShowPlanLimitAlert -> {
-                    // This would need to be handled by showing an alert dialog
-                    // For now, we'll just navigate to paywall
-                    appState.navController.navigate(AppScreen.Common.BillingPaywall())
+                    // fork: no billing — plan limits can't trip (unlimited plan)
                 }
 
                 MapHomeScreenEvent.OpenPersonalSpace -> {

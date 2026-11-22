@@ -6,22 +6,13 @@ import app.paralino.core.domain.group.GroupPreRefreshUseCase
 import app.paralino.core.domain.group.GroupRemoveUseCase
 import app.paralino.core.models.Payload
 import app.paralino.core.models.Resource
-import app.paralino.core.models.Resource.NotInitialized.mapReady
-import app.paralino.core.models.base.ConfigData
-import app.paralino.core.models.base.PlanConfig
 import app.paralino.core.models.data
-import app.paralino.core.models.group.UserGroup
+import app.paralino.core.models.Resource.NotInitialized.mapReady
 import app.paralino.core.models.group.UserGroupWithMembers
 import app.paralino.core.models.mapSuccess
 import app.paralino.core.presentation.CoreViewModel
-import app.paralino.core.presentation.billing.FeatureTableItemValue
-import app.paralino.core.presentation.billing.FeatureTableState
-import app.paralino.core.presentation.billing.PlanInfoState
-import app.paralino.core.presentation.common.AppSnackbarData
-import app.paralino.core.presentation.common.AppSnackbarPayload
 import app.paralino.core.presentation.common.MainAlertDialog
 import app.paralino.core.presentation.common.MainAlertDialog.ToggleMemberVerification
-import app.paralino.core.presentation.common.SnackbarDuration
 import app.paralino.core.provider.IDeviceApiProvider
 import app.paralino.core.provider.IValueFormatter
 import app.paralino.core.provider.localizedString
@@ -54,7 +45,7 @@ class GroupSettingsViewModel(
     private val groupRemove: GroupRemoveUseCase,
     private val createGroup: GroupCreateUseCase,
     private val groupPreRefresh: GroupPreRefreshUseCase,
-    private val remoteConfigRepo: RemoteConfigRepository,
+    remoteConfigRepo: RemoteConfigRepository,
     private val appConfig: AppConfigRepository,
     private val valueFormatter: IValueFormatter,
     private val deviceApiProvider: IDeviceApiProvider
@@ -74,7 +65,6 @@ class GroupSettingsViewModel(
             .filterNotNull()
             .mapToPayload { group ->
                 groupData.update { group }
-                val planConfig = group.group.planConfig(remoteConfigRepo.getConfigOnce())
                 val currentMember = group.currentUserMember
                 val isOwner = group.isCurrentUserOwner
 
@@ -87,12 +77,6 @@ class GroupSettingsViewModel(
                     loadingAction = false,
                     name = group.name,
                     image = group.image,
-                    planName = planConfig.adjustedPlanName,
-                    featureTableState = constructFeatureTable(
-                        planConfig = planConfig,
-                        group = group.group,
-                        config = remoteConfigRepo.getConfigOnce()
-                    ),
                     alertDialog = _uiState.value.data?.alertDialog,
                     memberId = currentMember?.id,
                     locationId = group.currentDeviceLocation?.id,
@@ -168,25 +152,6 @@ class GroupSettingsViewModel(
                         if (event.action.action == MainAlertDialog.Buttons.buttonOk) {
                             toggleMembershipVerification()
                         }
-                    }
-
-                    else -> {}
-                }
-            }
-
-            is GroupSettingsUiEvent.OnCellItemClick -> {
-                when (event.cellItem) {
-                    is FeatureTableItemValue.MoreInfo -> {
-                        showSnackbar(
-                            data = AppSnackbarData(
-                                payload = AppSnackbarPayload(
-                                    title = event.cellItem.title,
-                                    text = event.cellItem.content,
-                                    hasCloseButton = true
-                                ),
-                                duration = SnackbarDuration.Long
-                            )
-                        )
                     }
 
                     else -> {}
@@ -275,33 +240,6 @@ class GroupSettingsViewModel(
                 }
             }
             .launchIn(coroutineScope)
-    }
-
-    private fun constructFeatureTable(
-        planConfig: PlanConfig,
-        group: UserGroup,
-        config: ConfigData
-    ): FeatureTableState {
-        val currentPlan = planConfig.copy(
-            membersLimit = group.membersLimit(config),
-            devicesLimit = group.devicesLimit(config),
-            placesLimit = group.placesLimit(config) ?: -1,
-            privacyZonesLimit = group.privacyZonesLimit(config) ?: -1
-        )
-        return FeatureTableState.constructFeaturesTable(
-            isGroupPlanOnly = true,
-            plans = listOf(
-                PlanInfoState(
-                    productId = "",
-                    name = currentPlan.adjustedPlanName,
-                    config = currentPlan,
-                    isCurrentPlan = true,
-                    isSelected = true,
-                    isExpanded = true,
-                    billingPeriods = emptyList()
-                )
-            )
-        )
     }
 
     private fun formatInfoDate(instant: Instant?): String? {

@@ -277,7 +277,6 @@ private fun PrivacyZonesScreen(
                     }
                     Spacer(modifier = Modifier.size(30.dp))
                 }
-                }
 
                 this.stickyHeader(key = "count_header") {
                     Row(

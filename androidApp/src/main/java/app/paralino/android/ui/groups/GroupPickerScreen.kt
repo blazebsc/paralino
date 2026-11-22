@@ -298,38 +298,6 @@ private fun LazyListScope.groupCreateSection(
                         contentColor = if (isSystemInDarkTheme()) AppColors.accent else AppColors.accentDark
                     )
                 }
-                if (!canCreateGroup) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onClick(GroupPickerAction.OpenSubscriptions) }
-                            .clip(RoundedCornerShape(8.dp))
-                            .padding(horizontal = 12.dp, vertical = 6.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = stringResource(MR.strings.dashboard_groups_create_plan_limit),
-                            color = AppColors.redMain,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
-                            lineHeight = 14.sp,
-                            modifier = Modifier.weight(1f)
-                        )
-
-                        Icon(
-                            modifier = Modifier
-                                .size(24.dp)
-                                .background(
-                                    color = AppColors.lightBackground,
-                                    shape = CircleShape
-                                )
-                                .padding(2.dp),
-                            painter = CoreAppIcons.ChevronRight.asPainterResource(),
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.primary,
-                        )
-                    }
-                }
             }
             FullWidthActionButton(
                 modifier = Modifier
@@ -386,7 +354,6 @@ sealed interface GroupPickerAction {
     object NewGroup : GroupPickerAction
     object JoinGroup : GroupPickerAction
     object Close : GroupPickerAction
-    object OpenSubscriptions : GroupPickerAction
     data class GroupPicked(val group: GroupItemState) : GroupPickerAction
     data class GroupEditPicked(val group: GroupItemState) : GroupPickerAction
 }

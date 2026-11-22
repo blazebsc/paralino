@@ -201,7 +201,6 @@ enum class SharingStartPresentationType {
 sealed class SharingStartScreenEvent() {
     object Started : SharingStartScreenEvent()
     object Updated : SharingStartScreenEvent()
-    object OpenPaywall : SharingStartScreenEvent()
     object AdjustScrollPosition : SharingStartScreenEvent()
     data class AskForPermission(val error: ConditionErrorType) : SharingStartScreenEvent()
 }

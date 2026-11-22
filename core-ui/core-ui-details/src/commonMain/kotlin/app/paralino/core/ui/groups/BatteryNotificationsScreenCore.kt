@@ -15,7 +15,6 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,7 +23,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import app.paralino.core.resources.moko.*
 import app.paralino.core.models.Resource
-import app.paralino.core.presentation.groups.settings.BatteryNotificationScreenEvent
 import app.paralino.core.presentation.groups.settings.BatteryNotificationScreenUiEvent
 import app.paralino.core.presentation.groups.settings.BatteryNotificationsViewModel
 import app.paralino.core.ui.CoreUiState
@@ -39,30 +37,15 @@ import app.paralino.core.ui.components.rememberSeekbarState
 import app.paralino.core.ui.groups.components.BatteryNotificationItem
 import app.paralino.core.ui.theme.AppColors
 import dev.icerock.moko.resources.compose.stringResource
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun BatteryNotificationsScreenCore(
     appState: CoreUiState,
     vm: BatteryNotificationsViewModel,
     contentPadding: PaddingValues,
-    openPaywall: () -> Unit,
 ) {
     MessageDispatcherEffect(vm, appState)
     val state by vm.uiState.collectAsState()
-
-
-    LaunchedEffect(key1 = Unit) {
-        vm.events.collectLatest { event ->
-            when (event) {
-                null -> {
-                    /* do nothing */
-                }
-
-                BatteryNotificationScreenEvent.OpenPaywall -> openPaywall()
-            }
-        }
-    }
 
     when (val finalState = state) {
         Resource.NotInitialized -> {

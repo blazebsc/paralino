@@ -71,12 +71,6 @@ fun MemberInviteScreen(
                         )
                     )
                 }
-            },
-            openPaywall = {
-                appState.navController.navigate(
-                    AppScreen.Common.BillingPaywall(groupId = vm.currentGroupId, type = it),
-                    popUpTo = AppScreen.MainHome.MainMap::class
-                )
             }
         )
     }

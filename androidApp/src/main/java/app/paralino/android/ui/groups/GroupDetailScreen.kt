@@ -115,9 +115,6 @@ private fun GroupDetailScreen(
                     AppScreen.MainHome.SharingStart(groupId)
                 )
             },
-            openPaywall = {
-                appState.navController.navigate(AppScreen.Common.BillingPaywall())
-            },
             onNavigateBack = { appState.navController.popBackStack() },
             askNotificationPermission = { notificationPermissionHandler.askNotificationPermission() },
             askLocationService = { locationPermissionHandler.askLocationService() },

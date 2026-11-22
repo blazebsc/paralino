@@ -21,7 +21,6 @@ import app.paralino.core.resources.moko.*
 import app.paralino.core.presentation.share.SharingStartViewModel
 import app.paralino.core.ui.components.DefaultToolbar
 import app.paralino.core.ui.components.ToolbarButtons
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.share.SharingStartPresentationType
 import app.paralino.core.presentation.share.SharingStartScreenUiEvent
 import app.paralino.core.ui.share.SharingStartScreenCore
@@ -68,24 +67,7 @@ fun SharingStartScreen(
     fun finishWithSharingScreen(
         isCreateOnboarding: Boolean
     ) {
-        if (vm.shouldProceedToPaywall) {
-            appState.navController.navigate(
-                AppScreen.Common.BillingPaywall(
-                    groupId = vm.currentGroupId,
-                    type = when (isCreateOnboarding) {
-                        true -> {
-                            if (vm.isPersonalSpace) {
-                                BillingScreenSourceType.PERSONAL_SPACE_ONBOARDING
-                            } else {
-                                BillingScreenSourceType.GROUP_ONBOARDING
-                            }
-                        }
-                        false -> BillingScreenSourceType.UPGRADE_DEFAULT
-                    }
-                ),
-                popUpTo = AppScreen.MainHome.MainMap::class
-            )
-        } else if(isCreateOnboarding) {
+        if (isCreateOnboarding) {
             if (vm.isPersonalSpace) {
                 appState.navController.popBackStack(
                     popUpTo = AppScreen.MainHome.MainMap::class,
@@ -144,10 +126,7 @@ fun SharingStartScreen(
                     forcePrompt = true
                 )
             },
-            askPushNotificationService = { pushServiceHandler.askPushNotificationService() },
-            openSubscriptions = {
-                appState.navController.navigate(AppScreen.Common.BillingPaywall())
-            }
+            askPushNotificationService = { pushServiceHandler.askPushNotificationService() }
         )
     }
 

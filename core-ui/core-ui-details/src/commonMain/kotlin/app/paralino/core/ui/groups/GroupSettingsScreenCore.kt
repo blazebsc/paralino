@@ -7,16 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.paralino.core.resources.moko.*
 import app.paralino.core.models.Resource
@@ -30,7 +26,6 @@ import app.paralino.core.resources.CoreAppIcons.asPainterResource
 import app.paralino.core.ui.CoreUiState
 import app.paralino.core.ui.components.ComponentInfoBox
 import app.paralino.core.ui.components.ComponentInfoPoint
-import app.paralino.core.ui.components.MembershipPlanFeatureTable
 import app.paralino.core.ui.components.MessageDispatcherEffect
 import app.paralino.core.ui.components.SettingsActionItem
 import app.paralino.core.ui.components.dialogs.LoadingDialog
@@ -152,42 +147,6 @@ fun GroupSettingsScreenCore(
                     ) {
                         vm.onEvent(GroupSettingsUiEvent.LeaveGroup)
                     }
-                }
-
-                if (state.data.canEdit) {
-                    Divider(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(top = 20.dp)
-                            .padding(horizontal = 30.dp),
-                        color = Color.Gray.copy(alpha = 0.2f),
-                        thickness = 0.5.dp
-                    )
-
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp)
-                            .padding(bottom = 4.dp, top = 20.dp),
-                        text = stringResource(
-                            MR.strings.paywall_current_plan_label,
-                            state.data.planName
-                        ),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold)
-                    )
-
-                    MembershipPlanFeatureTable(
-                        modifier = Modifier,
-                        table = state.data.featureTableState,
-                        canExpand = false,
-                        isExpanded = true,
-                        onExpandPlans = {},
-                        onCellClick = { table, cell ->
-                            vm.onEvent(
-                                GroupSettingsUiEvent.OnCellItemClick(table = table, cellItem = cell)
-                            )
-                        }
-                    )
                 }
 
                 GroupInfoBox(

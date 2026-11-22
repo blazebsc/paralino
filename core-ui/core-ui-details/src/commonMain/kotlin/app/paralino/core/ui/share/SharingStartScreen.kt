@@ -21,11 +21,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -98,7 +96,6 @@ fun SharingStartScreenCore(
     onSharingStarted: () -> Unit,
     onSkipOnboarding: () -> Unit,
     onPickGroup: (BottomSheetPickerType.GroupPickerBottomSheet) -> Unit,
-    openSubscriptions: () -> Unit,
     askNotificationPermission: () -> Unit,
     askLocationService: () -> Unit,
     askLocationPermission: () -> Unit,
@@ -194,10 +191,6 @@ fun SharingStartScreenCore(
                 null -> {
                     /* do nothing */
                 }
-
-                is SharingStartScreenEvent.OpenPaywall -> {
-                    openSubscriptions()
-                }
             }
         }
     }
@@ -254,14 +247,6 @@ fun SharingStartScreenCore(
                     SharingStartPresentationType.GROUP_CREATE_ONBOARDING -> {
                         @Composable {
                             Column {
-                                if (vm.isPersonalSpace && state.shouldUpgradePlan) {
-                                    PlanLimitSmallUpgradeButton(
-                                        modifier = Modifier.padding(vertical = 8.dp),
-                                        text = stringResource(MR.strings.groups_sharing_plan_limit_chip_owner),
-                                        onClick = { openSubscriptions() }
-                                    )
-                                }
-
                                 OnboardingSkipButton(onSkip = onSkipOnboarding)
                             }
                         }
@@ -275,14 +260,6 @@ fun SharingStartScreenCore(
                                         SharingStartStopSharingButton(
                                             isPersonalSpace = state.isPersonalSpace,
                                             onStopSharing = { vm.onEvent(SharingStartScreenUiEvent.StopSharing) }
-                                        )
-                                    }
-
-                                    state.shouldUpgradePlan -> {
-                                        PlanLimitSmallUpgradeButton(
-                                            modifier = Modifier.padding(top = 8.dp),
-                                            text = stringResource(MR.strings.groups_sharing_plan_limit_chip_owner),
-                                            onClick = openSubscriptions
                                         )
                                     }
 
@@ -309,14 +286,6 @@ fun SharingStartScreenCore(
                                 SharingStartStopSharingButton(
                                     isPersonalSpace = state.isPersonalSpace,
                                     onStopSharing = { vm.onEvent(SharingStartScreenUiEvent.StopSharing) }
-                                )
-                            }
-                        } else if (state.shouldUpgradePlan) {
-                            @Composable {
-                                PlanLimitSmallUpgradeButton(
-                                    modifier = Modifier.padding(top = 8.dp),
-                                    text = stringResource(MR.strings.groups_sharing_plan_limit_chip_owner),
-                                    onClick = { openSubscriptions() }
                                 )
                             }
                         } else if (state.needsPlanUpgrade) {
@@ -675,7 +644,6 @@ fun SharingStartScreenCore(
 
                             if (showPremiumRealtime || showPremiumNotify) {
                                 Spacer(modifier = Modifier.size(10.dp))
-                                PremiumSectionHeader(onIconClick = openSubscriptions)
 
                                 Column(
                                     verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -752,34 +720,6 @@ private fun SharingStartStopSharingButton(
             }
         )
     }
-}
-
-@Composable
-private fun ColumnScope.PremiumSectionHeader(
-    modifier: Modifier = Modifier,
-    onIconClick: () -> Unit
-) {
-    SettingsSectionHeader(
-        modifier = modifier.zIndex(0f),
-        backgroundColor = Color.Transparent,
-        name = stringResource(MR.strings.setting_location_premium_banner_title),
-        end = {
-            Icon(
-                painter = CoreAppIcons.StarFamily.asPainterResource(),
-                contentDescription = null,
-                tint = MaterialTheme.colors.primary,
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable(onClick = onIconClick)
-                    .background(
-                        color = AppColors.highlightGold,
-                        shape = CircleShape
-                    )
-                    .padding(4.dp)
-            )
-        }
-    )
-    Spacer(modifier = Modifier.size(4.dp))
 }
 
 @Composable

@@ -6,7 +6,6 @@ import app.paralino.core.domain.user.PremiumStatusLimitState
 import app.paralino.core.domain.user.PremiumStatusManager
 import app.paralino.core.models.Payload
 import app.paralino.core.presentation.CoreViewModel
-import app.paralino.core.presentation.billing.BillingScreenSourceType
 import app.paralino.core.presentation.common.BottomSheetPickerType
 import app.paralino.core.presentation.common.GroupItemState
 import app.paralino.core.presentation.common.MainAlertDialog
@@ -45,7 +44,7 @@ class MemberInviteViewModel(
     private val codeRepo: PersonalCodesRepository,
     private val groupRepo: UserGroupLocalDataSource,
     private val groupMemberAdd: GroupMemberAddUseCase,
-    private val userRepo: UserRepository,
+    userRepo: UserRepository,
     private val premiumStatusManager: PremiumStatusManager
 ) : CoreViewModel() {
 
@@ -209,12 +208,6 @@ class MemberInviteViewModel(
 
     private fun addMemberToGroup(groupId: String, state: MemberInviteScreenLoadedState) {
         when (val premiumStatus = uiState.value.premiumStatus) {
-            is PremiumStatusLimitState.PlanLimitReached -> {
-                coroutineScope.launch {
-                    _eventChannel.send(MemberInviteScreenEvent.OpenPaywall(BillingScreenSourceType.UPGRADE_DEFAULT))
-                }
-            }
-
             is PremiumStatusLimitState.ServiceLimitReached -> {
                 _uiState.update {
                     it.copy(
@@ -253,26 +246,15 @@ class MemberInviteViewModel(
                             is Payload.Success -> {
                                 _uiState.update { it.copy(actionLoading = false) }
 
-                                if (isOnboarding) {
-                                    _eventChannel.send(MemberInviteScreenEvent.MemberAdded)
-                                } else {
-                                    if (userRepo.userPlans.value.highestValidPlanConfig.isPremium) {
-                                        _eventChannel.send(MemberInviteScreenEvent.MemberAdded)
-                                    } else {
-                                        _eventChannel.send(
-                                            MemberInviteScreenEvent.OpenPaywall(
-                                                BillingScreenSourceType.FREE_PLAN_NEW_GROUP_MEMBER
-                                            )
-                                        )
-                                    }
-                                }
+                                _eventChannel.send(MemberInviteScreenEvent.MemberAdded)
                             }
                         }
                     }
                     .launchIn(coroutineScope)
             }
 
-            null -> {}
+            // fork: no billing — plan limits can't trip (unlimited plan)
+            else -> {}
         }
     }
 
