@@ -11,14 +11,22 @@ export function fail(res, code, type = "general_error", message = "error") {
   return res.json({ data: { type, message, code } }, code);
 }
 
-/** Parse the JSON string body the client sends via createExecution body. */
+/** Parse the body the client sends via createExecution. */
 export function readBody(req) {
-  if (req.bodyJson !== undefined) return req.bodyJson;
-  const raw = req.body;
-  if (!raw || typeof raw !== "string") return {};
+  // bodyJson is a throwing getter on non-JSON bodies — guard it.
+  try {
+    if (req.bodyJson !== undefined && req.bodyJson !== null) return req.bodyJson;
+  } catch { /* body is not valid JSON — fall through to raw text */ }
+  let raw;
+  try {
+    raw = req.bodyText ?? req.body;
+  } catch {
+    return {};
+  }
+  if (!raw || typeof raw !== "string") return raw ?? {};
   try {
     return JSON.parse(raw);
   } catch {
-    return {};
+    return raw; // plain-text body (e.g. POST /login sends a bare email string)
   }
 }
