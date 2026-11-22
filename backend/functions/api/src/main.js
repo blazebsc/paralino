@@ -1,11 +1,21 @@
 /**
- * Paralino self-hosted `api` function.
+ * Paralino self-hosted `api` function — SINGLE-FUNCTION MODE.
+ *
+ * The upstream app splits its backend into 4 Appwrite functions (api, ping,
+ * location-upload, history-upload). Appwrite Cloud's free tier allows only 2
+ * functions per project, and one deployment is simpler to self-host, so the
+ * fork routes everything through this single deployment using path prefixes:
+ *
+ *   /<route>                  -> api routes (unprefixed, upstream-compatible)
+ *   /ping/<route>             -> ping routes (focus/refresh/events)
+ *   /location-upload/<route>  -> location ingest
+ *   /history-upload/<route>   -> history ingest
+ *
+ * The client's ServerFunction.kt carries the matching paths/functionId.
  *
  * Wire contract (see ../../README.md):
  *   success -> 2xx, body {"data": <payload>}
  *   error   -> 4xx/5xx, body {"data": {"type": "...", "message": "...", "code": <http>}}
- *
- * The client wraps every call via FunctionExecutionRaw and reads `.data`.
  */
 
 import { fail } from "./lib/envelope.js";
@@ -15,10 +25,10 @@ import { updateUserKeys } from "./routes/userKeys.js";
 import { updateUserDevice } from "./routes/userDevices.js";
 import { apiTest } from "./routes/apiTest.js";
 
-// Every ServerFunction with functionId "api" (default). Key = "<METHOD> <path>".
-// Implemented: see src/routes/. Everything else is a loud stub.
+// Key = "<METHOD> <path>". Implemented: see src/routes/. Stubs stay registered
+// so unknown-yet routes fail loudly (501), not with 404.
 const ROUTES = {
-  "POST /api-test": apiTest, // TEST_API
+  "POST /api-test": apiTest, // TEST_API / TEST_PING / TEST_LOCATION_UPLOAD / TEST_HISTORY_UPLOAD
 
   // account / user
   "POST /v2/user/config": userConfig,
@@ -44,11 +54,23 @@ const ROUTES = {
   // live locations
   "POST /location/group": null, // LOCATION_CREATE_GROUP
   "POST /location/personal": null, // LOCATION_CREATE_PERSONAL
+  "PATCH /location-upload/locations": null, // LOCATION_PATCH (batch ingest)
   "DELETE /location/group": null, // LOCATION_DELETE_GROUP
   "DELETE /location/personal": null, // LOCATION_DELETE_PERSONAL
 
+  // ping function (focus/refresh/event signaling)
+  "POST /ping/focus/member": null, // LOCATION_FOCUS_MEMBER
+  "POST /ping/focus/group": null, // LOCATION_FOCUS_GROUP
+  "POST /ping/refresh/member": null, // LOCATION_REQUEST_MEMBER
+  "POST /ping/focus/device": null, // LOCATION_FOCUS_DEVICE
+  "POST /ping/focus/space": null, // LOCATION_FOCUS_SPACE
+  "POST /ping/refresh/device": null, // LOCATION_REQUEST_DEVICE
+  "POST /ping/events/places": null, // EVENT_PLACES
+  "POST /ping/events/battery/group": null, // EVENT_BATTERY_GROUP
+  "POST /ping/events/battery/space": null, // EVENT_BATTERY_SPACE
+
   // history
-  "POST /history": null, // HISTORY_CREATE
+  "POST /history-upload/history": null, // HISTORY_CREATE
   "POST /history/group/read": null, // HISTORY_READ_GROUP
   "POST /history/personal/read": null, // HISTORY_READ_PERSONAL
   "PATCH /history/group": null, // HISTORY_UPDATE_GROUP

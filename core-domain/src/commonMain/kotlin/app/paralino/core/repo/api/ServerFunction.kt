@@ -25,22 +25,22 @@ enum class ServerFunction constructor(
     LOCATION_CREATE_GROUP(method = "POST", path = "/location/group"),
     LOCATION_CREATE_PERSONAL(method = "POST", path = "/location/personal"),
 
-    LOCATION_PATCH(method = "PATCH", path = "/locations", functionId = "location-upload"),
+    LOCATION_PATCH(method = "PATCH", path = "/location-upload/locations"),
 
     LOCATION_DELETE_GROUP(method = "DELETE", path = "/location/group"),
     LOCATION_DELETE_PERSONAL(method = "DELETE", path = "/location/personal"),
 
-    LOCATION_FOCUS_MEMBER(method = "POST", path = "/focus/member", functionId = "ping"),
-    LOCATION_FOCUS_GROUP(method = "POST", path = "/focus/group", functionId = "ping"),
-    LOCATION_REQUEST_MEMBER(method = "POST", path = "/refresh/member", functionId = "ping"),
+    LOCATION_FOCUS_MEMBER(method = "POST", path = "/ping/focus/member"),
+    LOCATION_FOCUS_GROUP(method = "POST", path = "/ping/focus/group"),
+    LOCATION_REQUEST_MEMBER(method = "POST", path = "/ping/refresh/member"),
     LOCATION_REQUEST_MEMBER_ALT(method = "POST", path = "/refresh/member", functionId = "api"),
 
-    LOCATION_FOCUS_DEVICE(method = "POST", path = "/focus/device", functionId = "ping"),
-    LOCATION_FOCUS_SPACE(method = "POST", path = "/focus/space", functionId = "ping"),
-    LOCATION_REQUEST_DEVICE(method = "POST", path = "/refresh/device", functionId = "ping"),
+    LOCATION_FOCUS_DEVICE(method = "POST", path = "/ping/focus/device"),
+    LOCATION_FOCUS_SPACE(method = "POST", path = "/ping/focus/space"),
+    LOCATION_REQUEST_DEVICE(method = "POST", path = "/ping/refresh/device"),
     LOCATION_REQUEST_DEVICE_ALT(method = "POST", path = "/refresh/device", functionId = "api"),
 
-    HISTORY_CREATE(method = "POST", path = "/history", functionId = "history-upload"),
+    HISTORY_CREATE(method = "POST", path = "/history-upload/history"),
     HISTORY_READ_GROUP(method = "POST", path = "/history/group/read"),
     HISTORY_READ_PERSONAL(method = "POST", path = "/history/personal/read"),
     HISTORY_UPDATE_GROUP(method = "PATCH", path = "/history/group"),
@@ -68,9 +68,9 @@ enum class ServerFunction constructor(
     BILLING_REDEEM_CODE(method = "POST", path = "/redeem_code"),
     USER_CONFIG(method = "POST", path = "/v2/user/config"),
 
-    EVENT_PLACES(method = "POST", path = "/events/places", functionId = "ping"),
-    EVENT_BATTERY_GROUP(method = "POST", path = "/events/battery/group", functionId = "ping"),
-    EVENT_BATTERY_SPACE(method = "POST", path = "/events/battery/space", functionId = "ping"),
+    EVENT_PLACES(method = "POST", path = "/ping/events/places"),
+    EVENT_BATTERY_GROUP(method = "POST", path = "/ping/events/battery/group"),
+    EVENT_BATTERY_SPACE(method = "POST", path = "/ping/events/battery/space"),
 
     PERSONAL_CODE_CREATE(method = "POST", path = "/personal_code"),
     PERSONAL_CODE_READ_V2(method = "POST", path = "/personal_code/read"),
@@ -88,9 +88,9 @@ enum class ServerFunction constructor(
     WEB_CHECKOUT_PORTAL_GET(method = "GET", path = "/billing/web_portal"),
 
     TEST_API(method = "POST", path = "/api-test", functionId = "api"),
-    TEST_PING(method = "POST", path = "/api-test", functionId = "ping"),
-    TEST_LOCATION_UPLOAD(method = "POST", path = "/api-test", functionId = "location-upload"),
-    TEST_HISTORY_UPLOAD(method = "POST", path = "/api-test", functionId = "history-upload"),
+    TEST_PING(method = "POST", path = "/api-test"),
+    TEST_LOCATION_UPLOAD(method = "POST", path = "/api-test"),
+    TEST_HISTORY_UPLOAD(method = "POST", path = "/api-test"),
 
     CONFIG(method = "GET", path = "/config", functionId = AppBuildConfig.instance.apiServerConfig.publicServerUrl, useSdk = false),
     BILLING_CONFIG(method = "GET", path = "/billing-config", functionId = AppBuildConfig.instance.apiServerConfig.publicServerUrl, useSdk = false),

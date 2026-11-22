@@ -19,18 +19,22 @@ shape here was derived from `core-domain` client code.
 
 ## Wire contracts
 
-### Functions (4 deployments, path-routed)
+### Functions (single deployment, path-routed)
 
-Defined in `core-domain/.../repo/api/ServerFunction.kt`:
+Upstream splits its backend into 4 Appwrite functions (`api`, `ping`,
+`location-upload`, `history-upload`). Appwrite Cloud's free tier allows only 2
+functions per project, and one deployment is simpler to self-host, so the fork
+runs **one function** and routes by path prefix. `core-domain/.../repo/api/ServerFunction.kt`
+carries the matching paths:
 
-| Function ID | Purpose |
+| Prefix | Purpose |
 |---|---|
-| `api` | ~60 routes: groups, members, places, privacy zones, key exchange, personal codes, account mgmt |
-| `location-upload` | `PATCH /locations` batch location ingest |
-| `history-upload` | `POST /history` history ingest |
-| `ping` | focus/refresh/event signaling (high frequency) |
+| *(none)* | ~50 api routes: groups, members, places, privacy zones, key exchange, personal codes, account mgmt |
+| `/ping/...` | focus/refresh/event signaling (upstream `ping` function) |
+| `/location-upload/...` | batch location ingest (upstream `location-upload` function) |
+| `/history-upload/...` | history ingest (upstream `history-upload` function) |
 
-Request: `createExecution(functionId, body=JSON-string, path, method, headers={"x-paralino-client": <os/version string>})`.
+Request: `createExecution(functionId="api", body=JSON-string, path, method, headers={"x-paralino-client": <os/version string>})`.
 The client header is informational only.
 
 Response envelope (parsed in `FunctionExecutionRaw`):
@@ -78,7 +82,7 @@ unlimited self-hosted installs nothing prevents splitting later.
 ```
 backend/
   public-api/          static JSON served by any web server (config, later /login)
-  functions/api/       the `api` function (Node, path router, envelope)
+  functions/api/       the backend: ONE function, path-routed (envelope, auth, routes)
   provision/provision.mjs  zero-dep script creating databases/collections via REST
 ```
 
