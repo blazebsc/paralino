@@ -32,6 +32,7 @@ export async function updateUserKeys({ req, res, log, user }) {
 
   const missing = REQUIRED.filter((k) => typeof body[k] !== "string" || !body[k]);
   if (missing.length) {
+    log(`keys/user 400: missing=${JSON.stringify(missing)} receivedKeys=${JSON.stringify(Object.keys(body))} bodyTypes=${typeof req.body}/${typeof req.bodyJson}`);
     return fail(res, 400, "validation_error", `Missing fields: ${missing.join(", ")}`);
   }
   const version = Number(body.matchingKeyVersion);
