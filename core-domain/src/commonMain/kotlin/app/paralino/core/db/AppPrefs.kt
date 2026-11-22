@@ -881,6 +881,17 @@ class AppPrefs(
     }
 
     fun clear() {
+        // fork: preserve the device-level self-host server config across
+        // logouts — it configures which backend the app talks to and must
+        // survive account data wipes
+        val serverUrl = selfHostServerUrl
+        val projectId = selfHostProjectId
+        val publicUrl = selfHostPublicUrl
         provider.userSettings.clear()
+        if (serverUrl.isNotBlank()) {
+            selfHostServerUrl = serverUrl
+            selfHostProjectId = projectId
+            selfHostPublicUrl = publicUrl
+        }
     }
 }

@@ -24,12 +24,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.paralino.android.app_rating.AppRatingPresenter
+import app.paralino.android.ui.onboarding.ServerSetupScreen
+import app.paralino.core.db.AppPrefs
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import app.paralino.android.ui.navigation.AppScreen
@@ -107,6 +110,18 @@ fun RootApp(
         MessageDispatcherEffect(vm, remember(scaffoldState, uiScope) { CoreUiState(scaffoldState, uiScope) })
 
         val uiState by vm.uiState.collectAsState()
+
+        // fork: first launch of a self-hosted build — ask for the server URL
+        // before anything account-related happens; saving restarts the process
+        val appPrefs = remember { AppPrefs.instance }
+        val context = LocalContext.current
+        if (!appPrefs.hasSelfHostConfig) {
+            ServerSetupScreen(
+                appPrefs = appPrefs,
+                onConfigured = { restartApp(context) }
+            )
+            return@AppTheme
+        }
 
         when (val state = uiState.userState) {
             Resource.NotInitialized -> {
@@ -330,4 +345,15 @@ fun RootAppScreen(
     content: @Composable () -> Unit,
 ) {
     content()
+}
+
+/**
+ * fork: restart the process after self-host server config changes so every
+ * client (Appwrite SDK, function base urls) rewires to the new server.
+ */
+internal fun restartApp(context: android.content.Context) {
+    val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    if (intent != null) context.startActivity(intent)
+    Runtime.getRuntime().exit(0)
 }
