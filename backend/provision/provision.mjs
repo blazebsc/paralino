@@ -253,6 +253,20 @@ const COLLECTIONS = [
   },
   {
     db: "data_main",
+    id: "places",
+    name: "places",
+    // from GroupPlaceRaw (CreatePlacePayload) — `data` attr = resourceData
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "groupId", size: 64, required: true },
+      { type: "integer", key: "keyVersion", required: true },
+      { type: "string", key: "resourceData", size: 4000, required: true },
+      { type: "boolean", key: "isInPersonalSpace", required: true },
+      { type: "string", key: "eventKeys", size: 64, required: false, array: true },
+    ],
+  },
+  {
+    db: "data_main",
     id: "places_settings",
     name: "places_settings",
     // from GroupPlaceSettingRaw — per-device place alert settings
