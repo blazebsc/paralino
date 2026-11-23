@@ -251,6 +251,19 @@ const COLLECTIONS = [
       { type: "string", key: "groupId", size: 64, required: true },
     ],
   },
+  {
+    db: "data_main",
+    id: "places_settings",
+    name: "places_settings",
+    // from GroupPlaceSettingRaw — per-device place alert settings
+    attributes: [
+      { type: "string", key: "groupId", size: 64, required: true },
+      { type: "string", key: "placeId", size: 64, required: true },
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "deviceId", size: 64, required: false },
+      { type: "string", key: "alertData", size: 4000, required: true },
+    ],
+  },
 ];
 
 async function main() {
