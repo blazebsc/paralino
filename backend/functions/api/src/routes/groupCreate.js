@@ -106,7 +106,7 @@ export async function groupCreate({ req, res, log, user }) {
     data: {
       ownerUserId: user.id,
       groupId: createdGroupId,
-      memberIntegrity: body.memberVerification,
+      memberIntegrity: body.groupMemberIntegrity, // encrypted GroupIntegrity blob — the client decrypts+parses it during verification
       groupIntegrity: body.groupMemberIntegrity,
       memberIntegrityUserKeyVersion: userKeyVersion,
       groupIntegrityUserKeyVersion: userKeyVersion,
