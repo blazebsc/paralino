@@ -84,8 +84,11 @@ export async function groupCreate({ req, res, log, user }) {
   const createdGroupId = group.json.$id;
 
   // 2. the creator as first member
+  // NOTE: the settings doc id MUST equal the member doc id — the client
+  // fetches settings with getDocument(documentId = memberId).
+  const memberId = toDocId(`m${groupId}${user.id.slice(0, 12)}`);
   const member = await createDocument(DB, "group_members", {
-    documentId: toDocId(`m${groupId}${user.id.slice(0, 12)}`),
+    documentId: memberId,
     data: {
       ownerUserId: user.id,
       groupId: createdGroupId,
@@ -102,7 +105,7 @@ export async function groupCreate({ req, res, log, user }) {
 
   // 3. per-member settings — groupIntegrity is checked on the recovery path
   const settings = await createDocument(DB, "group_settings", {
-    documentId: toDocId(`s${groupId}${user.id.slice(0, 12)}`),
+    documentId: memberId,
     data: {
       ownerUserId: user.id,
       groupId: createdGroupId,
