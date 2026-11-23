@@ -27,6 +27,7 @@ import { updateUserDevice } from "./routes/userDevices.js";
 import { apiTest } from "./routes/apiTest.js";
 import { login } from "./routes/login.js";
 import { accountReset } from "./routes/accountReset.js";
+import { groupCreate } from "./routes/groupCreate.js";
 import { serverConfig } from "./routes/serverConfig.js";
 
 // Key = "<METHOD> <path>". Implemented: see src/routes/. Stubs stay registered
@@ -46,7 +47,7 @@ const ROUTES = {
   "DELETE /user/devices": null, // USER_DEVICE_DELETE
 
   // groups
-  "POST /groups": null, // GROUP_CREATE
+  "POST /groups": groupCreate,
   "DELETE /groups": null, // GROUP_DELETE
   "PATCH /groups": null, // GROUP_UPDATE
   "PUT /groups/block": null, // GROUP_BLOCK

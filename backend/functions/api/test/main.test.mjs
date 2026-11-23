@@ -48,12 +48,12 @@ async function call(req) {
   console.log("ok: 401 without user header");
 }
 
-// 3. registered-but-stub route -> 501 not_implemented
+// 3. implemented route with missing payload -> 400
 {
   const { res } = await call(fakeReq("POST", "/groups", { "x-appwrite-user-id": "u1" }, "{}"));
-  assert.equal(res.statusCode, 501);
-  assert.equal(res.body.data.type, "not_implemented");
-  console.log("ok: 501 for stub route");
+  assert.equal(res.statusCode, 400);
+  assert.equal(res.body.data.type, "validation_error");
+  console.log("ok: 400 validation for empty group payload");
 }
 
 // 4. unknown route -> 404
