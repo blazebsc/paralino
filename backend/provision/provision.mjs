@@ -341,6 +341,24 @@ async function main() {
     }
   }
 
+  // query indexes (client + server query these attributes)
+  const INDEXES = [
+    ["personal_ids", "keyId_idx", ["keyId"]],
+    ["personal_id_keys", "owner_idx", ["ownerUserId"]],
+    ["locations", "groupId_idx", ["groupId"]],
+    ["group_members", "groupId_idx", ["groupId"]],
+    ["group_settings", "groupId_idx", ["groupId"]],
+    ["group_keys", "groupId_idx", ["groupId"]],
+    ["group_member_keys", "groupId_idx", ["groupId"]],
+    ["group_device_keys", "group_member_idx", ["groupId", "memberUserId"]],
+  ];
+  for (const [col, key, attributes] of INDEXES) {
+    console.log(`index: ${col}/${key}`);
+    await api("POST", `/databases/${col === "group_members" ? "data_main" : "data_main"}/collections/${col}/indexes`, {
+      key, type: "key", attributes,
+    });
+  }
+
   console.log("done.");
 }
 

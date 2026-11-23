@@ -30,6 +30,8 @@ import { accountReset } from "./routes/accountReset.js";
 import { groupCreate } from "./routes/groupCreate.js";
 import { locationCreateGroup } from "./routes/locationCreateGroup.js";
 import { locationCreatePersonal } from "./routes/locationCreatePersonal.js";
+import { personalCodeCreate, personalCodeUpdate, personalCodeRestock, personalCodeRead, personalCodeDelete } from "./routes/personalCodes.js";
+import { memberCreate, memberUpdate, memberDelete } from "./routes/members.js";
 import { serverConfig } from "./routes/serverConfig.js";
 
 // Key = "<METHOD> <path>". Implemented: see src/routes/. Stubs stay registered
@@ -55,9 +57,9 @@ const ROUTES = {
   "PUT /groups/block": null, // GROUP_BLOCK
 
   // members
-  "PUT /members": null, // MEMBER_CREATE
-  "DELETE /members": null, // MEMBER_DELETE
-  "PATCH /members": null, // MEMBER_UPDATE
+  "PUT /members": memberCreate,
+  "DELETE /members": memberDelete,
+  "PATCH /members": memberUpdate,
   "PUT /members/block": null, // MEMBER_BLOCK
 
   // live locations
@@ -102,14 +104,14 @@ const ROUTES = {
   "POST /keys/group": null, // KEYS_UPDATE_GROUP
   "POST /keys/member": null, // KEYS_UPDATE_MEMBERS
   "POST /keys/location": null, // KEYS_UPDATE_LOCATIONS
-  "POST /keys/personal_code": null, // KEYS_UPDATE_CODE
+  "POST /keys/personal_code": personalCodeRestock,
   "POST /keys/space": null, // KEYS_UPDATE_SPACE
 
   // personal codes ("Paralino IDs")
-  "POST /personal_code": null, // PERSONAL_CODE_CREATE
+  "POST /personal_code": personalCodeCreate,
   "POST /personal_code/read": null, // PERSONAL_CODE_READ_V2
-  "PATCH /personal_code": null, // PERSONAL_CODE_UPDATE
-  "DELETE /personal_code": null, // PERSONAL_CODE_DELETE
+  "PATCH /personal_code": personalCodeUpdate,
+  "DELETE /personal_code": personalCodeDelete,
 
   // alerts
   "PATCH /alerts/place": null, // ALERTS_PLACES_UPDATE
