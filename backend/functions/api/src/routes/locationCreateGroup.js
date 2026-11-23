@@ -92,7 +92,7 @@ export async function locationCreateGroup({ req, res, log, user }) {
   const locationId = location.json?.$id ?? toDocId(`loc${body.deviceId}${deviceKeyVersion}`);
 
   // 2. register it on the member doc
-  const locationIds = [...(memberDoc.locationIds ?? []), locationId];
+  const locationIds = [...new Set([...(memberDoc.locationIds ?? []), locationId])];
   const upd = await updateDocument(DB, "group_members", memberDoc.$id, { locationIds });
   if (!upd.ok) log(`member locationIds update failed: ${upd.status}`);
 
