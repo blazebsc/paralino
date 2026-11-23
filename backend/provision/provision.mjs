@@ -113,11 +113,144 @@ const COLLECTIONS = [
       { type: "string", key: "batteryAlertSettings", size: 1000, required: false },
     ],
   },
-  // TODO(roadmap phase): user_config, push_notifications, blocked,
-  // groups, group_members, group_settings, group_keys, group_member_keys,
-  // group_device_keys, locations, personal_locations, personal_ids,
-  // personal_id_keys, personal_group_keys, location_focus, places,
-  // places_settings, privacy_zones — added as their endpoints get implemented.
+  {
+    db: "data_main",
+    id: "groups",
+    name: "groups",
+    // from GroupDocumentRaw.from — `data` attr maps to model field `data`
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "integer", key: "groupKeyVersion", required: true },
+      { type: "string", key: "resourceData", size: 4000, required: true },
+      { type: "string", key: "serverIntegrity", size: 2000, required: true },
+      { type: "string", key: "schemeVersion", size: 16, required: true },
+      { type: "string", key: "planType", size: 32, required: true },
+      { type: "string", key: "fallbackPlanType", size: 32, required: true },
+      { type: "datetime", key: "planExpiresAt", required: false },
+      { type: "string", key: "provider", size: 32, required: false },
+      { type: "string", key: "groupPlans", size: 64, required: false, array: true },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "group_members",
+    name: "group_members",
+    // from MemberDocumentRaw.from — `data` attr maps to model field `data`
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "groupId", size: 64, required: true },
+      { type: "integer", key: "groupKeyVersion", required: true },
+      { type: "integer", key: "memberKeyVersion", required: true },
+      { type: "string", key: "verification", size: 2000, required: true },
+      { type: "string", key: "resourceData", size: 4000, required: true },
+      { type: "string", key: "paralinoId", size: 64, required: false },
+      { type: "string", key: "locationIds", size: 64, required: false, array: true },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "group_settings",
+    name: "group_settings",
+    // from GroupSettingsRaw
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "groupId", size: 64, required: true },
+      { type: "string", key: "memberIntegrity", size: 2000, required: true },
+      { type: "string", key: "groupIntegrity", size: 2000, required: false },
+      { type: "integer", key: "memberIntegrityUserKeyVersion", required: true },
+      { type: "integer", key: "groupIntegrityUserKeyVersion", required: false },
+      { type: "string", key: "batteryAlertSettings", size: 2000, required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "locations",
+    name: "locations",
+    // from MemberLocationRaw — group member live locations
+    attributes: [
+      { type: "string", key: "deviceId", size: 64, required: true },
+      { type: "integer", key: "groupKeyVersion", required: true },
+      { type: "integer", key: "deviceKeyVersion", required: true },
+      { type: "string", key: "deviceData", size: 4000, required: false },
+      { type: "string", key: "locationData", size: 4000, required: false },
+      { type: "string", key: "locationHistory", size: 4000, required: false },
+      { type: "string", key: "status", size: 1000, required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "personal_locations",
+    name: "personal_locations",
+    // from UserDeviceLocationRaw — keyed by deviceId as $id
+    attributes: [
+      { type: "string", key: "locationData", size: 4000, required: false },
+      { type: "string", key: "status", size: 1000, required: false },
+      { type: "string", key: "locationHistory", size: 4000, required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "personal_ids",
+    name: "personal_ids",
+    // from PersonalCodeRaw — Paralino ID personal codes
+    attributes: [
+      { type: "string", key: "keyId", size: 64, required: true },
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "encryptedCode", size: 2000, required: true },
+      { type: "string", key: "encryptedCodeUserData", size: 4000, required: false },
+      { type: "integer", key: "userKeyVersion", required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "personal_id_keys",
+    name: "personal_id_keys",
+    // from PersonalPreKeyRaw — pre-key bundles for ID exchange
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "encryptedUserKeys", size: 4000, required: true },
+      { type: "string", key: "integrity", size: 2000, required: true },
+      { type: "integer", key: "userKeyVersion", required: false },
+      { type: "string", key: "encryptedCodeKeyData", size: 4000, required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "blocked",
+    name: "blocked",
+    // from BlocklistRaw
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "resourceId", size: 64, required: true },
+      { type: "string", key: "resourceType", size: 64, required: true },
+      { type: "string", key: "data", size: 4000, required: false },
+      { type: "integer", key: "userKeyVersion", required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "push_notifications",
+    name: "push_notifications",
+    // from PushNotificationRaw — createdAt is the system $createdAt
+    attributes: [
+      { type: "datetime", key: "expiresAt", required: false },
+      { type: "string", key: "deviceId", size: 64, required: false },
+      { type: "string", key: "eventId", size: 64, required: false },
+      { type: "string", key: "type", size: 64, required: true },
+      { type: "string", key: "importance", size: 32, required: true },
+      { type: "string", key: "content", size: 4000, required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "location_focus",
+    name: "location_focus",
+    // from LocationFocusRaw — map focus signaling
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "groupId", size: 64, required: true },
+    ],
+  },
 ];
 
 async function main() {
