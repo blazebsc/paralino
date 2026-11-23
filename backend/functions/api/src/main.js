@@ -109,7 +109,7 @@ const ROUTES = {
 
   // personal codes ("Paralino IDs")
   "POST /personal_code": personalCodeCreate,
-  "POST /personal_code/read": null, // PERSONAL_CODE_READ_V2
+  "POST /personal_code/read": personalCodeRead, // PERSONAL_CODE_READ_V2
   "PATCH /personal_code": personalCodeUpdate,
   "DELETE /personal_code": personalCodeDelete,
 
