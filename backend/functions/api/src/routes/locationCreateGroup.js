@@ -84,11 +84,12 @@ export async function locationCreateGroup({ req, res, log, user }) {
     },
     permissions: locationPerms,
   });
-  if (!location.ok) {
+  // 409 = doc survived a previous partial registration — reuse it
+  if (!location.ok && location.status !== 409) {
     log(`locations create failed: ${location.status} ${JSON.stringify(location.json)}`);
     return fail(res, 500, "general_error", "Failed to create location doc");
   }
-  const locationId = location.json.$id;
+  const locationId = location.json?.$id ?? toDocId(`loc${body.deviceId}${deviceKeyVersion}`);
 
   // 2. register it on the member doc
   const locationIds = [...(memberDoc.locationIds ?? []), locationId];
