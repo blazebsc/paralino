@@ -17,42 +17,6 @@ fun loadUserProperties(rootDir: File): Properties? {
     return Properties().apply { load(FileInputStream(propsFile)) }
 }
 
-// This block runs after configuration is complete and tasks are created
-tasks.whenTaskAdded {
-    val task = this
-    // We look for tasks that assemble or bundle our specific variants
-    val variantsToCheck = listOf("playStoreRelease", "playStoreReleaseTest", "playStoreDebug")
-
-    // Find if the current task is assembling or bundling one of our target variants
-    val targetVariant = variantsToCheck.find { variant ->
-        // we capitalize so it can match the task name
-        val adjustedName = variant.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
-        task.name.equals("assemble${adjustedName}", ignoreCase = true) ||
-                task.name.equals("bundle${adjustedName}", ignoreCase = true)
-    }
-
-    if (targetVariant != null) {
-        val taskName = task.name.replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase() else it.toString()
-        }
-        val verifyTaskName = "verifyFcmConfigFor${taskName}"
-
-        if (tasks.findByName(verifyTaskName) == null) {
-            val verifyTask = tasks.register(verifyTaskName) {
-                doLast {
-                    // Dynamically construct the path based on the variant name
-                    // e.g., "androidApp/src/playStoreRelease/res/values/fcm_config.xml"
-                    val fcmConfigFile = rootProject.file("androidApp/src/$targetVariant/res/values/fcm_config.xml")
-
-                    if (!fcmConfigFile.exists()) {
-                        throw FileNotFoundException("Missing Firebase config file for $targetVariant at ${fcmConfigFile.path}")
-                    }
-                }
-            }
-            task.dependsOn(verifyTask)
-        }
-    }
-}
 
 android {
     namespace = "app.paralino.android"
@@ -62,7 +26,6 @@ android {
     androidComponents.beforeVariants { variant ->
         val names = variant.productFlavors.map { flavor -> flavor.second }
         val variantIgnore = variant.buildType == "releaseTest" && names.contains("direct")
-                || variant.buildType == "releaseLocal" && names.contains("playStore")
         variant.enable = !variantIgnore
     }
 
@@ -204,15 +167,6 @@ android {
 
     flavorDimensions += "version"
     productFlavors {
-        create("playStore") {
-            dimension = "version"
-            versionCode = 107
-            versionName = "2.7.0"
-
-            val userProps = loadUserProperties(rootProject.rootDir)
-            buildConfigField("String", "revenueCatApiKey", userProps?.getProperty("revenueCatApiKey") ?: "null")
-            manifestPlaceholders["MAPS_API_KEY"] = userProps?.getProperty("MAPS_API_KEY").orEmpty()
-        }
         create("direct") {
             dimension = "version"
             versionCode = 107
@@ -283,7 +237,6 @@ android {
 }
 
 val directImplementation by configurations
-val playStoreImplementation by configurations
 dependencies {
     implementation(project(path = ":shared"))
     testImplementation(libs.junit)
@@ -327,14 +280,6 @@ dependencies {
     // endregion
 
     // region utils
-    playStoreImplementation(libs.play.services.location)
-    playStoreImplementation(libs.firebase.messaging.ktx)
-    playStoreImplementation(libs.play.review)
-
-    playStoreImplementation(libs.revenuecat.android)
-
-    playStoreImplementation(libs.maps.google.compose)
-    playStoreImplementation(libs.maps.google.compose.utils)
     implementation(libs.maps.maplibre.compose)
     runtimeOnly(libs.maps.maplibre.android.opengl)
 

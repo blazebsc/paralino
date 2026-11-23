@@ -215,11 +215,8 @@ object KoinSetup {
         single { BatteryAlertUploadEngine(get(), get(), get(), get(), get()) } bind IBatteryAlertUploadEngine::class
 
         single {
-            val appFlavor = when (BuildConfig.FLAVOR) {
-                "direct" -> AppFlavor.ANDROID_DIRECT
-                "playStore" -> AppFlavor.ANDROID_GOOGLE
-                else -> throw IllegalArgumentException("Wrong app flavor")
-            }
+            // fork: single de-googled flavor
+            val appFlavor = AppFlavor.ANDROID_DIRECT
             // fork: user-entered self-host config (onboarding setup) wins over everything
             val appPrefs = get<AppPrefs>()
             val selfHostConfig = ApiServerConfig(
