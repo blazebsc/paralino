@@ -86,7 +86,7 @@ export async function personalCodeDelete({ req, res, log, user }) {
 
 /** POST /personal_code/read — resolve an invitee's code to their key material.
  * Consumes one pre-key (blanks encryptedCodeKeyData) — one-time use. */
-export async function personalCodeRead({ req, res, log }) {
+export async function personalCodeRead({ req, res, log, user }) {
   const body = readBody(req);
   const keyId = typeof body === "object" && body?.keyId ? body.keyId : (typeof body === "string" ? body : null);
   if (!keyId) {
