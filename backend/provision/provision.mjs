@@ -253,6 +253,21 @@ const COLLECTIONS = [
   },
   {
     db: "data_main",
+    id: "group_device_keys",
+    name: "group_device_keys",
+    // from GroupDeviceCryptoKeyRaw — per-device sender keys
+    attributes: [
+      { type: "string", key: "groupId", size: 64, required: true },
+      { type: "string", key: "memberUserId", size: 64, required: true },
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "locationId", size: 64, required: true },
+      { type: "integer", key: "memberKeyVersion", required: true },
+      { type: "integer", key: "deviceKeyVersion", required: true },
+      { type: "string", key: "encryptedSenderKey", size: 4000, required: true },
+    ],
+  },
+  {
+    db: "data_main",
     id: "privacy_zones",
     name: "privacy_zones",
     // from CreatePrivacyZonePayload — resourceData holds the encrypted zone

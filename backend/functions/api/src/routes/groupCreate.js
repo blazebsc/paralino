@@ -81,13 +81,14 @@ export async function groupCreate({ req, res, log, user }) {
     log(`group create failed: ${group.status} ${JSON.stringify(group.json)}`);
     return fail(res, 500, "general_error", "Failed to create group");
   }
+  const createdGroupId = group.json.$id;
 
   // 2. the creator as first member
   const member = await createDocument(DB, "group_members", {
     documentId: toDocId(`m${groupId}${user.id.slice(0, 12)}`),
     data: {
       ownerUserId: user.id,
-      groupId: group.$id,
+      groupId: createdGroupId,
       groupKeyVersion: GROUP_KEY_VERSION,
       memberKeyVersion: userKeyVersion,
       verification: body.memberVerification,
@@ -104,7 +105,7 @@ export async function groupCreate({ req, res, log, user }) {
     documentId: toDocId(`s${groupId}${user.id.slice(0, 12)}`),
     data: {
       ownerUserId: user.id,
-      groupId: group.$id,
+      groupId: createdGroupId,
       memberIntegrity: body.memberVerification,
       groupIntegrity: body.groupMemberIntegrity,
       memberIntegrityUserKeyVersion: userKeyVersion,
@@ -119,7 +120,7 @@ export async function groupCreate({ req, res, log, user }) {
   const groupKey = await createDocument(DB, "group_keys", {
     documentId: toDocId(`k${groupId}${user.id.slice(0, 12)}`),
     data: {
-      groupId: group.$id,
+      groupId: createdGroupId,
       memberUserId: user.id,
       ownerUserId: user.id,
       groupKeyVersion: GROUP_KEY_VERSION,
@@ -134,7 +135,7 @@ export async function groupCreate({ req, res, log, user }) {
   const memberKey = await createDocument(DB, "group_member_keys", {
     documentId: toDocId(`mk${groupId}${user.id.slice(0, 12)}`),
     data: {
-      groupId: group.$id,
+      groupId: createdGroupId,
       ownerUserId: user.id,
       memberKeyVersion: userKeyVersion,
       signedMembershipPublicKey: body.signedPublicKey,
@@ -151,7 +152,7 @@ export async function groupCreate({ req, res, log, user }) {
     data: {
       ownerUserId: user.id,
       encryptedUserKeys: body.encryptedUserKeys,
-      groupId: group.$id,
+      groupId: createdGroupId,
       personalGroupKeyVersion: GROUP_KEY_VERSION,
       userKeyVersion,
       isArchived: false,
@@ -160,6 +161,6 @@ export async function groupCreate({ req, res, log, user }) {
   });
   if (!personalKey.ok) log(`personal group key create failed: ${personalKey.status}`);
 
-  log(`group ${group.$id} created for ${user.id} (key v1, userKey v${userKeyVersion})`);
-  return ok(res, { groupId: group.$id });
+  log(`group ${createdGroupId} created for ${user.id} (key v1, userKey v${userKeyVersion})`);
+  return ok(res, { groupId: createdGroupId });
 }
