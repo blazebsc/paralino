@@ -147,19 +147,24 @@ export async function groupCreate({ req, res, log, user }) {
   if (!memberKey.ok) log(`member key create failed: ${memberKey.status}`);
 
   // 6. the creator's encrypted keypair (unlock on other devices)
-  const personalKey = await createDocument(DB, "personal_group_keys", {
-    documentId: toDocId(`pk${groupId}${user.id.slice(0, 12)}`),
-    data: {
-      ownerUserId: user.id,
-      encryptedUserKeys: body.encryptedUserKeys,
-      groupId: createdGroupId,
-      personalGroupKeyVersion: GROUP_KEY_VERSION,
-      userKeyVersion,
-      isArchived: false,
-    },
-    permissions: ownerPerms,
-  });
-  if (!personalKey.ok) log(`personal group key create failed: ${personalKey.status}`);
+  // Two slots: personalGroupKeyVersion 0 = membership keypair lookup slot,
+  // personalGroupKeyVersion = userKeyVersion = the KX keypair for this member
+  // key version. They coincide when userKeyVersion is 0 (fresh accounts).
+  for (const pkv of [...new Set([0, userKeyVersion])]) {
+    const personalKey = await createDocument(DB, "personal_group_keys", {
+      documentId: toDocId(`pk${groupId}v${pkv}${user.id.slice(0, 10)}`),
+      data: {
+        ownerUserId: user.id,
+        encryptedUserKeys: body.encryptedUserKeys,
+        groupId: createdGroupId,
+        personalGroupKeyVersion: pkv,
+        userKeyVersion,
+        isArchived: false,
+      },
+      permissions: ownerPerms,
+    });
+    if (!personalKey.ok) log(`personal group key v${pkv} create failed: ${personalKey.status} ${JSON.stringify(personalKey.json)}`);
+  }
 
   log(`group ${createdGroupId} created for ${user.id} (key v1, userKey v${userKeyVersion})`);
   return ok(res, { groupId: createdGroupId });
