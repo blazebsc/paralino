@@ -253,6 +253,18 @@ const COLLECTIONS = [
   },
   {
     db: "data_main",
+    id: "privacy_zones",
+    name: "privacy_zones",
+    // from CreatePrivacyZonePayload — resourceData holds the encrypted zone
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "groupId", size: 64, required: true },
+      { type: "integer", key: "userKeyVersion", required: true },
+      { type: "string", key: "resourceData", size: 4000, required: true },
+    ],
+  },
+  {
+    db: "data_main",
     id: "places",
     name: "places",
     // from GroupPlaceRaw (CreatePlacePayload) — `data` attr = resourceData
