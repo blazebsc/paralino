@@ -110,7 +110,7 @@ export async function locationCreateGroup({ req, res, log, user }) {
         deviceKeyVersion,
         encryptedSenderKey: k.encryptedSenderKey,
       },
-      permissions: [...ownerPerms, `read("user:${k.userId}")`],
+      permissions: [...locationPerms, `read("user:${k.userId}")`],
     });
     if (!created.ok) log(`device key for ${k.userId} failed: ${created.status}`);
   }
