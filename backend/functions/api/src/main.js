@@ -28,6 +28,8 @@ import { apiTest } from "./routes/apiTest.js";
 import { login } from "./routes/login.js";
 import { accountReset } from "./routes/accountReset.js";
 import { groupCreate } from "./routes/groupCreate.js";
+import { locationCreateGroup } from "./routes/locationCreateGroup.js";
+import { locationCreatePersonal } from "./routes/locationCreatePersonal.js";
 import { serverConfig } from "./routes/serverConfig.js";
 
 // Key = "<METHOD> <path>". Implemented: see src/routes/. Stubs stay registered
@@ -59,8 +61,8 @@ const ROUTES = {
   "PUT /members/block": null, // MEMBER_BLOCK
 
   // live locations
-  "POST /location/group": null, // LOCATION_CREATE_GROUP
-  "POST /location/personal": null, // LOCATION_CREATE_PERSONAL
+  "POST /location/group": locationCreateGroup,
+  "POST /location/personal": locationCreatePersonal,
   "PATCH /location-upload/locations": null, // LOCATION_PATCH (batch ingest)
   "DELETE /location/group": null, // LOCATION_DELETE_GROUP
   "DELETE /location/personal": null, // LOCATION_DELETE_PERSONAL
