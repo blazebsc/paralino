@@ -168,6 +168,7 @@ const COLLECTIONS = [
     name: "locations",
     // from MemberLocationRaw — group member live locations
     attributes: [
+      { type: "string", key: "groupId", size: 64, required: true },
       { type: "string", key: "deviceId", size: 64, required: true },
       { type: "integer", key: "groupKeyVersion", required: true },
       { type: "integer", key: "deviceKeyVersion", required: true },

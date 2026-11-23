@@ -74,6 +74,7 @@ export async function locationCreateGroup({ req, res, log, user }) {
     documentId: toDocId(`loc${body.deviceId}${deviceKeyVersion}`),
     data: {
       deviceId: body.deviceId,
+      groupId: body.groupId,
       groupKeyVersion: Number(body.groupKeyVersion),
       deviceKeyVersion,
       deviceData: body.deviceData ?? null,
