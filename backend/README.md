@@ -121,11 +121,11 @@ model, not guesses.
 
 ## Roadmap
 
-- **Phase 1 — onboarding slice**: user/config (done in scaffold), user keys backup, device registration, server connection test passes end-to-end
-- **Phase 2 — sharing core**: groups, members, group key exchange, live location ingest (`location-upload`), realtime read path, per-user document permissions
-- **Phase 3 — features**: history (`history-upload`), places, privacy zones, place/battery alerts + push dispatch (FCM + UnifiedPush), personal space
-- **Phase 4 — public API**: `POST /login` (personal-code flow), account delete/reset/email routes
-- **Phase 5 — client fork**: server config from `user.properties` in all build types, rename app (applicationId + display name), app-update allow-list → own GitHub releases
+- **~~Phase 1 — onboarding slice~~ DONE**: verified live (emulator): setup screen, signup, keys backup, device registration, connection test
+- **~~Phase 2 — sharing core~~ DONE (owner path)**: group creation (verified in-app), member invite + personal codes (route-verified), location registration (verified in-app, "Sharing active")
+- **Phase 3 — remaining**: member-side join flow E2E (needs second device/account UI pass), history (`history-upload`), places, privacy zones, alerts + push dispatch, realtime verification
+- **~~Phase 4 — public API~~ DONE**: `POST /login`, `POST /personal_code/read`, `POST /user/reset`
+- **Phase 5 — client fork**: app rename (applicationId + display name), app-update allow-list → own GitHub releases. (Server-setup screen already shipped; `releaseLocal` reads user.properties via dev config overlay.)
 
 ## Open questions (verify during implementation)
 
