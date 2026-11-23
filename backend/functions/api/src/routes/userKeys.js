@@ -35,9 +35,11 @@ export async function updateUserKeys({ req, res, log, user }) {
     log(`keys/user 400: missing=${JSON.stringify(missing)} receivedKeys=${JSON.stringify(Object.keys(body))} bodyTypes=${typeof req.body}/${typeof req.bodyJson}`);
     return fail(res, 400, "validation_error", `Missing fields: ${missing.join(", ")}`);
   }
+  // Client numbering starts at 0 for the first key (CryptoAccountOperationV2);
+  // rotations send latest, credential changes send latest + 1.
   const version = Number(body.matchingKeyVersion);
-  if (!Number.isInteger(version) || version < 1) {
-    return fail(res, 400, "validation_error", "matchingKeyVersion must be a positive integer");
+  if (!Number.isInteger(version) || version < 0) {
+    return fail(res, 400, "validation_error", "matchingKeyVersion must be a non-negative integer");
   }
 
   const existing = await listDocuments(DB, COL, [

@@ -79,14 +79,14 @@ async function call(method, path, body, userId = "user1234567890abcd") {
 const KEY_PAYLOAD = {
   encryptedPublicKey: "epk", encryptedSymmetricKey: "esk", encryptedPrivateKey: "eprk",
   publicKey: "pk", loginSalt: "s", loginAlg: "a", dataAlg: "b",
-  matchingKeyVersion: 1, removeOldKeys: false,
+  matchingKeyVersion: 0, removeOldKeys: false,
 };
 
 // ---- /keys/user ----
 {
   const res = await call("POST", "/keys/user", KEY_PAYLOAD);
   assert.equal(res.statusCode, 200, JSON.stringify(res.body));
-  assert.equal(res.body.data.userKeyVersion, 1);
+  assert.equal(res.body.data.userKeyVersion, 0);
   assert.equal(res.body.data.ownerUserId, "user1234567890abcd");
   assert.equal(res.body.data.encryptedSymmetricKey, "esk");
   console.log("ok: keys/user creates v1");
@@ -108,15 +108,15 @@ const KEY_PAYLOAD = {
 }
 {
   // rotation: v2 then removeOldKeys clears v1
-  const res = await call("POST", "/keys/user", { ...KEY_PAYLOAD, matchingKeyVersion: 2, removeOldKeys: true });
+  const res = await call("POST", "/keys/user", { ...KEY_PAYLOAD, matchingKeyVersion: 1, removeOldKeys: true });
   assert.equal(res.statusCode, 200);
-  assert.equal(res.body.data.userKeyVersion, 2);
+  assert.equal(res.body.data.userKeyVersion, 1);
   assert.equal(STORE["data_main/user_keys"].size, 1);
   console.log("ok: keys/user rotation + removeOldKeys");
 }
 {
   // missing required field -> 400
-  const res = await call("POST", "/keys/user", { ...KEY_PAYLOAD, loginSalt: undefined, matchingKeyVersion: 1 });
+  const res = await call("POST", "/keys/user", { ...KEY_PAYLOAD, loginSalt: undefined, matchingKeyVersion: 0 });
   assert.equal(res.statusCode, 400);
   assert.match(res.body.data.message, /loginSalt/);
   console.log("ok: keys/user 400 on missing field");
