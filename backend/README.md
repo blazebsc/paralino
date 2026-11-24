@@ -121,11 +121,12 @@ model, not guesses.
 
 ## Roadmap
 
-- **~~Phase 1 — onboarding slice~~ DONE**: verified live (emulator): setup screen, signup, keys backup, device registration, connection test
-- **~~Phase 2 — sharing core~~ DONE (owner path)**: group creation (verified in-app), member invite + personal codes (route-verified), location registration (verified in-app, "Sharing active")
-- **Phase 3 — remaining**: member-side join flow E2E (needs second device/account UI pass), history (`history-upload`), places, privacy zones, alerts + push dispatch, realtime verification
+- **~~Phase 1 — onboarding slice~~ DONE**: verified live (emulator + S23): setup screen, signup, keys backup, device registration, connection test
+- **~~Phase 2 — sharing core~~ DONE**: group creation (verified in-app), member invite + personal codes (route-verified), location registration (verified in-app, "Sharing active")
+- **~~Phase 3 — features~~ DONE**: history (upload/read/update/delete), places (create/update/delete/alerts), privacy zones, key rotation, battery alerts, event pings, focus/refresh nudges, places search (Photon geocoder)
 - **~~Phase 4 — public API~~ DONE**: `POST /login`, `POST /personal_code/read`, `POST /user/reset`
-- **Phase 5 — client fork**: app rename (applicationId + display name), app-update allow-list → own GitHub releases. (Server-setup screen already shipped; `releaseLocal` reads user.properties via dev config overlay.)
+- **~~Phase 5 — client fork~~ MOSTLY DONE**: de-googled (playStore flavor removed), server-setup screen (one URL self-configures), Paralino.ID creation. Remaining: app rename (needs name choice), app-update allow-list → own GitHub releases
+- **Billing routes**: intentionally never implemented — the fork has no billing
 
 ## Open questions (verify during implementation)
 
