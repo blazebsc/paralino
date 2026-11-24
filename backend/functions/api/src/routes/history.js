@@ -72,7 +72,10 @@ export async function historyUpload({ req, res, log, user }) {
         permissions: ownerPermissions(user.id),
       });
       if (created.ok || created.status === 409) personalResult.uploadedEntries.push(e.pendingUploadId);
-      else personalResult.errors.push({ key: e.pendingUploadId, error: { type: "general_error", message: "Upload failed", code: 500 } });
+      else {
+        log(`personal history entry failed: ${created.status} ${JSON.stringify(created.json)}`);
+        personalResult.errors.push({ key: e.pendingUploadId, error: { type: "general_error", message: "Upload failed", code: 500 } });
+      }
     }
     const keys = [...(p.keys ?? []), ...(p.retryKeys ?? [])];
     for (const k of keys) {
