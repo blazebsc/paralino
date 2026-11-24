@@ -35,6 +35,7 @@ import { locationPatch } from "./routes/locationUpload.js";
 import { personalCodeCreate, personalCodeUpdate, personalCodeRestock, personalCodeRead, personalCodeDelete } from "./routes/personalCodes.js";
 import { memberCreate, memberUpdate, memberDelete } from "./routes/members.js";
 import { placeCreate, placeUpdate, placeDelete, alertsPlacesUpdate } from "./routes/places.js";
+import { keysUpdateGroup, keysUpdateMember, keysUpdateLocation, keysUpdateSpace } from "./routes/keyRotation.js";
 import { privacyZoneCreate, privacyZoneUpdate, privacyZoneDelete } from "./routes/privacyZones.js";
 import { serverConfig } from "./routes/serverConfig.js";
 
@@ -105,11 +106,11 @@ const ROUTES = {
   "PATCH /privacy-zones": privacyZoneUpdate,
 
   // E2EE key exchange
-  "POST /keys/group": null, // KEYS_UPDATE_GROUP
-  "POST /keys/member": null, // KEYS_UPDATE_MEMBERS
-  "POST /keys/location": null, // KEYS_UPDATE_LOCATIONS
+  "POST /keys/group": keysUpdateGroup,
+  "POST /keys/member": keysUpdateMember,
+  "POST /keys/location": keysUpdateLocation,
   "POST /keys/personal_code": personalCodeRestock,
-  "POST /keys/space": null, // KEYS_UPDATE_SPACE
+  "POST /keys/space": keysUpdateSpace,
 
   // personal codes ("Paralino IDs")
   "POST /personal_code": personalCodeCreate,
