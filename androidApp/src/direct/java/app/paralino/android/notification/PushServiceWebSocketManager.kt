@@ -140,6 +140,18 @@ class PushServiceWebSocketManager(
             "$baseUrl/ws"
         }
 
+        // Self-hosted setups without a push socket server register devices with a
+        // blank url -> wsUrl is just "/ws", which would crash OkHttp. Fall back to
+        // periodic polling, which fails gracefully and retries on its own schedule.
+        if (!wsUrl.startsWith("http://") && !wsUrl.startsWith("https://") && !wsUrl.startsWith("wss://") && !wsUrl.startsWith("ws://")) {
+            logg.w(
+                tag = "notification_socket_manager",
+                message = "No socket server url configured ($wsUrl), falling back to periodic polling"
+            )
+            startPeriodicPollConnection(url = url)
+            return
+        }
+
         if (connection?.url == wsUrl) {
             logg.i(
                 "notification_socket_manager",
