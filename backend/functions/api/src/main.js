@@ -30,6 +30,8 @@ import { accountReset } from "./routes/accountReset.js";
 import { groupCreate } from "./routes/groupCreate.js";
 import { locationCreateGroup } from "./routes/locationCreateGroup.js";
 import { locationCreatePersonal } from "./routes/locationCreatePersonal.js";
+import { locationDeleteGroup, locationDeletePersonal } from "./routes/locationDelete.js";
+import { locationPatch } from "./routes/locationUpload.js";
 import { personalCodeCreate, personalCodeUpdate, personalCodeRestock, personalCodeRead, personalCodeDelete } from "./routes/personalCodes.js";
 import { memberCreate, memberUpdate, memberDelete } from "./routes/members.js";
 import { placeCreate, placeUpdate, placeDelete, alertsPlacesUpdate } from "./routes/places.js";
@@ -67,9 +69,9 @@ const ROUTES = {
   // live locations
   "POST /location/group": locationCreateGroup,
   "POST /location/personal": locationCreatePersonal,
-  "PATCH /location-upload/locations": null, // LOCATION_PATCH (batch ingest)
-  "DELETE /location/group": null, // LOCATION_DELETE_GROUP
-  "DELETE /location/personal": null, // LOCATION_DELETE_PERSONAL
+  "PATCH /location-upload/locations": locationPatch, // LOCATION_PATCH (batch ingest)
+  "DELETE /location/group": locationDeleteGroup,
+  "DELETE /location/personal": locationDeletePersonal,
 
   // ping function (focus/refresh/event signaling)
   "POST /ping/focus/member": null, // LOCATION_FOCUS_MEMBER
