@@ -36,6 +36,12 @@ import { personalCodeCreate, personalCodeUpdate, personalCodeRestock, personalCo
 import { memberCreate, memberUpdate, memberDelete } from "./routes/members.js";
 import { placeCreate, placeUpdate, placeDelete, alertsPlacesUpdate } from "./routes/places.js";
 import { keysUpdateGroup, keysUpdateMember, keysUpdateLocation, keysUpdateSpace } from "./routes/keyRotation.js";
+import { groupUpdate, groupDelete, groupBlock, memberBlock } from "./routes/groupLifecycle.js";
+import { accountDelete, accountChangeEmail, userDeviceDelete } from "./routes/account.js";
+import { alertsBatteryUpdateGroup, alertsBatteryUpdateSpace, pingEventsPlaces, pingEventsBatteryGroup, pingEventsBatterySpace } from "./routes/batteryAlerts.js";
+import { focusMember, focusGroup, focusDevice, focusSpace, refreshMember, refreshDevice } from "./routes/ping.js";
+import { eventsPlaces, eventsBatteryGroup, eventsBatterySpace } from "./routes/pingEvents.js";
+import { placesSearch } from "./routes/placesSearch.js";
 import { historyUpload, historyReadGroup, historyReadPersonal, historyUpdateGroup, historyUpdatePersonal, historyDeleteGroup, historyDeletePersonal } from "./routes/history.js";
 import { privacyZoneCreate, privacyZoneUpdate, privacyZoneDelete } from "./routes/privacyZones.js";
 import { serverConfig } from "./routes/serverConfig.js";
@@ -51,22 +57,22 @@ const ROUTES = {
   "POST /v2/user/config": userConfig,
   "PUT /v2/user/devices": updateUserDevice,
   "POST /keys/user": updateUserKeys,
-  "DELETE /user": null, // ACCOUNT_DELETE
+  "DELETE /user": accountDelete,
   "POST /user/reset": accountReset,
-  "PATCH /user/email": null, // ACCOUNT_CHANGE_EMAIL
-  "DELETE /user/devices": null, // USER_DEVICE_DELETE
+  "PATCH /user/email": accountChangeEmail,
+  "DELETE /user/devices": userDeviceDelete,
 
   // groups
   "POST /groups": groupCreate,
-  "DELETE /groups": null, // GROUP_DELETE
-  "PATCH /groups": null, // GROUP_UPDATE
-  "PUT /groups/block": null, // GROUP_BLOCK
+  "DELETE /groups": groupDelete,
+  "PATCH /groups": groupUpdate,
+  "PUT /groups/block": groupBlock,
 
   // members
   "PUT /members": memberCreate,
   "DELETE /members": memberDelete,
   "PATCH /members": memberUpdate,
-  "PUT /members/block": null, // MEMBER_BLOCK
+  "PUT /members/block": memberBlock,
 
   // live locations
   "POST /location/group": locationCreateGroup,
@@ -76,15 +82,15 @@ const ROUTES = {
   "DELETE /location/personal": locationDeletePersonal,
 
   // ping function (focus/refresh/event signaling)
-  "POST /ping/focus/member": null, // LOCATION_FOCUS_MEMBER
-  "POST /ping/focus/group": null, // LOCATION_FOCUS_GROUP
-  "POST /ping/refresh/member": null, // LOCATION_REQUEST_MEMBER
-  "POST /ping/focus/device": null, // LOCATION_FOCUS_DEVICE
-  "POST /ping/focus/space": null, // LOCATION_FOCUS_SPACE
-  "POST /ping/refresh/device": null, // LOCATION_REQUEST_DEVICE
-  "POST /ping/events/places": null, // EVENT_PLACES
-  "POST /ping/events/battery/group": null, // EVENT_BATTERY_GROUP
-  "POST /ping/events/battery/space": null, // EVENT_BATTERY_SPACE
+  "POST /ping/focus/member": focusMember,
+  "POST /ping/focus/group": focusGroup,
+  "POST /ping/refresh/member": refreshMember,
+  "POST /ping/focus/device": focusDevice,
+  "POST /ping/focus/space": focusSpace,
+  "POST /ping/refresh/device": refreshDevice,
+  "POST /ping/events/places": eventsPlaces,
+  "POST /ping/events/battery/group": eventsBatteryGroup,
+  "POST /ping/events/battery/space": eventsBatterySpace,
 
   // history
   "POST /history-upload/history": historyUpload,
@@ -99,7 +105,7 @@ const ROUTES = {
   "PUT /places": placeCreate,
   "DELETE /places": placeDelete,
   "PATCH /places": placeUpdate,
-  "POST /places/search": null, // PLACE_ADDRESS_SEARCH (server-side geocoder)
+  "POST /places/search": placesSearch,
 
   // privacy zones
   "PUT /privacy-zones": privacyZoneCreate,
@@ -121,8 +127,8 @@ const ROUTES = {
 
   // alerts
   "PATCH /alerts/place": alertsPlacesUpdate,
-  "PATCH /alerts/battery/group": null, // ALERTS_BATTERY_UPDATE_GROUP
-  "PATCH /alerts/battery/space": null, // ALERTS_BATTERY_UPDATE_SPACE
+  "PATCH /alerts/battery/group": alertsBatteryUpdateGroup,
+  "PATCH /alerts/battery/space": alertsBatteryUpdateSpace,
 
   // billing (fork: unused, kept for route-table completeness)
   "POST /user/create_billing_profile": null, // BILLING_ID_UPDATE
