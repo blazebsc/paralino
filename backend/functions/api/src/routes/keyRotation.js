@@ -34,18 +34,13 @@ import { createDocument, updateDocument, deleteDocument, listDocuments, Query, o
 
 const DB = "data_main";
 
-async function requireGroupOwner(groupId, user, fail, res) {
+async function requireGroupOwner(groupId, user) {
   const groups = await listDocuments(DB, "groups", [
     Query.equal("$id", [groupId]),
     Query.equal("ownerUserId", [user.id]),
     Query.limit(2),
   ]);
-  const group = groups?.json?.documents?.[0];
-  if (!group) {
-    fail(res, 403, "forbidden", "Only the group owner can rotate group keys");
-    return null;
-  }
-  return group;
+  return groups?.json?.documents?.[0] ?? null;
 }
 
 async function groupMemberIds(groupId) {
@@ -55,12 +50,15 @@ async function groupMemberIds(groupId) {
 
 /** POST /keys/group */
 export async function keysUpdateGroup({ req, res, log, user }) {
+  log("keys/group handler v2");
   const body = readBody(req);
   if (typeof body?.groupId !== "string" || !Array.isArray(body?.encryptedGroupKeys)) {
     return fail(res, 400, "validation_error", "Missing groupId or encryptedGroupKeys");
   }
-  const group = await requireGroupOwner(body.groupId, user, fail, res);
-  if (!group) return;
+  const group = await requireGroupOwner(body.groupId, user);
+  if (!group) {
+    return fail(res, 403, "forbidden", "Only the group owner can rotate group keys");
+  }
 
   const newVersion = Math.max(...body.encryptedGroupKeys.map((k) => Number(k.version ?? 0)), 0);
 
@@ -97,7 +95,7 @@ export async function keysUpdateGroup({ req, res, log, user }) {
   // update the group doc: new key version + group data
   const groupData = { groupKeyVersion: newVersion };
   if (typeof body.groupData === "string") groupData.resourceData = body.groupData;
-  await updateDocument(DB, "groups", group.$id, groupData);
+  await updateDocument(DB, "groups", group.json.$id, groupData);
 
   // update place data if provided
   for (const p of body.places ?? []) {
