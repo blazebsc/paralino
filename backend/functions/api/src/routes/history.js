@@ -146,8 +146,9 @@ export async function historyUpload({ req, res, log, user }) {
           encryptedHistoryKey: k.encryptedHistoryKey,
         },
         permissions: [...ownerPermissions(user.id), `read("user:${k.memberId}")`],
-      }).catch(() => null);
+      }).catch((e) => { log(`ghk create error: ${e?.message}`); return null; });
       if (created?.ok) groupResult.uploadedHistoryKeys.push({ groupId: g.groupId, memberId: k.memberId, historyKeyVersion: k.historyKeyVersion });
+      else log(`group history key create failed: ${created?.status} ${JSON.stringify(created?.json)}`);
     }
   }
 
