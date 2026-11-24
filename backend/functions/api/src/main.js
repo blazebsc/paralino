@@ -32,6 +32,8 @@ import { locationCreateGroup } from "./routes/locationCreateGroup.js";
 import { locationCreatePersonal } from "./routes/locationCreatePersonal.js";
 import { personalCodeCreate, personalCodeUpdate, personalCodeRestock, personalCodeRead, personalCodeDelete } from "./routes/personalCodes.js";
 import { memberCreate, memberUpdate, memberDelete } from "./routes/members.js";
+import { placeCreate, placeUpdate, placeDelete, alertsPlacesUpdate } from "./routes/places.js";
+import { privacyZoneCreate, privacyZoneUpdate, privacyZoneDelete } from "./routes/privacyZones.js";
 import { serverConfig } from "./routes/serverConfig.js";
 
 // Key = "<METHOD> <path>". Implemented: see src/routes/. Stubs stay registered
@@ -90,15 +92,15 @@ const ROUTES = {
   "DELETE /history/personal": null, // HISTORY_DELETE_PERSONAL
 
   // places
-  "PUT /places": null, // PLACE_CREATE
-  "DELETE /places": null, // PLACE_DELETE
-  "PATCH /places": null, // PLACE_UPDATE
+  "PUT /places": placeCreate,
+  "DELETE /places": placeDelete,
+  "PATCH /places": placeUpdate,
   "POST /places/search": null, // PLACE_ADDRESS_SEARCH (server-side geocoder)
 
   // privacy zones
-  "PUT /privacy-zones": null, // PRIVACY_ZONE_CREATE
-  "DELETE /privacy-zones": null, // PRIVACY_ZONE_DELETE
-  "PATCH /privacy-zones": null, // PRIVACY_ZONE_UPDATE
+  "PUT /privacy-zones": privacyZoneCreate,
+  "DELETE /privacy-zones": privacyZoneDelete,
+  "PATCH /privacy-zones": privacyZoneUpdate,
 
   // E2EE key exchange
   "POST /keys/group": null, // KEYS_UPDATE_GROUP
@@ -114,7 +116,7 @@ const ROUTES = {
   "DELETE /personal_code": personalCodeDelete,
 
   // alerts
-  "PATCH /alerts/place": null, // ALERTS_PLACES_UPDATE
+  "PATCH /alerts/place": alertsPlacesUpdate,
   "PATCH /alerts/battery/group": null, // ALERTS_BATTERY_UPDATE_GROUP
   "PATCH /alerts/battery/space": null, // ALERTS_BATTERY_UPDATE_SPACE
 
