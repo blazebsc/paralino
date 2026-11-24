@@ -36,6 +36,7 @@ import { personalCodeCreate, personalCodeUpdate, personalCodeRestock, personalCo
 import { memberCreate, memberUpdate, memberDelete } from "./routes/members.js";
 import { placeCreate, placeUpdate, placeDelete, alertsPlacesUpdate } from "./routes/places.js";
 import { keysUpdateGroup, keysUpdateMember, keysUpdateLocation, keysUpdateSpace } from "./routes/keyRotation.js";
+import { historyUpload, historyReadGroup, historyReadPersonal, historyUpdateGroup, historyUpdatePersonal, historyDeleteGroup, historyDeletePersonal } from "./routes/history.js";
 import { privacyZoneCreate, privacyZoneUpdate, privacyZoneDelete } from "./routes/privacyZones.js";
 import { serverConfig } from "./routes/serverConfig.js";
 
@@ -86,13 +87,13 @@ const ROUTES = {
   "POST /ping/events/battery/space": null, // EVENT_BATTERY_SPACE
 
   // history
-  "POST /history-upload/history": null, // HISTORY_CREATE
-  "POST /history/group/read": null, // HISTORY_READ_GROUP
-  "POST /history/personal/read": null, // HISTORY_READ_PERSONAL
-  "PATCH /history/group": null, // HISTORY_UPDATE_GROUP
-  "PATCH /history/personal": null, // HISTORY_UPDATE_PERSONAL
-  "DELETE /history/group": null, // HISTORY_DELETE_GROUP
-  "DELETE /history/personal": null, // HISTORY_DELETE_PERSONAL
+  "POST /history-upload/history": historyUpload,
+  "POST /history/group/read": historyReadGroup,
+  "POST /history/personal/read": historyReadPersonal,
+  "PATCH /history/group": historyUpdateGroup,
+  "PATCH /history/personal": historyUpdatePersonal,
+  "DELETE /history/group": historyDeleteGroup,
+  "DELETE /history/personal": historyDeletePersonal,
 
   // places
   "PUT /places": placeCreate,

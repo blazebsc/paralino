@@ -254,6 +254,60 @@ const COLLECTIONS = [
   },
   {
     db: "data_main",
+    id: "personal_history",
+    name: "personal_history",
+    // id = deviceId + dateIdentifier (idempotent per-day upload)
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "deviceId", size: 64, required: true },
+      { type: "string", key: "dateIdentifier", size: 32, required: true },
+      { type: "string", key: "historyData", size: 8000, required: true },
+      { type: "string", key: "historyKeyVersion", size: 64, required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "personal_history_keys",
+    name: "personal_history_keys",
+    // from LocationHistoryPersonalKeyPayload — per date-version history keys
+    attributes: [
+      { type: "string", key: "ownerUserId", size: 64, required: true },
+      { type: "string", key: "historyKeyVersion", size: 64, required: true },
+      { type: "integer", key: "userKeyVersion", required: true },
+      { type: "string", key: "encryptedHistoryKey", size: 4000, required: true },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "group_history",
+    name: "group_history",
+    // id = locationId + dateIdentifier (idempotent per-day upload)
+    attributes: [
+      { type: "string", key: "groupId", size: 64, required: true },
+      { type: "string", key: "locationId", size: 64, required: true },
+      { type: "string", key: "memberUserId", size: 64, required: true },
+      { type: "string", key: "deviceId", size: 64, required: false },
+      { type: "string", key: "dateIdentifier", size: 32, required: true },
+      { type: "string", key: "historyData", size: 8000, required: true },
+      { type: "string", key: "historyKeyVersion", size: 64, required: false },
+    ],
+  },
+  {
+    db: "data_main",
+    id: "group_history_keys",
+    name: "group_history_keys",
+    // from LocationHistoryGroupKeyPayload — per member per date-version
+    attributes: [
+      { type: "string", key: "groupId", size: 64, required: true },
+      { type: "string", key: "memberId", size: 64, required: true },
+      { type: "string", key: "memberUserId", size: 64, required: true },
+      { type: "string", key: "historyKeyVersion", size: 64, required: true },
+      { type: "integer", key: "memberKeyVersion", required: true },
+      { type: "string", key: "encryptedHistoryKey", size: 4000, required: true },
+    ],
+  },
+  {
+    db: "data_main",
     id: "group_device_keys",
     name: "group_device_keys",
     // from GroupDeviceCryptoKeyRaw — per-device sender keys
