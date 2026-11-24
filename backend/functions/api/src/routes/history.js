@@ -15,13 +15,10 @@
  */
 
 import { ok, fail, readBody } from "../lib/envelope.js";
-import { createDocument, deleteDocument, listDocuments, Query, ownerPermissions, toDocId } from "../lib/appwrite.js";
+import { newId, createDocument, deleteDocument, listDocuments, Query, ownerPermissions, toDocId } from "../lib/appwrite.js";
 
 const DB = "data_main";
 
-function newId() {
-  return toDocId(crypto.randomUUID().replaceAll("-", "").slice(0, 32));
-}
 
 async function assertLocationAccess(locationId, user, fail, res, ownerReadOnly = false) {
   const docs = await listDocuments(DB, "locations", [Query.equal("$id", [locationId])]);

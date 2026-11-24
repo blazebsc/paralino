@@ -22,7 +22,7 @@
  */
 
 import { ok, fail, readBody } from "../lib/envelope.js";
-import { createDocument, updateDocument, deleteDocument, listDocuments, Query, ownerPermissions, toDocId } from "../lib/appwrite.js";
+import { newId, createDocument, updateDocument, deleteDocument, listDocuments, Query, ownerPermissions, toDocId } from "../lib/appwrite.js";
 
 const DB = "data_main";
 
@@ -166,6 +166,3 @@ export async function memberBlock({ req, res, log, user }) {
   return ok(res, {});
 }
 
-function newId() {
-  return toDocId(crypto.randomUUID().replaceAll("-", "").slice(0, 32));
-}

@@ -27,7 +27,7 @@
  */
 
 import { ok, fail, readBody } from "../lib/envelope.js";
-import { createDocument, ownerPermissions, toDocId } from "../lib/appwrite.js";
+import { createDocument, newId, ownerPermissions, toDocId } from "../lib/appwrite.js";
 
 const DB = "data_main";
 
@@ -37,9 +37,6 @@ const REQUIRED = [
   "groupData", "memberData",
 ];
 
-function newId() {
-  return toDocId(crypto.randomUUID().replaceAll("-", "").slice(0, 32));
-}
 
 export async function groupCreate({ req, res, log, user }) {
   const body = readBody(req);

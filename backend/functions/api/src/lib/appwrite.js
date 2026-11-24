@@ -102,3 +102,8 @@ export function toDocId(raw) {
   const clean = String(raw).replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 36);
   return clean || "doc";
 }
+
+/** Generate a unique document ID for new records. */
+export function newId() {
+  return crypto.randomUUID().replaceAll("-", "").slice(0, 32);
+}

@@ -5,11 +5,8 @@
  */
 
 import { ok, readBody } from "../lib/envelope.js";
-import { createDocument, toDocId } from "../lib/appwrite.js";
+import { newId, createDocument, toDocId } from "../lib/appwrite.js";
 
-function newId() {
-  return crypto.randomUUID().replaceAll("-", "").slice(0, 32);
-}
 
 export async function eventsPlaces({ req, res, log, user }) {
   const body = readBody(req);
