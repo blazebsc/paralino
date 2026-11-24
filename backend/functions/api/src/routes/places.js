@@ -25,6 +25,7 @@
 
 import { ok, fail, readBody } from "../lib/envelope.js";
 import { newId, createDocument, updateDocument, deleteDocument, listDocuments, Query, ownerPermissions, toDocId } from "../lib/appwrite.js";
+import { wakeGroupMembers } from "../lib/push.js";
 
 const DB = "data_main";
 
@@ -75,6 +76,7 @@ export async function placeCreate({ req, res, log, user }) {
   }
 
   log(`place ${place.json.$id} created by ${user.id} (personal: ${isInPersonalSpace})`);
+  if (!isInPersonalSpace) wakeGroupMembers(log, groupId, user.id);
   return ok(res, { placeId: place.json.$id });
 }
 

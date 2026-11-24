@@ -16,6 +16,7 @@
 
 import { ok, fail, readBody } from "../lib/envelope.js";
 import { Query, createDocument, deleteDocument, listDocuments, newId, ownerPermissions, toDocId, updateDocument } from "../lib/appwrite.js";
+import { wakeDevices } from "../lib/push.js";
 
 const DB = "data_main";
 
@@ -140,6 +141,7 @@ export async function memberCreate({ req, res, log, user }) {
   }
 
   log(`member ${userToAddId} added to ${body.groupId} by ${user.id} (memberKeyVersion ${memberKeyVersion})`);
+  wakeDevices(log, [userToAddId]);
   return ok(res, {});
 }
 

@@ -5,28 +5,30 @@
  * - focus: immediately upload its current location
  * - refresh: re-fetch shared data
  *
- * Without push infrastructure, these are best-effort: the server creates a
- * push_notifications doc that the target member's app picks up via
- * Appwrite realtime. If the target's app is in the foreground, the
- * realtime subscription triggers the action immediately.
+ * Delivery: UnifiedPush wake-up to the target's registered endpoints
+ * (see lib/push.js) — that's what makes "locate on demand" work while
+ * the target's app is backgrounded. Foreground clients also pick these
+ * up via Appwrite realtime subscriptions.
  *
  * All ping routes return {} or { wasHighPriorityRequest: false } — the
  * client only checks isSuccess.
  */
 
 import { ok, readBody } from "../lib/envelope.js";
-import { newId, createDocument, toDocId } from "../lib/appwrite.js";
+import { wakeDevices, wakeGroupMembers } from "../lib/push.js";
 
 
 function makeFocus(target) {
   return async ({ req, res, log, user }) => {
     const body = readBody(req);
     log(`focus ${target} from ${user.id}: ${JSON.stringify(body)}`);
-    await createDocument("data_main", "push_notifications", {
-      documentId: newId(),
-      data: { type: "focus", importance: "high", content: JSON.stringify(body), deviceId: null, eventId: null, expiresAt: null },
-      permissions: [`read("user:${user.id}")`],
-    }).catch(() => {});
+    if (target === "group" && typeof body?.groupId === "string") {
+      wakeGroupMembers(log, body.groupId, user.id);
+    } else if (typeof body?.userId === "string" && body.userId) {
+      wakeDevices(log, [body.userId]);
+    } else if (typeof body?.groupId === "string" && body.groupId) {
+      wakeGroupMembers(log, body.groupId, user.id);
+    }
     return ok(res, { wasHighPriorityRequest: false });
   };
 }
@@ -37,7 +39,11 @@ export const focusDevice = makeFocus("device");
 export const focusSpace = makeFocus("space");
 
 export const refreshMember = async ({ req, res, log, user }) => {
-  log(`refresh request from ${user.id}`);
+  const body = readBody(req);
+  log(`refresh request from ${user.id}: ${JSON.stringify(body)}`);
+  if (typeof body?.userId === "string" && body.userId) {
+    wakeDevices(log, [body.userId]);
+  }
   return ok(res, {});
 };
 
