@@ -341,7 +341,9 @@ const COLLECTIONS = [
     attributes: [
       { type: "string", key: "ownerUserId", size: 64, required: true },
       { type: "string", key: "groupId", size: 64, required: true },
-      { type: "integer", key: "keyVersion", required: true },
+      { type: "integer", key: "groupKeyVersion", required: true },
+      { type: "integer", key: "userKeyVersion", required: false },
+      { type: "boolean", key: "private", required: true },
       { type: "string", key: "resourceData", size: 4000, required: true },
       { type: "boolean", key: "isInPersonalSpace", required: true },
       { type: "string", key: "eventKeys", size: 64, required: false, array: true },
