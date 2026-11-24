@@ -64,6 +64,7 @@ export async function historyUpload({ req, res, log, user }) {
       const created = await createDocument(DB, "personal_history", {
         documentId: docId,
         data: {
+          ownerUserId: user.id,
           deviceId: body.deviceId,
           dateIdentifier: e.dateIdentifier,
           historyData: e.historyData,
