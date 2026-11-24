@@ -23,15 +23,22 @@ export async function placesSearch({ req, res, log, user }) {
     return fail(res, 400, "validation_error", "Missing address");
   }
 
-  const lang = body?.language || "en";
-  const params = new URLSearchParams({ q: address, limit: "8", lang });
+  // Photon only accepts bare ISO codes ("en") and 400s on full tags ("en-NZ")
+  const lang = String(body?.language || "en").split("-")[0];
+  const params = new URLSearchParams({ q: address, limit: "8" });
   if (Number.isFinite(body?.lat) && Number.isFinite(body?.lng)) {
     params.set("lat", String(body.lat));
     params.set("lon", String(body.lng));
   }
 
   try {
-    const photonRes = await fetch(`${PHOTON_URL}/api?${params}`);
+    params.set("lang", lang);
+    let photonRes = await fetch(`${PHOTON_URL}/api?${params}`);
+    if (!photonRes.ok && lang !== "en") {
+      // unsupported language (e.g. "mi") — retry with the default
+      params.set("lang", "en");
+      photonRes = await fetch(`${PHOTON_URL}/api?${params}`);
+    }
     if (!photonRes.ok) {
       log(`photon search failed: ${photonRes.status}`);
       return ok(res, { results: [] });
