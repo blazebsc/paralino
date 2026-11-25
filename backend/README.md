@@ -1,6 +1,6 @@
-# Paralino Self-Hosted Backend
+# Whereabouts Self-Hosted Backend
 
-A from-scratch, open backend for the Paralino clients. The client apps are AGPL
+A from-scratch, open backend for the Whereabouts clients. The client apps are AGPL
 and were used as the wire-protocol spec — every endpoint, payload and response
 shape here was derived from `core-domain` client code.
 
@@ -55,7 +55,7 @@ Non-SDK endpoints (`useSdk = false`) are plain HTTPS to the **public server**
 | Route | Purpose |
 |---|---|
 | `GET /config` | Version gates + **plan definitions** (limits). Client enforces all limits locally from this. Static JSON — see `public-api/config.json`. |
-| `POST /login` | Login details for the personal-code ("Paralino ID") flow. Response shape: `LoginDetailsRaw`. TODO. |
+| `POST /login` | Login details for the personal-code ("Whereabouts code") flow. Response shape: `LoginDetailsRaw`. TODO. |
 | `GET /billing-config` | Paywall copy. Skip — fork serves no billing. |
 
 **Critical:** if `/config` serves no plans, clients fall back to a crippled
@@ -125,7 +125,7 @@ model, not guesses.
 - **~~Phase 2 — sharing core~~ DONE**: group creation (verified in-app), member invite + personal codes (route-verified), location registration (verified in-app, "Sharing active")
 - **~~Phase 3 — features~~ DONE**: history (upload/read/update/delete), places (create/update/delete/alerts), privacy zones, key rotation, battery alerts, event pings, focus/refresh nudges, places search (Photon geocoder)
 - **~~Phase 4 — public API~~ DONE**: `POST /login`, `POST /personal_code/read`, `POST /user/reset`
-- **~~Phase 5 — client fork~~ MOSTLY DONE**: de-googled (playStore flavor removed), server-setup screen (one URL self-configures), Paralino.ID creation. Remaining: app rename (needs name choice), app-update allow-list → own GitHub releases
+- **~~Phase 5 — client fork~~ MOSTLY DONE**: de-googled (playStore flavor removed), server-setup screen (one URL self-configures), Whereabouts code creation. Remaining: app rename (needs name choice), app-update allow-list → own GitHub releases
 - **Billing routes**: intentionally never implemented — the fork has no billing
 
 ## Open questions (verify during implementation)

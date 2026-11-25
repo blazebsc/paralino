@@ -1,5 +1,5 @@
 /**
- * Personal code (Paralino ID) routes.
+ * Personal code ("Whereabouts code") routes.
  *
  * A personal code is an 8-char user-facing string. From it the client derives
  * `keyId` (= loginPassword, the lookup key) and `backupPassword` (which

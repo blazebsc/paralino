@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Paralino</string>
+    <string name="app_name">Whereabouts</string>
     <string name="title_dashboard_groups">Grupe</string>
     <string name="title_map">Lokacija</string>
     <string name="title_settings">Postavke</string>
@@ -59,9 +59,9 @@
     <string name="error_crypto_encryption_generic">Nemoguće je šifrirati podatke, molimo pokušajte ponovno.</string>
     <string name="error_crypto_decryption_generic">Nemoguće je dešifrirati podatke, molimo pokušajte ponovno.</string>
     <string name="error_notification_service_error_message">Usluga obavijesti ne može se pokrenuti.\nOtvorite aplikaciju kako biste ponovno pokrenuli uslugu obavijesti!</string>
-    <string name="error_unrestricted_background_access_message_android">Molimo omogućite **neograničenu upotrebu u pozadini** i onemogućite **optimizaciju baterije sustava** kako biste omogućili da Paralino radi u pozadini bez prekida.</string>
+    <string name="error_unrestricted_background_access_message_android">Molimo omogućite **neograničenu upotrebu u pozadini** i onemogućite **optimizaciju baterije sustava** kako biste omogućili da Whereabouts radi u pozadini bez prekida.</string>
     <string name="error_push_notification_service_setup_message">Molimo omogućite **uslugu push obavijesti** sa **stalnom vezom** ili koristite **UnifiedPush** kako biste primali zahtjeve za lokaciju za ažuriranja lokacije u stvarnom vremenu.</string>
-    <string name="error_unrestricted_background_access_message_ios">Molimo omogućite **osvježavanje aplikacije u pozadini** kako biste omogućili da Paralino radi u pozadini bez prekida.</string>
+    <string name="error_unrestricted_background_access_message_ios">Molimo omogućite **osvježavanje aplikacije u pozadini** kako biste omogućili da Whereabouts radi u pozadini bez prekida.</string>
     <string name="notifications_sharing_active_title">Dijeljenje aktivno</string>
     <string name="notifications_tracking_active_message">Praćenje osobne lokacije je aktivno</string>
     <string name="notifications_sharing_error_title">Dijeljenje je pauzirano!</string>
@@ -87,7 +87,7 @@
     <string name="dashboard_groups_title_joined">Grupe kojima ste se pridružili</string>
     <string name="dashboard_groups_create_plan_limit">Za stvaranje više grupa nadogradite svoj plan</string>
     <string name="dashboard_groups_create_info">Ili kreirajte Vašu grupu</string>
-    <string name="dashboard_paralino_id_title">Ovo je Vaš **Paralino.ID**</string>
+    <string name="dashboard_paralino_id_title">Ovo je Vaš **Whereabouts code**</string>
     <string name="dashboard_paralino_id_description">Podijelite i pridružite se grupi</string>
     <string name="location_banner_error_gps_off">Lokacija uređaja je onemogućena</string>
     <string name="location_banner_error_no_permission_notifications">Nedostaje dopuštenje za obavijesti</string>
@@ -109,7 +109,7 @@
     <string name="location_banner_resolved_online">Uređaj je na mreži</string>
     <string name="location_banner_resolved_app_up_to_date">Aplikacija je ažurna</string>
     <string name="onboarding_step_location_title">Dijeljenje lokacije u stvarnom vremenu</string>
-    <string name="onboarding_step_location_title_tag">Paralino</string>
+    <string name="onboarding_step_location_title_tag">Whereabouts</string>
     <string name="onboarding_step_location_info">Praćenje baterije, brzine, nadmorske visine i mreže. Privatne grupe s obitelji, prijateljima ili samo vašim uređajima.</string>
     <string name="onboarding_step_location_encryption_title">S enkripcijom</string>
     <string name="onboarding_step_location_encryption_title_tag">Privatnost</string>
@@ -134,17 +134,17 @@
     <string name="onboarding_step_groupChoice_title">Kako želite započeti?</string>
     <string name="onboarding_step_groupChoice_info">Pridružite se grupi svoje obitelji ili kreirajte vlastitu.</string>
     <string name="onboarding_step_groupChoice_join_title">Pridružujem se grupi</string>
-    <string name="onboarding_step_groupChoice_join_info">Moja obitelj ili prijatelji već koriste Paralino i pozvali su me.</string>
+    <string name="onboarding_step_groupChoice_join_info">Moja obitelj ili prijatelji već koriste Whereabouts i pozvali su me.</string>
     <string name="onboarding_step_groupChoice_join_next">Sljedeći korak: **Povežite se s voljenima**</string>
     <string name="onboarding_step_groupChoice_create_title">Pokrećem novu grupu</string>
-    <string name="onboarding_step_groupChoice_create_info">Nitko iz mog kruga još ne koristi Paralino. Upravljat ću grupom i dodavati ljude.</string>
+    <string name="onboarding_step_groupChoice_create_info">Nitko iz mog kruga još ne koristi Whereabouts. Upravljat ću grupom i dodavati ljude.</string>
     <string name="onboarding_step_groupChoice_create_next">Sljedeći korak: **Kreirajte svoju grupu**</string>
     <string name="onboarding_step_groupChoice_hint">**Niste sigurni?** Ovo možete zasad preskočiti i dodati grupe kasnije.</string>
     <string name="onboarding_step_groupChoice_button_later">Odlučit ću kasnije</string>
     <string name="onboarding_step_paralinoID_title_tag_join">Pridružite se grupi</string>
     <string name="onboarding_step_paralinoID_title_waiting">Čeka se pridruživanje</string>
     <string name="onboarding_step_paralinoID_info_waiting">Bit ćete obaviješteni kada se pridružite, a grupa će se automatski otvoriti.</string>
-    <string name="onboarding_step_paralinoID_waiting_code_label">Vaš Paralino.ID</string>
+    <string name="onboarding_step_paralinoID_waiting_code_label">Vaš Whereabouts code</string>
     <string name="onboarding_step_paralinoID_waiting_resend_info">Ponovno podijelite svoj kod</string>
     <string name="onboarding_step_paralinoID_steps_title">Kako funkcionira</string>
     <string name="onboarding_step_paralinoID_step_send_title">Dijelite svoj kod</string>
@@ -161,7 +161,7 @@
     <string name="onboarding_step_groupCreate_admin_create_title">Kreirajte grupu</string>
     <string name="onboarding_step_groupCreate_admin_create_info">Odaberite ime i ikonu.</string>
     <string name="onboarding_step_groupCreate_admin_add_title">Dodajte obitelj ili prijatelje</string>
-    <string name="onboarding_step_groupCreate_admin_add_info">Samo unesite njihov Paralino.ID.</string>
+    <string name="onboarding_step_groupCreate_admin_add_info">Samo unesite njihov Whereabouts code.</string>
     <string name="onboarding_step_groupCreate_admin_places_title">Postavite mjesta i obavijesti</string>
     <string name="onboarding_step_groupCreate_admin_places_info">Dom, škola, posao, teretana…</string>
     <string name="onboarding_step_groupCreate_admin_share_title">Podijelite svoju lokaciju</string>
@@ -177,7 +177,7 @@
     <string name="onboarding_step_locationHistoryIntro_title_inactive">Povijest lokacije je ovdje</string>
     <string name="onboarding_step_locationHistoryIntro_info_active">Kako bi drugi članovi mogli istražiti vaše putovanje, omogućite dijeljenje povijesti lokacije za sve svoje grupe.</string>
     <string name="onboarding_step_locationHistoryIntro_button_next">Omogući za sve</string>
-    <string name="onboarding_step_personalSpace_title_currentUsers">Paralino + Vi</string>
+    <string name="onboarding_step_personalSpace_title_currentUsers">Whereabouts + Vi</string>
     <string name="onboarding_step_personalSpace_title_newUsers">Povežite svoje uređaje</string>
     <string name="onboarding_step_personalSpace_info_currentUsers">Sada imate posebno mjesto za upravljanje i praćenje vlastitih uređaja.</string>
     <string name="onboarding_step_personalSpace_info_newUsers">Osobni prostor omogućuje vam upravljanje i praćenje vlastitih uređaja.</string>
@@ -201,7 +201,7 @@
     <string name="onboarding_step_groupJoinWelcome_done_title_skipped">Nema veze, dijeljenje možete pokrenuti kasnije</string>
     <string name="onboarding_step_groupJoinWelcome_done_info">Uživajte u privatnosti i ostanite sigurni.</string>
     <string name="settings_section_account_title">Račun</string>
-    <string name="settings_section_personal_code_title">Paralino.ID</string>
+    <string name="settings_section_personal_code_title">Whereabouts code</string>
     <string name="settings_section_personal_code_inactive_title">Neaktivni kodovi</string>
     <string name="settings_account_edit_profile">Uredite profil</string>
     <string name="settings_account_devices_screen_title">Uređaji i sesije</string>
@@ -310,7 +310,7 @@
     <string name="setting_status_value_missing">-/-</string>
     <string name="setting_status_location_none">Čeka se nova lokacija</string>
     <string name="setting_status_refreshInfo">Vrijednosti se osvježavaju svakih nekoliko sekundi dok je ovaj zaslon otvoren.</string>
-    <string name="setting_appReview_title">Sviđa li vam se Paralino?</string>
+    <string name="setting_appReview_title">Sviđa li vam se Whereabouts?</string>
     <string name="setting_appReview_info">Biste li bili voljni napisati recenziju 🥺</string>
     <string name="setting_description_errorReporting">Podijelite anonimno pogreške u slučaju prestanka rada aplikacije ili drugih problema.\nInformacije ne sadrže osobne podatke te mi koristimo privatnu infrastrukturu - tako da sve ostaje unutar Paralina!</string>
     <string name="setting_location_title">Postavke lokacije</string>
@@ -322,7 +322,7 @@
     <string name="setting_location_highPerformance_duration_info">Odaberite maksimalno vrijeme koje vaš uređaj smije provesti u načinu rada u stvarnom vremenu unutar kliznog 20-minutnog prozora.</string>
     <string name="setting_location_balanced_section_title">Performanse</string>
     <string name="setting_location_background_section_title">U pozadini</string>
-    <string name="setting_location_balanced_section_info">Odaberite način performansi ažuriranja lokacije koji će Paralino koristiti kada je baterija dovoljno napunjena.\nAplikacija će se prebaciti u način **u stvarnom vremenu** kad god imate otvorenu aplikaciju ili netko iz vaše grupe gleda kartu.</string>
+    <string name="setting_location_balanced_section_info">Odaberite način performansi ažuriranja lokacije koji će Whereabouts koristiti kada je baterija dovoljno napunjena.\nAplikacija će se prebaciti u način **u stvarnom vremenu** kad god imate otvorenu aplikaciju ili netko iz vaše grupe gleda kartu.</string>
     <string name="setting_location_balanced_highAccuracy_title">Sistemska lokacija visoke preciznosti</string>
     <string name="setting_location_balanced_highAccuracy_description">Traži od sustava lokaciju visoke preciznosti (GPS) dok je uređaj u mirovanju u pozadini. Ovo može trošiti više baterije.</string>
     <string name="setting_location_balanced_autoPause_title">Automatska pauza ažuriranja lokacije</string>
@@ -332,7 +332,7 @@
     <string name="setting_location_batterySaver_lowPowerMode_title">Način uštede baterije sustava</string>
     <string name="setting_location_batterySaver_lowPowerMode_description">Ako je omogućeno, način uštede baterije će se automatski aktivirati kad god se uključi način uštede baterije sustava (low power mode), bez obzira na trenutnu razinu baterije uređaja.</string>
     <string name="setting_location_batterySaver_section_title">Štednja baterije</string>
-    <string name="setting_location_batterySaver_section_info">Odaberite željenu frekvenciju ažuriranja lokacije kada je baterija slaba i aplikacija je neaktivna.\nParalino će se prebaciti u način **Ograničene visoke performanse** ako vi ili netko iz vaše grupe gleda kartu.</string>
+    <string name="setting_location_batterySaver_section_info">Odaberite željenu frekvenciju ažuriranja lokacije kada je baterija slaba i aplikacija je neaktivna.\nWhereabouts će se prebaciti u način **Ograničene visoke performanse** ako vi ili netko iz vaše grupe gleda kartu.</string>
     <string name="setting_location_batterySaver_battery_title">Baterija</string>
     <string name="setting_location_batterySaver_batteryLow_info">Štednja baterije je uvijek aktivna s načinom **Bolja baterija** kada je razina baterije ispod 10%.</string>
     <string name="setting_location_history_section_title">Povijest lokacije</string>
@@ -397,8 +397,8 @@
     <string name="setting_appTheme_dark_title">Tamna</string>
     <string name="setting_appTheme_dark_info">Uvijek koristi tamnu temu.</string>
     <string name="setting_appTheme_darkStyle_title">Stil tamne teme</string>
-    <string name="setting_appTheme_darkStyle_paralino_title">Paralino</string>
-    <string name="setting_appTheme_darkStyle_paralino_info">Tamnozelene nijanse klasične Paralino teme.</string>
+    <string name="setting_appTheme_darkStyle_paralino_title">Whereabouts</string>
+    <string name="setting_appTheme_darkStyle_paralino_info">Tamnozelene nijanse klasične Whereabouts teme.</string>
     <string name="setting_appTheme_darkStyle_pitchBlack_title">Čista crna</string>
     <string name="setting_appTheme_darkStyle_pitchBlack_info">Potpuno crna pozadina.</string>
     <string name="setting_measurementSystem_title">Mjerne jedinice</string>
@@ -414,7 +414,7 @@
     <string name="setting_notificationGrouping_byType_title">Po vrsti</string>
     <string name="setting_notificationGrouping_byType_info">Obavijesti će biti grupirane prema vrsti: obavijesti o mjestima, bateriji, dijeljenju lokacije itd.</string>
     <string name="setting_notificationGrouping_byGroup_title">Po grupi</string>
-    <string name="setting_notificationGrouping_byGroup_info">Sve obavijesti povezane s jednom Paralino grupom bit će grupirane zajedno.\nSve ostale obavijesti bit će grupirane po vrsti.</string>
+    <string name="setting_notificationGrouping_byGroup_info">Sve obavijesti povezane s jednom Whereabouts grupom bit će grupirane zajedno.\nSve ostale obavijesti bit će grupirane po vrsti.</string>
     <string name="setting_notificationGrouping_byPerson_title">Po osobi</string>
     <string name="setting_notificationGrouping_byPerson_info">Sve obavijesti povezane s određenom osobom bit će grupirane zajedno.\nSve ostale obavijesti bit će grupirane po vrsti.</string>
     <string name="setting_navigationApp_settings_title">Zadana aplikacija za navigaciju</string>
@@ -485,7 +485,7 @@
     <string name="plans_management_providerInfo_google">Pretplatu pruža **Google Play Store**.</string>
     <string name="plans_management_providerInfo_apple">Pretplatu pruža **Apple App Store**.</string>
     <string name="plans_management_providerInfo_polar">Pretplatu pruža **Polar.sh** na webu.</string>
-    <string name="plans_management_providerInfo_paralino">Članstvo osigurava **Paralino**.</string>
+    <string name="plans_management_providerInfo_paralino">Članstvo osigurava **Whereabouts**.</string>
     <string name="plans_management_providerName_apple">Apple App Store</string>
     <string name="plans_management_providerName_google">Google Play Store</string>
     <string name="plans_management_providerName_polar">Polar.sh</string>
@@ -588,11 +588,11 @@
     <string name="paywall_review_5_author">Duy</string>
     <string name="paywall_review_5_content">Radi točno onako kako treba. Nemam nikakvih zamjerki.</string>
     <string name="paywall_review_6_author">Mladen</string>
-    <string name="paywall_review_6_content">Koristim Paralino nekoliko dana i iskreno, potpuno mi je promijenio način na koji dijelim svoju lokaciju. Vrlo je jednostavno podijeliti lokaciju s ljudima kojima vjerujem, a najviše mi se sviđa što je sve enkriptirano i sigurno.</string>
+    <string name="paywall_review_6_content">Koristim Whereabouts nekoliko dana i iskreno, potpuno mi je promijenio način na koji dijelim svoju lokaciju. Vrlo je jednostavno podijeliti lokaciju s ljudima kojima vjerujem, a najviše mi se sviđa što je sve enkriptirano i sigurno.</string>
     <string name="paywall_review_7_author">CA</string>
     <string name="paywall_review_7_content">Najbolja aplikacija za praćenje obitelji! Budući da živim daleko od obitelji, ovo mi pomaže da ih obavijestim gdje putujem i omogućuje im da znaju da sam siguran!</string>
     <string name="paywall_review_8_author">Daniel</string>
-    <string name="paywall_review_8_content">Tražio sam jednostavan način za dijeljenje svoje lokacije s obitelji i naišao na Paralino. Iako je aplikacija nova, impresioniran sam koliko je jednostavna i sigurna. Obavijesti o lokaciji su također sjajna značajka.</string>
+    <string name="paywall_review_8_content">Tražio sam jednostavan način za dijeljenje svoje lokacije s obitelji i naišao na Whereabouts. Iako je aplikacija nova, impresioniran sam koliko je jednostavna i sigurna. Obavijesti o lokaciji su također sjajna značajka.</string>
     <string name="paywall_faq_question_how_to_cancel">Kako mogu otkazati svoju pretplatu?</string>
     <string name="paywall_faq_question_upgrade_downgrade">Kako mogu nadograditi ili smanjiti svoj plan?</string>
     <string name="paywall_faq_question_plan_features">Koliko članova i mjesta može imati grupa s planom %s?</string>
@@ -705,7 +705,7 @@
     <string name="location_sharing_stop_groups_alert_message">Jeste li sigurni da želite prestati dijeliti svoju lokaciju s ovom grupom?</string>
     <string name="groups_sharing_title">Podijelite lokaciju</string>
     <string name="groups_sharing_permissions_title">Prije nego počnete dijeliti</string>
-    <string name="groups_sharing_permissions_description">Paralino treba ova dopuštenja kako bi pouzdano dijelio vašu lokaciju.</string>
+    <string name="groups_sharing_permissions_description">Whereabouts treba ova dopuštenja kako bi pouzdano dijelio vašu lokaciju.</string>
     <string name="groups_sharing_device_name_placeholder">Naziv uređaja (nije obavezno)</string>
     <string name="groups_sharing_devices">Uređaji</string>
     <string name="groups_sharing_potential_error_title">Upozorenje</string>
@@ -721,17 +721,17 @@
     <string name="invite_create_button">Kreirajte PARALINO.ID</string>
     <string name="invite_create_new_button">Kreirajte dodatni ID</string>
     <string name="toast_copy_invite_code">Kod kopiran</string>
-    <string name="invite_delete_alert_title">Sigurno želite onemogućiti ovaj kod?\n\nNećete se moći pridružiti novoj grupi, ali uvijek možete ponovno omogućiti Vaš Paralino.ID.</string>
-    <string name="invite_manage_empty_description">Nemate aktivan **Paralino.ID**.\nStvorite jedan kako biste se pridružili drugim grupama i sigurno dijelili Vašu lokaciju s prijateljima.</string>
+    <string name="invite_delete_alert_title">Sigurno želite onemogućiti ovaj kod?\n\nNećete se moći pridružiti novoj grupi, ali uvijek možete ponovno omogućiti Vaš Whereabouts code.</string>
+    <string name="invite_manage_empty_description">Nemate aktivan **Whereabouts code**.\nStvorite jedan kako biste se pridružili drugim grupama i sigurno dijelili Vašu lokaciju s prijateljima.</string>
     <string name="invite_manage_description">Podijelite ovaj kod kako biste se pridružili grupi i sigurno dijelili Vašu lokaciju.</string>
-    <string name="invite_create_alternative_description">Dodatni Paralino.ID omogućuje Vam više identiteta i dijeljenje različitih kodova s različitim grupama. Uz Vašu pretplatu trenutno možete imati **%s** Paralino.ID.</string>
-    <string name="invite_connect_code_placeholder">Korisnikov Paralino.ID</string>
+    <string name="invite_create_alternative_description">Dodatni Whereabouts code omogućuje Vam više identiteta i dijeljenje različitih kodova s različitim grupama. Uz Vašu pretplatu trenutno možete imati **%s** Whereabouts code.</string>
+    <string name="invite_connect_code_placeholder">Korisnikov Whereabouts code</string>
     <string name="invite_connect_disclaimer_user">Dodajete **%1$s** u grupu **%2$s**.\nNakon toga možete sigurno dijeliti Vašu lokaciju.</string>
     <string name="invite_connect_button_addToGroup">Dodaj člana</string>
     <string name="invite_connect_button_pickGroup">Odaberite grupu</string>
     <string name="invite_connect_alert_pickGroup">Molimo odaberite grupu</string>
     <string name="invite_connect_alert_wrongCode">Molimo provjerite Vaš kod ili pokušajte s drugim</string>
-    <string name="invite_connect_title">Za dodavanje novog člana, unesite njihov **Paralino.ID**</string>
+    <string name="invite_connect_title">Za dodavanje novog člana, unesite njihov **Whereabouts code**</string>
     <string name="invite_connect_screen_title">Dodajte novog člana</string>
     <string name="invite_section_title_group">Grupa</string>
     <string name="invite_section_title_user">Korisnik</string>
@@ -1032,7 +1032,7 @@
     <string name="plan_limit_overLimit_tracking_banner_title">**Praćenje lokacije je ograničeno!** \nPremašili ste resurse svog plana.</string>
     <string name="plan_limit_generic_message">Dosegnut limit plana!</string>
     <string name="app_version_alert_title">Nova nadogradnja aplikacije</string>
-    <string name="app_version_alert_message">Nova verzija Paralino je dostupna, molimo vas da ažurirate za bolje iskustvo!</string>
+    <string name="app_version_alert_message">Nova verzija Whereabouts je dostupna, molimo vas da ažurirate za bolje iskustvo!</string>
     <string name="app_version_alert_title_mandatory">Ažurirati</string>
     <string name="app_version_alert_message_mandatory">Ova verzija aplikacije više nije podržana!\n\nKako biste nastavili koristiti aplikaciju, molimo Vas da ažurirate na najnoviju verziju!</string>
     <string name="app_version_alert_button_update">Ažurirajte</string>
@@ -1117,11 +1117,11 @@
     <string name="history_stats_elevation_gain">Uspon</string>
     <string name="history_stats_elevation_range">Raspon visine</string>
     <string name="setting_notificationSocket_title">Usluga obavijesti</string>
-    <string name="setting_notificationSocket_info">Ova usluga se koristi za primanje obavijesti u pozadini, pomažući vam da primate obavijesti čak i kada aplikacija nije aktivna. \nMožete odabrati između zadane Paralino usluge ili jednog od instaliranih UnifiedPush distributera, ako su dostupni.</string>
+    <string name="setting_notificationSocket_info">Ova usluga se koristi za primanje obavijesti u pozadini, pomažući vam da primate obavijesti čak i kada aplikacija nije aktivna. \nMožete odabrati između zadane Whereabouts usluge ili jednog od instaliranih UnifiedPush distributera, ako su dostupni.</string>
     <string name="setting_notificationSocket_switch_title">Usluga obavijesti</string>
     <string name="setting_notificationSocket_switch_info_on">Održavajte aktivnu vezu s odabranim pružateljem za primanje obavijesti.</string>
     <string name="setting_notificationSocket_switch_info_off">Nećete moći locirati svoj uređaj na zahtjev i nećete primati obavijesti na vrijeme.</string>
-    <string name="setting_notificationSocket_providerParalino_info">Paralino će zadržati pozadinsku uslugu s trajnom obavijesti sustava.</string>
+    <string name="setting_notificationSocket_providerParalino_info">Whereabouts će zadržati pozadinsku uslugu s trajnom obavijesti sustava.</string>
     <string name="setting_notificationSocket_providerUnifiedPush_tag">UnifiedPush</string>
     <string name="setting_notificationSocket_channelSettings_title">Postavke obavijesti sustava</string>
     <string name="setting_notificationSocket_notificationPermission_error">Molimo omogućite dopuštenje za obavijesti sustava prije pokretanja usluge obavijesti!</string>
@@ -1147,7 +1147,7 @@
     <string name="setting_notificationSocket_persistRegistration_info_on">UnifiedPush registracija i krajnja točka neće se mijenjati. Ovo može biti korisno ako trebate organizirati svoje pretplate, ali registraciju ćete morati ručno ponovno stvoriti ako je vaš UnifiedPush distributer ukloni.</string>
     <string name="notifications_socketService_message_lastSync">Zadnje ažuriranje: %s</string>
     <string name="licence_screen_title">Ključ licencije</string>
-    <string name="licence_screen_info">Ako imate ključ licencije, unesite ga ovdje da povežete premium plan s vašim Paralino računom.</string>
+    <string name="licence_screen_info">Ako imate ključ licencije, unesite ga ovdje da povežete premium plan s vašim Whereabouts računom.</string>
     <string name="licence_code_hint">Ključ licencije</string>
     <string name="licence_button_activate">Aktiviraj</string>
     <string name="licence_success_message">Licencija je uspješno aktivirana</string>
@@ -1166,7 +1166,7 @@
     <string name="licence_loadingStep_planActive">Sukob u planu licencije</string>
     <string name="onboarding_step_options_second_title">Dijeljenje bez pritiska</string>
     <string name="onboarding_step_options_second_info">Uvijek imate kontrolu nad time što dijelite i kako to dijelite.</string>
-    <string name="app_version_alert_message_updateInstalled">Nova verzija aplikacije Paralino je instalirana.</string>
+    <string name="app_version_alert_message_updateInstalled">Nova verzija aplikacije Whereabouts je instalirana.</string>
     <string name="setting_mapInteractions_title">Interakcije s kartom</string>
     <string name="setting_mapInteractions_info">Odaberite što će se dogoditi s kontrolama karte kada pomičete ili zumirate kartu.</string>
     <string name="setting_mapInteractions_deviceDefault_title">Zadano za uređaj</string>

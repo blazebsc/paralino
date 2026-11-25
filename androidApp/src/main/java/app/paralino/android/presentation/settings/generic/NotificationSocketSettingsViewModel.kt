@@ -173,7 +173,7 @@ class NotificationSocketSettingsViewModel(
                 GroupOptionItem(
                     key = "socket",
                     id = "socket",
-                    title = "Paralino",
+                    title = "Whereabouts",
                     description = MR.strings.setting_notificationSocket_providerParalino_info.localizedString(),
                     tag = null,
                     isTagWarning = false,

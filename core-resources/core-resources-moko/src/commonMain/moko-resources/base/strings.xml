@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Paralino</string>
+    <string name="app_name">Whereabouts</string>
     <string name="title_dashboard_groups">Groups</string>
     <string name="title_map">Location</string>
     <string name="title_settings">Settings</string>
@@ -62,9 +62,9 @@
     <string name="error_crypto_encryption_generic">Unable to encrypt data, please try again.</string>
     <string name="error_crypto_decryption_generic">Unable to decrypt data, please try again.</string>
     <string name="error_notification_service_error_message">Notification service can\'t start.\nPlease open the app to restart notification service!</string>
-    <string name="error_unrestricted_background_access_message_android">Please allow **unrestricted background usage** and disable **system battery optimizations** to allow Paralino to run in the background without interruptions.</string>
+    <string name="error_unrestricted_background_access_message_android">Please allow **unrestricted background usage** and disable **system battery optimizations** to allow Whereabouts to run in the background without interruptions.</string>
     <string name="error_push_notification_service_setup_message">Please enable **push notification service** with **constant connection** or use **UnifiedPush** in order to receive location requests for real-time location updates.</string>
-    <string name="error_unrestricted_background_access_message_ios">Please enable **Background App Refresh** to allow Paralino to run in the background without interruptions.</string>
+    <string name="error_unrestricted_background_access_message_ios">Please enable **Background App Refresh** to allow Whereabouts to run in the background without interruptions.</string>
     <string name="notifications_sharing_active_title">Sharing active</string>
     <string name="notifications_tracking_active_message">Personal location tracking is active</string>
     <string name="notifications_sharing_error_title">Sharing on hold!</string>
@@ -91,7 +91,7 @@
     <string name="dashboard_groups_title_joined">Joined groups</string>
     <string name="dashboard_groups_create_plan_limit">To create more groups, upgrade your plan</string>
     <string name="dashboard_groups_create_info">Or create your own group</string>
-    <string name="dashboard_paralino_id_title">This is your **Paralino.ID**</string>
+    <string name="dashboard_paralino_id_title">This is your **Whereabouts code**</string>
     <string name="dashboard_paralino_id_description">Share it to join a group</string>
     <string name="location_banner_error_gps_off">Device location is disabled</string>
     <string name="location_banner_error_no_permission_notifications">Missing notifications permission</string>
@@ -113,7 +113,7 @@
     <string name="location_banner_resolved_online">Device is online</string>
     <string name="location_banner_resolved_app_up_to_date">App is up to date</string>
     <string name="onboarding_step_location_title">Real-time location sharing</string>
-    <string name="onboarding_step_location_title_tag">Paralino</string>
+    <string name="onboarding_step_location_title_tag">Whereabouts</string>
     <string name="onboarding_step_location_info">Battery, speed, elevation, and network monitoring. Private groups with family, friends, or only your devices.</string>
     <string name="onboarding_step_location_encryption_title">With encryption</string>
     <string name="onboarding_step_location_encryption_title_tag">Privacy</string>
@@ -139,10 +139,10 @@
     <string name="onboarding_step_groupChoice_title">How are you starting out?</string>
     <string name="onboarding_step_groupChoice_info">Join your family\'s group or create your own.</string>
     <string name="onboarding_step_groupChoice_join_title">I\'m joining a group</string>
-    <string name="onboarding_step_groupChoice_join_info">My family or friends already use Paralino, and they\'ve invited me.</string>
+    <string name="onboarding_step_groupChoice_join_info">My family or friends already use Whereabouts, and they\'ve invited me.</string>
     <string name="onboarding_step_groupChoice_join_next">Next step: **Connect with your loved ones**</string>
     <string name="onboarding_step_groupChoice_create_title">I\'m starting a new group</string>
-    <string name="onboarding_step_groupChoice_create_info">No one in my circle uses Paralino yet. I\'ll manage the group and add people.</string>
+    <string name="onboarding_step_groupChoice_create_info">No one in my circle uses Whereabouts yet. I\'ll manage the group and add people.</string>
     <string name="onboarding_step_groupChoice_create_next">Next step: **Create your group**</string>
     <string name="onboarding_step_groupChoice_hint">**Not sure?** You can skip this for now and add your groups later.</string>
     <string name="onboarding_step_groupChoice_button_later">I\'ll decide later</string>
@@ -150,7 +150,7 @@
     <string name="onboarding_step_paralinoID_title_tag_join">Join a group</string>
     <string name="onboarding_step_paralinoID_title_waiting">Waiting to join</string>
     <string name="onboarding_step_paralinoID_info_waiting">You\'ll be notified when you join, and the group will open automatically.</string>
-    <string name="onboarding_step_paralinoID_waiting_code_label">Your Paralino.ID</string>
+    <string name="onboarding_step_paralinoID_waiting_code_label">Your Whereabouts code</string>
     <string name="onboarding_step_paralinoID_waiting_resend_info">Share your code again</string>
     <string name="onboarding_step_paralinoID_steps_title">How it works</string>
     <string name="onboarding_step_paralinoID_step_send_title">You share your code</string>
@@ -167,7 +167,7 @@
     <string name="onboarding_step_groupCreate_admin_create_title">Create the group</string>
     <string name="onboarding_step_groupCreate_admin_create_info">Pick a name and an icon.</string>
     <string name="onboarding_step_groupCreate_admin_add_title">Add your family or friends</string>
-    <string name="onboarding_step_groupCreate_admin_add_info">Just enter their Paralino.ID.</string>
+    <string name="onboarding_step_groupCreate_admin_add_info">Just enter their Whereabouts code.</string>
     <string name="onboarding_step_groupCreate_admin_places_title">Set places and alerts</string>
     <string name="onboarding_step_groupCreate_admin_places_info">Home, school, work, gym…</string>
     <string name="onboarding_step_groupCreate_admin_share_title">Share your location</string>
@@ -186,7 +186,7 @@
     <string name="onboarding_step_privacyZonesIntro_title">Privacy zones are here</string>
     <string name="onboarding_step_privacyZonesIntro_title_tag">Privacy zones</string>
     <string name="onboarding_step_privacyZonesIntro_info">Privacy zone **protects** your actual location in places where you need a little privacy.\nVisible only to you.</string>
-    <string name="onboarding_step_personalSpace_title_currentUsers">Paralino + You</string>
+    <string name="onboarding_step_personalSpace_title_currentUsers">Whereabouts + You</string>
     <string name="onboarding_step_personalSpace_title_newUsers">Connect your devices</string>
     <string name="onboarding_step_personalSpace_info_currentUsers">Now you have a special place to manage and keep track of your own devices.</string>
     <string name="onboarding_step_personalSpace_info_newUsers">Personal space allows you to manage and keep track of your own devices.</string>
@@ -210,7 +210,7 @@
     <string name="onboarding_step_groupJoinWelcome_done_title_skipped">That\'s ok, you can start sharing later</string>
     <string name="onboarding_step_groupJoinWelcome_done_info">Enjoy your privacy and stay safe.</string>
     <string name="settings_section_account_title">Account</string>
-    <string name="settings_section_personal_code_title">Paralino.ID</string>
+    <string name="settings_section_personal_code_title">Whereabouts code</string>
     <string name="settings_section_personal_code_inactive_title">Inactive codes</string>
     <string name="settings_account_edit_profile">Edit profile</string>
     <string name="settings_account_devices_screen_title">Devices &amp; sessions</string>
@@ -319,9 +319,9 @@
     <string name="setting_status_value_missing">-/-</string>
     <string name="setting_status_location_none">Waiting for a new location</string>
     <string name="setting_status_refreshInfo">Values refresh every few seconds while this screen is open.</string>
-    <string name="setting_appReview_title">Do you like Paralino?</string>
+    <string name="setting_appReview_title">Do you like Whereabouts?</string>
     <string name="setting_appReview_info">Would you mind giving it a review 🥺</string>
-    <string name="setting_description_errorReporting">Share anonymous error logs, in case of app crash or other issues.\nLogs do not contain any personal data, and we use self-hosted infrastructure so nothing ever leaves Paralino!</string>
+    <string name="setting_description_errorReporting">Share anonymous error logs, in case of app crash or other issues.\nLogs do not contain any personal data, and we use self-hosted infrastructure so nothing ever leaves Whereabouts!</string>
     <string name="setting_location_title">Location Settings</string>
     <string name="setting_location_premium_banner_title">Premium</string>
     <string name="setting_location_premium_banner_alert_message">Enabling this setting requires a premium plan.\n\nUpgrade your plan to unlock all options.</string>
@@ -331,7 +331,7 @@
     <string name="setting_location_highPerformance_duration_info">Choose the maximum amount of time your device can spend in real-time mode within a rolling 20-minute window.</string>
     <string name="setting_location_balanced_section_title">Performance</string>
     <string name="setting_location_background_section_title">When in Background</string>
-    <string name="setting_location_balanced_section_info">Choose the location update performance mode Paralino will use when your battery is sufficiently charged.\nIt will switch to **real-time** mode whenever you have the app open or one of your group members is looking at the map.</string>
+    <string name="setting_location_balanced_section_info">Choose the location update performance mode Whereabouts will use when your battery is sufficiently charged.\nIt will switch to **real-time** mode whenever you have the app open or one of your group members is looking at the map.</string>
     <string name="setting_location_balanced_highAccuracy_title">High-accuracy system location</string>
     <string name="setting_location_balanced_highAccuracy_description">Request high-accuracy location (GPS) from the system while idle in the background. This may use more battery.</string>
     <string name="setting_location_balanced_autoPause_title">Auto-pause location updates</string>
@@ -341,7 +341,7 @@
     <string name="setting_location_batterySaver_lowPowerMode_title">Use system battery saver</string>
     <string name="setting_location_batterySaver_lowPowerMode_description">If enabled, battery saver mode will automatically activate whenever the system\'s battery saver (low power mode) is turned on, regardless of your device\'s current battery level.</string>
     <string name="setting_location_batterySaver_section_title">Battery Saver</string>
-    <string name="setting_location_batterySaver_section_info">Choose your preferred location update frequency when your battery is low and the app is inactive.\nParalino will switch to **limited high performance** mode if you or one of your group members is looking at the map.</string>
+    <string name="setting_location_batterySaver_section_info">Choose your preferred location update frequency when your battery is low and the app is inactive.\nWhereabouts will switch to **limited high performance** mode if you or one of your group members is looking at the map.</string>
     <string name="setting_location_batterySaver_battery_title">Battery</string>
     <string name="setting_location_batterySaver_batteryLow_info">Battery saver is always active with **Better Battery** mode when battery level is below 10%.</string>
     <string name="setting_location_history_section_title">Location history</string>
@@ -406,8 +406,8 @@
     <string name="setting_appTheme_dark_title">Dark</string>
     <string name="setting_appTheme_dark_info">Always use the dark theme.</string>
     <string name="setting_appTheme_darkStyle_title">Dark theme style</string>
-    <string name="setting_appTheme_darkStyle_paralino_title">Paralino</string>
-    <string name="setting_appTheme_darkStyle_paralino_info">Dark green tones of the classic Paralino theme.</string>
+    <string name="setting_appTheme_darkStyle_paralino_title">Whereabouts</string>
+    <string name="setting_appTheme_darkStyle_paralino_info">Dark green tones of the classic Whereabouts theme.</string>
     <string name="setting_appTheme_darkStyle_pitchBlack_title">Pitch black</string>
     <string name="setting_appTheme_darkStyle_pitchBlack_info">Pure black background.</string>
     <string name="setting_measurementSystem_title">Measurement system</string>
@@ -423,7 +423,7 @@
     <string name="setting_notificationGrouping_byType_title">By type</string>
     <string name="setting_notificationGrouping_byType_info">Notifications will be grouped by type: place alerts, battery alerts, location sharing started, etc.</string>
     <string name="setting_notificationGrouping_byGroup_title">By group</string>
-    <string name="setting_notificationGrouping_byGroup_info">All notifications related to a single Paralino group will be grouped together.\nAll other notifications will be grouped by type.</string>
+    <string name="setting_notificationGrouping_byGroup_info">All notifications related to a single Whereabouts group will be grouped together.\nAll other notifications will be grouped by type.</string>
     <string name="setting_notificationGrouping_byPerson_title">By person</string>
     <string name="setting_notificationGrouping_byPerson_info">All notifications related to a specific person will be grouped together.\nAll other notifications will be grouped by type.</string>
     <string name="setting_mapInteractions_title">Map interactions</string>
@@ -506,7 +506,7 @@
     <string name="plans_management_providerInfo_google">Subscription is provided by **Google Play Store**.</string>
     <string name="plans_management_providerInfo_apple">Subscription is provided by **Apple App Store**.</string>
     <string name="plans_management_providerInfo_polar">Subscription is provided by **Polar.sh** on the web.</string>
-    <string name="plans_management_providerInfo_paralino">Membership is provided by **Paralino**.</string>
+    <string name="plans_management_providerInfo_paralino">Membership is provided by **Whereabouts**.</string>
     <string name="plans_management_providerName_apple">Apple App Store</string>
     <string name="plans_management_providerName_google">Google Play Store</string>
     <string name="plans_management_providerName_polar">Polar.sh</string>
@@ -550,10 +550,10 @@
     <string name="paywall_discount_percentage_badge_text">Save %s</string>
     <string name="paywall_header_feature_list_screen_solo">Made for you, not advertisers</string>
     <string name="paywall_header_feature_list_screen_family">Don\'t let others track your family</string>
-    <string name="paywall_header_feature_demo_screen">Discover the power of Paralino</string>
+    <string name="paywall_header_feature_demo_screen">Discover the power of Whereabouts</string>
     <string name="paywall_header_feature_history_title">Track your travels</string>
     <string name="paywall_purchase_confirmation_title">Your plan is ready</string>
-    <string name="paywall_purchase_confirmation_info">Enjoy using Paralino with your new plan.</string>
+    <string name="paywall_purchase_confirmation_info">Enjoy using Whereabouts with your new plan.</string>
     <string name="paywall_header_feature_history_unlimited">Get unlimited personal location history with the **%1$s** plan!</string>
     <string name="paywall_header_feature_history_more">Unlock more days of location history</string>
     <string name="paywall_header_take_control">Take control of your privacy</string>
@@ -616,11 +616,11 @@
     <string name="paywall_review_5_author">Duy</string>
     <string name="paywall_review_5_content">Works as expected. There is nothing to complain about.</string>
     <string name="paywall_review_6_author">Mladen</string>
-    <string name="paywall_review_6_content">I\'ve been using Paralino for a few days now, and honestly, it\'s been a game-changer. It\'s very easy to share my location with people I trust, and I love knowing that everything is encrypted and secure.</string>
+    <string name="paywall_review_6_content">I\'ve been using Whereabouts for a few days now, and honestly, it\'s been a game-changer. It\'s very easy to share my location with people I trust, and I love knowing that everything is encrypted and secure.</string>
     <string name="paywall_review_7_author">CA</string>
     <string name="paywall_review_7_content">Best app to track family! Staying away from family, this helps inform them about the locations I travel to and let\'s them know that I\'m safe!</string>
     <string name="paywall_review_8_author">Daniel</string>
-    <string name="paywall_review_8_content">I was looking for a way to easily share my location with family and came across Paralino. While it\'s a new app, I was impressed by how simple and secure it is. The place alerts are a great feature too.</string>
+    <string name="paywall_review_8_content">I was looking for a way to easily share my location with family and came across Whereabouts. While it\'s a new app, I was impressed by how simple and secure it is. The place alerts are a great feature too.</string>
     <string name="paywall_faq_question_how_to_cancel">How can I cancel my subscription?</string>
     <string name="paywall_faq_question_upgrade_downgrade">How can I upgrade or downgrade my plan?</string>
     <string name="paywall_faq_question_plan_features">How many members and places can a group have in a %s plan?</string>
@@ -741,7 +741,7 @@
     <string name="location_sharing_stop_groups_alert_message">Are you sure you want to stop sharing your location with this group?</string>
     <string name="groups_sharing_title">Share location</string>
     <string name="groups_sharing_permissions_title">Before you start sharing</string>
-    <string name="groups_sharing_permissions_description">Paralino needs these permissions to reliably share your location.</string>
+    <string name="groups_sharing_permissions_description">Whereabouts needs these permissions to reliably share your location.</string>
     <string name="groups_sharing_device_name_placeholder">Device name (optional)</string>
     <string name="groups_sharing_devices">Devices</string>
     <string name="groups_sharing_potential_error_title">Warning</string>
@@ -754,20 +754,20 @@
     <string name="groups_sharing_encryption_info">Your location and related data are always **end-to-end encrypted** and only accessible to group members.</string>
     <string name="groups_sharing_plan_limit_chip_owner">To register this device upgrade your plan or remove one of your current devices.</string>
     <string name="groups_sharing_plan_limit_chip_member">Maximum number of devices reached. To add more, contact group owner or remove one of your current devices.</string>
-    <string name="invite_create_button">Create Paralino.ID</string>
+    <string name="invite_create_button">Create Whereabouts code</string>
     <string name="invite_create_new_button">Create alternative ID</string>
     <string name="toast_copy_invite_code">Code copied</string>
-    <string name="invite_delete_alert_title">Are you sure you want to disable this code?\n\nYou will not be able to join any new groups but you can always come back and enable Paralino.ID again.</string>
-    <string name="invite_manage_empty_description">You don\'t have an active **Paralino.ID**.\nCreate one to join other groups and start securely sharing your location with your friends.</string>
+    <string name="invite_delete_alert_title">Are you sure you want to disable this code?\n\nYou will not be able to join any new groups but you can always come back and enable Whereabouts code again.</string>
+    <string name="invite_manage_empty_description">You don\'t have an active **Whereabouts code**.\nCreate one to join other groups and start securely sharing your location with your friends.</string>
     <string name="invite_manage_description">Share this code to join a group.</string>
-    <string name="invite_create_alternative_description">Alternative Paralino.IDs allow you to diversify your identity and share different IDs with different people. You can have **%s** Paralino.IDs with your plan.</string>
-    <string name="invite_connect_code_placeholder">User\'s Paralino.ID</string>
+    <string name="invite_create_alternative_description">Alternative Whereabouts codes allow you to diversify your identity and share different IDs with different people. You can have **%s** Whereabouts codes with your plan.</string>
+    <string name="invite_connect_code_placeholder">User\'s Whereabouts code</string>
     <string name="invite_connect_disclaimer_user">You are about to add **%1$s** to **%2$s** group.\nAfter that you can start securely sharing your location.</string>
     <string name="invite_connect_button_addToGroup">Add member</string>
     <string name="invite_connect_button_pickGroup">Choose a group</string>
     <string name="invite_connect_alert_pickGroup">Please choose a group</string>
     <string name="invite_connect_alert_wrongCode">Please check your code or try another one</string>
-    <string name="invite_connect_title">To add new member, enter their **Paralino.ID**</string>
+    <string name="invite_connect_title">To add new member, enter their **Whereabouts code**</string>
     <string name="invite_connect_screen_title">Add new member</string>
     <string name="invite_section_title_group">Group</string>
     <string name="invite_section_title_user">User</string>
@@ -1123,11 +1123,11 @@
     <string name="plan_limit_overLimit_tracking_banner_title">**Location tracking is limited!**\nYou exceeded your plan resources.</string>
     <string name="plan_limit_generic_message">Plan limit reached!</string>
     <string name="app_version_alert_title">New app update</string>
-    <string name="app_version_alert_message">A new version of Paralino is available, please update for a better experience!</string>
+    <string name="app_version_alert_message">A new version of Whereabouts is available, please update for a better experience!</string>
     <string name="app_version_alert_title_mandatory">Please update</string>
     <string name="app_version_alert_message_mandatory">This app version is deprecated!\n\nTo continue using the app, please update to the latest version!</string>
     <string name="app_version_alert_button_update">Update</string>
-    <string name="app_version_alert_message_updateInstalled">New Paralino version is installed.</string>
+    <string name="app_version_alert_message_updateInstalled">New Whereabouts version is installed.</string>
     <string name="blocklist_screen_title">Blocklist</string>
     <string name="blocklist_screen_empty_title">Your blocklist is empty</string>
     <string name="blocklist_screen_title_groups">Blocked groups</string>
@@ -1210,11 +1210,11 @@
     <string name="history_stats_elevation_gain">Elevation Gain</string>
     <string name="history_stats_elevation_range">Elevation Range</string>
     <string name="setting_notificationSocket_title">Push Notification Service</string>
-    <string name="setting_notificationSocket_info">This service is used to listen for push notifications in the background helping you receive the notifications even when the app is not active.\nYou can choose between the default Paralino service or one of the installed UnifiedPush distributors, if available.</string>
+    <string name="setting_notificationSocket_info">This service is used to listen for push notifications in the background helping you receive the notifications even when the app is not active.\nYou can choose between the default Whereabouts service or one of the installed UnifiedPush distributors, if available.</string>
     <string name="setting_notificationSocket_switch_title">Push Notification Service</string>
     <string name="setting_notificationSocket_switch_info_on">Keep active connection with the chosen provider to listen for push notifications.</string>
     <string name="setting_notificationSocket_switch_info_off">You will not be able to locate your device on demand and will not receive push notifications on time.</string>
-    <string name="setting_notificationSocket_providerParalino_info">Paralino will keep the background service running with persistent system notification.</string>
+    <string name="setting_notificationSocket_providerParalino_info">Whereabouts will keep the background service running with persistent system notification.</string>
     <string name="setting_notificationSocket_providerUnifiedPush_tag">UnifiedPush</string>
     <string name="setting_notificationSocket_channelSettings_title">System notification settings</string>
     <string name="setting_notificationSocket_notificationPermission_error">Please enable system notifications permission before starting push notification service!</string>
@@ -1240,7 +1240,7 @@
     <string name="setting_notificationSocket_persistRegistration_info_on">UnifiedPush registration and endpoint will not change. This can be useful if you need to organize your subscriptions, but you will have to manually recreate the registration if your UnifiedPush distributor removes it.</string>
     <string name="notifications_socketService_message_lastSync">Last update: %s</string>
     <string name="licence_screen_title">License key</string>
-    <string name="licence_screen_info">If you have a license key, enter it here to connect a premium plan with your Paralino account.</string>
+    <string name="licence_screen_info">If you have a license key, enter it here to connect a premium plan with your Whereabouts account.</string>
     <string name="licence_code_hint">License key</string>
     <string name="licence_button_activate">Activate</string>
     <string name="licence_success_message">License activated successfully</string>

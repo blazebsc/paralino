@@ -15,7 +15,7 @@
             </intent-filter>
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Service with direct WebSocket connection to Paralino servers used to observe for incoming push notifications."
+                android:value="Service with direct WebSocket connection to Whereabouts servers used to observe for incoming push notifications."
                 />
         </service>
 

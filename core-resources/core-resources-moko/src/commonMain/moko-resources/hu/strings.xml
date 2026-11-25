@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Paralino</string>
+    <string name="app_name">Whereabouts</string>
     <string name="title_dashboard_groups">Csoportok</string>
     <string name="title_map">Helyszín</string>
     <string name="title_settings">Beállítások</string>
@@ -59,9 +59,9 @@
     <string name="error_crypto_encryption_generic">Nem sikerült titkosítani az adatokat, kérjük, próbálja újra.</string>
     <string name="error_crypto_decryption_generic">Nem sikerült visszafejteni az adatokat, kérjük, próbálja újra.</string>
     <string name="error_notification_service_error_message">Értesítési szolgáltatás nem indítható el. \nKérjük, nyissa meg az alkalmazást az értesítési szolgáltatás újraindításához!</string>
-    <string name="error_unrestricted_background_access_message_android">Kérjük, engedélyezze a **korlátlan háttérhasználatot** és tiltsa le a **rendszerszintű akkumulátor-optimalizálásokat**, hogy a Paralino megszakítások nélkül fusson a háttérben.</string>
+    <string name="error_unrestricted_background_access_message_android">Kérjük, engedélyezze a **korlátlan háttérhasználatot** és tiltsa le a **rendszerszintű akkumulátor-optimalizálásokat**, hogy a Whereabouts megszakítások nélkül fusson a háttérben.</string>
     <string name="error_push_notification_service_setup_message">Kérjük, engedélyezze a **push értesítési szolgáltatást** **állandó kapcsolattal**, vagy használja a **UnifiedPush** megoldást, hogy megkaphassa a helymeghatározási kéréseket a valós idejű helyfrissítésekhez.</string>
-    <string name="error_unrestricted_background_access_message_ios">Kérjük, engedélyezze a **Háttéralkalmazás-frissítést**, hogy a Paralino megszakítások nélkül fusson a háttérben.</string>
+    <string name="error_unrestricted_background_access_message_ios">Kérjük, engedélyezze a **Háttéralkalmazás-frissítést**, hogy a Whereabouts megszakítások nélkül fusson a háttérben.</string>
     <string name="notifications_sharing_active_title">Megosztás aktív</string>
     <string name="notifications_tracking_active_message">A személyes helymeghatározás aktív</string>
     <string name="notifications_sharing_error_title">Megosztás felfüggesztve!</string>
@@ -87,7 +87,7 @@
     <string name="dashboard_groups_title_joined">Csatlakozott csoportok</string>
     <string name="dashboard_groups_create_plan_limit">További csoportok létrehozásához frissítse a tervét</string>
     <string name="dashboard_groups_create_info">Vagy hozzon létre saját csoportot</string>
-    <string name="dashboard_paralino_id_title">Ez az Ön **Paralino.ID**</string>
+    <string name="dashboard_paralino_id_title">Ez az Ön **Whereabouts code**</string>
     <string name="dashboard_paralino_id_description">Ossza meg, hogy csatlakozhasson egy csoporthoz</string>
     <string name="location_banner_error_gps_off">Az eszköz helymeghatározása le van tiltva</string>
     <string name="location_banner_error_no_permission_notifications">Hiányzó értesítési engedély</string>
@@ -109,7 +109,7 @@
     <string name="location_banner_resolved_online">Az eszköz online</string>
     <string name="location_banner_resolved_app_up_to_date">Az alkalmazás naprakész</string>
     <string name="onboarding_step_location_title">Valós idejű helymegosztás</string>
-    <string name="onboarding_step_location_title_tag">Paralino</string>
+    <string name="onboarding_step_location_title_tag">Whereabouts</string>
     <string name="onboarding_step_location_info">Akkumulátor, sebesség, magasság és hálózati megfigyelés. Privát csoportok családdal, barátokkal vagy csak a saját eszközeiddel.</string>
     <string name="onboarding_step_location_encryption_title">Titkosítással</string>
     <string name="onboarding_step_location_encryption_title_tag">Adatvédelem</string>
@@ -144,7 +144,7 @@
     <string name="onboarding_step_paralinoID_title_tag_join">Csatlakozás csoporthoz</string>
     <string name="onboarding_step_paralinoID_title_waiting">Csatlakozásra vár</string>
     <string name="onboarding_step_paralinoID_info_waiting">Értesítést kapsz, amikor csatlakozol, és a csoport automatikusan megnyílik.</string>
-    <string name="onboarding_step_paralinoID_waiting_code_label">A Paralino.ID-d</string>
+    <string name="onboarding_step_paralinoID_waiting_code_label">A Whereabouts code-d</string>
     <string name="onboarding_step_paralinoID_waiting_resend_info">Oszd meg újra a kódodat</string>
     <string name="onboarding_step_paralinoID_steps_title">Így működik</string>
     <string name="onboarding_step_paralinoID_step_send_title">Megosztod a kódodat</string>
@@ -161,7 +161,7 @@
     <string name="onboarding_step_groupCreate_admin_create_title">Hozd létre a csoportot</string>
     <string name="onboarding_step_groupCreate_admin_create_info">Válassz nevet és ikont.</string>
     <string name="onboarding_step_groupCreate_admin_add_title">Add hozzá a családodat vagy a barátaidat</string>
-    <string name="onboarding_step_groupCreate_admin_add_info">Csak add meg a Paralino.ID-jukat.</string>
+    <string name="onboarding_step_groupCreate_admin_add_info">Csak add meg a Whereabouts code-jukat.</string>
     <string name="onboarding_step_groupCreate_admin_places_title">Állítsd be a helyeket és az értesítéseket</string>
     <string name="onboarding_step_groupCreate_admin_places_info">Otthon, iskola, munka, edzőterem…</string>
     <string name="onboarding_step_groupCreate_admin_share_title">Oszd meg a helyzetedet</string>
@@ -177,7 +177,7 @@
     <string name="onboarding_step_locationHistoryIntro_title_inactive">A helytörténet itt van</string>
     <string name="onboarding_step_locationHistoryIntro_info_active">Hogy más tagok felfedezhessék az utadat, engedélyezd a helytörténet megosztását az összes csoportod számára.</string>
     <string name="onboarding_step_locationHistoryIntro_button_next">Engedélyezés mindenkinek</string>
-    <string name="onboarding_step_personalSpace_title_currentUsers">Paralino + Te</string>
+    <string name="onboarding_step_personalSpace_title_currentUsers">Whereabouts + Te</string>
     <string name="onboarding_step_personalSpace_title_newUsers">Csatlakoztasd az eszközeidet</string>
     <string name="onboarding_step_personalSpace_info_currentUsers">Mostantól van egy különleges helyed az eszközeid kezelésére és nyomon követésére.</string>
     <string name="onboarding_step_personalSpace_info_newUsers">A személyes tér lehetővé teszi, hogy kezeld és nyomon kövesd a saját eszközeidet.</string>
@@ -201,7 +201,7 @@
     <string name="onboarding_step_groupJoinWelcome_done_title_skipped">Semmi gond, később is elkezdheted a megosztást</string>
     <string name="onboarding_step_groupJoinWelcome_done_info">Élvezd a magánéleted és maradj biztonságban.</string>
     <string name="settings_section_account_title">Fiók</string>
-    <string name="settings_section_personal_code_title">Paralino.ID</string>
+    <string name="settings_section_personal_code_title">Whereabouts code</string>
     <string name="settings_section_personal_code_inactive_title">Inaktív kódok</string>
     <string name="settings_account_edit_profile">Profil szerkesztése</string>
     <string name="settings_account_devices_screen_title">Készülékek és munkamenetek</string>
@@ -310,9 +310,9 @@
     <string name="setting_status_value_missing">-/-</string>
     <string name="setting_status_location_none">Várakozás új helyre</string>
     <string name="setting_status_refreshInfo">Az értékek néhány másodpercenként frissülnek, amíg ez a képernyő nyitva van.</string>
-    <string name="setting_appReview_title">Tetszik a Paralino?</string>
+    <string name="setting_appReview_title">Tetszik a Whereabouts?</string>
     <string name="setting_appReview_info">Megtennéd, hogy írsz róla egy értékelést 🥺</string>
-    <string name="setting_description_errorReporting">Ossza meg a névtelen hibanaplókat, ha az alkalmazás összeomlik vagy más problémák merülnek fel. \nA naplók nem tartalmaznak személyes adatokat, és saját üzemeltetésű infrastruktúrát használunk, így semmi sem hagyja el a Paralino-t!</string>
+    <string name="setting_description_errorReporting">Ossza meg a névtelen hibanaplókat, ha az alkalmazás összeomlik vagy más problémák merülnek fel. \nA naplók nem tartalmaznak személyes adatokat, és saját üzemeltetésű infrastruktúrát használunk, így semmi sem hagyja el a Whereabouts-t!</string>
     <string name="setting_location_title">Helybeállítások</string>
     <string name="setting_location_premium_banner_title">Prémium</string>
     <string name="setting_location_premium_banner_alert_message">Ennek a beállításnak az engedélyezéséhez prémium előfizetés szükséges.\n\nFrissítse előfizetését az összes lehetőség feloldásához.</string>
@@ -322,7 +322,7 @@
     <string name="setting_location_highPerformance_duration_info">Válassza ki, legfeljebb mennyi időt tölthet az eszköze valós idejű módban egy csúszó 20 perces időablakon belül.</string>
     <string name="setting_location_balanced_section_title">Teljesítmény</string>
     <string name="setting_location_background_section_title">A háttérben</string>
-    <string name="setting_location_balanced_section_info">Válassza ki a helyfrissítések teljesítménymódját, amelyet a Paralino akkor használ, ha az akkumulátor kellően fel van töltve.\nAz alkalmazás **valós idejű** módba vált, amikor nyitva van az alkalmazás, vagy a csoportja valamelyik tagja a térképet nézi.</string>
+    <string name="setting_location_balanced_section_info">Válassza ki a helyfrissítések teljesítménymódját, amelyet a Whereabouts akkor használ, ha az akkumulátor kellően fel van töltve.\nAz alkalmazás **valós idejű** módba vált, amikor nyitva van az alkalmazás, vagy a csoportja valamelyik tagja a térképet nézi.</string>
     <string name="setting_location_balanced_highAccuracy_title">Nagy pontosságú rendszerszintű helymeghatározás</string>
     <string name="setting_location_balanced_highAccuracy_description">Nagy pontosságú helyadatot (GPS) kér a rendszertől, amikor az eszköz tétlen a háttérben. Ez több akkumulátort fogyaszthat.</string>
     <string name="setting_location_balanced_autoPause_title">Helymegosztás automatikus szüneteltetése</string>
@@ -332,7 +332,7 @@
     <string name="setting_location_batterySaver_lowPowerMode_title">Rendszer akkumulátor kímélő használata</string>
     <string name="setting_location_batterySaver_lowPowerMode_description">Ha engedélyezve van, az akkumulátor kímélő mód automatikusan aktiválódik, amikor a rendszer akkumulátor kímélője (alacsony teljesítmény mód) be van kapcsolva, függetlenül az eszköz aktuális akkumulátor szintjétől.</string>
     <string name="setting_location_batterySaver_section_title">Akkumulátor kímélő</string>
-    <string name="setting_location_batterySaver_section_info">Válassza ki a preferált helyfrissítési gyakoriságot, amikor az akkumulátor alacsony és az alkalmazás inaktív.\nA Paralino **korlátozott magas teljesítmény** módba vált, ha Ön vagy a csoportjának egyik tagja a térképet nézi.</string>
+    <string name="setting_location_batterySaver_section_info">Válassza ki a preferált helyfrissítési gyakoriságot, amikor az akkumulátor alacsony és az alkalmazás inaktív.\nA Whereabouts **korlátozott magas teljesítmény** módba vált, ha Ön vagy a csoportjának egyik tagja a térképet nézi.</string>
     <string name="setting_location_batterySaver_battery_title">Akkumulátor</string>
     <string name="setting_location_batterySaver_batteryLow_info">Az akkumulátor kímélő mindig aktív a **Jobb Akkumulátor** módban, amikor az akkumulátor szintje 10% alatt van.</string>
     <string name="setting_location_history_section_title">Helymegtartási előzmények</string>
@@ -397,8 +397,8 @@
     <string name="setting_appTheme_dark_title">Sötét</string>
     <string name="setting_appTheme_dark_info">Mindig a sötét téma használata.</string>
     <string name="setting_appTheme_darkStyle_title">Sötét téma stílusa</string>
-    <string name="setting_appTheme_darkStyle_paralino_title">Paralino</string>
-    <string name="setting_appTheme_darkStyle_paralino_info">A klasszikus Paralino téma sötétzöld árnyalatai.</string>
+    <string name="setting_appTheme_darkStyle_paralino_title">Whereabouts</string>
+    <string name="setting_appTheme_darkStyle_paralino_info">A klasszikus Whereabouts téma sötétzöld árnyalatai.</string>
     <string name="setting_appTheme_darkStyle_pitchBlack_title">Koromfekete</string>
     <string name="setting_appTheme_darkStyle_pitchBlack_info">Teljesen fekete háttér.</string>
     <string name="setting_measurementSystem_title">Mérési rendszer</string>
@@ -414,7 +414,7 @@
     <string name="setting_notificationGrouping_byType_title">Típus szerint</string>
     <string name="setting_notificationGrouping_byType_info">Az értesítések típusa szerint lesznek csoportosítva: helyi figyelmeztetések, akkumulátor figyelmeztetések, helymegosztás indítása stb.</string>
     <string name="setting_notificationGrouping_byGroup_title">Csoport szerint</string>
-    <string name="setting_notificationGrouping_byGroup_info">Minden értesítés, amely egyetlen Paralino csoporthoz kapcsolódik, együtt lesz csoportosítva. Minden más értesítést típus szerint fognak csoportosítani.</string>
+    <string name="setting_notificationGrouping_byGroup_info">Minden értesítés, amely egyetlen Whereabouts csoporthoz kapcsolódik, együtt lesz csoportosítva. Minden más értesítést típus szerint fognak csoportosítani.</string>
     <string name="setting_notificationGrouping_byPerson_title">Személy szerint</string>
     <string name="setting_notificationGrouping_byPerson_info">Minden értesítés, amely egy adott személyhez kapcsolódik, együtt lesz csoportosítva. Minden más értesítést típus szerint fognak csoportosítani.</string>
     <string name="setting_navigationApp_settings_title">Alapértelmezett navigációs alkalmazás</string>
@@ -485,7 +485,7 @@
     <string name="plans_management_providerInfo_google">Az előfizetést a **Google Play Áruház** biztosítja.</string>
     <string name="plans_management_providerInfo_apple">Az előfizetést az **Apple App Store** biztosítja.</string>
     <string name="plans_management_providerInfo_polar">Az előfizetést a **Polar.sh** weben biztosítja.</string>
-    <string name="plans_management_providerInfo_paralino">A tagsági lehetőséget **Paralino** biztosít.</string>
+    <string name="plans_management_providerInfo_paralino">A tagsági lehetőséget **Whereabouts** biztosít.</string>
     <string name="plans_management_providerName_apple">Apple Áruház</string>
     <string name="plans_management_providerName_google">Google Play Áruház</string>
     <string name="plans_management_providerName_polar">Polar.sh</string>
@@ -529,10 +529,10 @@
     <string name="paywall_discount_percentage_badge_text">Megtakarítás: %s</string>
     <string name="paywall_header_feature_list_screen_solo">Önnek készült, nem hirdetőknek</string>
     <string name="paywall_header_feature_list_screen_family">Ne hagyja, hogy mások követhessék a családját</string>
-    <string name="paywall_header_feature_demo_screen">Fedezd fel a Paralino erejét</string>
+    <string name="paywall_header_feature_demo_screen">Fedezd fel a Whereabouts erejét</string>
     <string name="paywall_header_feature_history_title">Kövesse az utazásait</string>
     <string name="paywall_purchase_confirmation_title">A csomagja készen áll</string>
-    <string name="paywall_purchase_confirmation_info">Élvezze a Paralino használatát az új csomagjával.</string>
+    <string name="paywall_purchase_confirmation_info">Élvezze a Whereabouts használatát az új csomagjával.</string>
     <string name="paywall_header_feature_history_unlimited">Szerezz korlátlan személyes helytörténetet a **%1$s** tervvel!</string>
     <string name="paywall_header_feature_history_more">Több nap helytörténet feloldása</string>
     <string name="paywall_header_take_control">Vedd kezedbe a magánéleted</string>
@@ -588,11 +588,11 @@
     <string name="paywall_review_5_author">Duy</string>
     <string name="paywall_review_5_content">A várakozásoknak megfelelően működik. Nincs mit panaszolni.</string>
     <string name="paywall_review_6_author">Mladen</string>
-    <string name="paywall_review_6_content">Néhány napja használom a Paralino-t, és őszintén szólva, ez egy igazi áttörés. Nagyon könnyű megosztani a helyemet olyan emberekkel, akiben megbízom, és szeretem tudni, hogy minden titkosítva és biztonságban van.</string>
+    <string name="paywall_review_6_content">Néhány napja használom a Whereabouts-t, és őszintén szólva, ez egy igazi áttörés. Nagyon könnyű megosztani a helyemet olyan emberekkel, akiben megbízom, és szeretem tudni, hogy minden titkosítva és biztonságban van.</string>
     <string name="paywall_review_7_author">CA</string>
     <string name="paywall_review_7_content">A legjobb alkalmazás a család nyomon követésére! Családtól távol, ez segít tájékoztatni őket azokról a helyekről, ahová utazom, és tudatja velük, hogy biztonságban vagyok!</string>
     <string name="paywall_review_8_author">Daniel</string>
-    <string name="paywall_review_8_content">Olyan módot kerestem, amellyel könnyen megoszthatom a helyemet a családommal, és rátaláltam a Paralino-ra. Bár új alkalmazás, lenyűgözött, mennyire egyszerű és biztonságos. A helyszíni értesítések is nagyszerű funkciók.</string>
+    <string name="paywall_review_8_content">Olyan módot kerestem, amellyel könnyen megoszthatom a helyemet a családommal, és rátaláltam a Whereabouts-ra. Bár új alkalmazás, lenyűgözött, mennyire egyszerű és biztonságos. A helyszíni értesítések is nagyszerű funkciók.</string>
     <string name="paywall_faq_question_how_to_cancel">Hogyan mondhatom le az előfizetésem?</string>
     <string name="paywall_faq_question_upgrade_downgrade">Hogyan tudom frissíteni vagy csökkenteni a tervemet?</string>
     <string name="paywall_faq_question_plan_features">Hány tagja és helye lehet egy csoportnak a %s tervben?</string>
@@ -718,20 +718,20 @@
     <string name="groups_sharing_encryption_info">A helye és a kapcsolódó adatok mindig **végponttól végpontig titkosítva** vannak, és csak a csoporttagok számára hozzáférhetők.</string>
     <string name="groups_sharing_plan_limit_chip_owner">Ennek az eszköznek a regisztrálásához frissítse a tervét, vagy távolítson el egyet a jelenlegi eszközei közül.</string>
     <string name="groups_sharing_plan_limit_chip_member">Elérte a maximális eszközszámot. További eszközök hozzáadásához lépjen kapcsolatba a csoport tulajdonosával, vagy távolítson el egyet a jelenlegi eszközei közül.</string>
-    <string name="invite_create_button">Hozza létre a **Paralino.ID**-t</string>
+    <string name="invite_create_button">Hozza létre a **Whereabouts code**-t</string>
     <string name="invite_create_new_button">Hozzon létre alternatív azonosítót</string>
     <string name="toast_copy_invite_code">A kód másolva</string>
-    <string name="invite_delete_alert_title">Biztos benne, hogy le szeretné tiltani ezt a kódot?\n\nNem tud majd új csoportokhoz csatlakozni, de bármikor visszatérhet és újra engedélyezheti a **Paralino.ID**-t.</string>
-    <string name="invite_manage_empty_description">Nincs aktív **Paralino.ID**-ja.\nHozzon létre egyet, hogy csatlakozhasson más csoportokhoz, és biztonságosan megoszthassa a tartózkodási helyét a barátaival.</string>
+    <string name="invite_delete_alert_title">Biztos benne, hogy le szeretné tiltani ezt a kódot?\n\nNem tud majd új csoportokhoz csatlakozni, de bármikor visszatérhet és újra engedélyezheti a **Whereabouts code**-t.</string>
+    <string name="invite_manage_empty_description">Nincs aktív **Whereabouts code**-ja.\nHozzon létre egyet, hogy csatlakozhasson más csoportokhoz, és biztonságosan megoszthassa a tartózkodási helyét a barátaival.</string>
     <string name="invite_manage_description">Ossza meg ezt a kódot, hogy csatlakozhasson egy csoporthoz.</string>
-    <string name="invite_create_alternative_description">Az alternatív **Paralino.ID**-k lehetővé teszik, hogy diverzifikálja az identitását, és különböző azonosítókat osszon meg különböző emberekkel. **%s** **Paralino.ID**-ja lehet a tervével.</string>
-    <string name="invite_connect_code_placeholder">Felhasználó **Paralino.ID**-ja</string>
+    <string name="invite_create_alternative_description">Az alternatív **Whereabouts code**-k lehetővé teszik, hogy diverzifikálja az identitását, és különböző azonosítókat osszon meg különböző emberekkel. **%s** **Whereabouts code**-ja lehet a tervével.</string>
+    <string name="invite_connect_code_placeholder">Felhasználó **Whereabouts code**-ja</string>
     <string name="invite_connect_disclaimer_user">Hozzá kívánja adni **%1$s**-t a **%2$s** csoporthoz.\nEzután elkezdheti biztonságosan megosztani a tartózkodási helyét.</string>
     <string name="invite_connect_button_addToGroup">Tag hozzáadása</string>
     <string name="invite_connect_button_pickGroup">Válasszon egy csoportot</string>
     <string name="invite_connect_alert_pickGroup">Kérjük, válasszon egy csoportot</string>
     <string name="invite_connect_alert_wrongCode">Kérjük, ellenőrizze a kódját, vagy próbáljon meg egy másikat</string>
-    <string name="invite_connect_title">Új tag hozzáadásához adja meg a **Paralino.ID**-ját</string>
+    <string name="invite_connect_title">Új tag hozzáadásához adja meg a **Whereabouts code**-ját</string>
     <string name="invite_connect_screen_title">Új tag hozzáadása</string>
     <string name="invite_section_title_group">Csoport</string>
     <string name="invite_section_title_user">Felhasználó</string>
@@ -1032,7 +1032,7 @@
     <string name="plan_limit_overLimit_tracking_banner_title">**A helymeghatározás korlátozott!** \nTúllépte a terv erőforrásait.</string>
     <string name="plan_limit_generic_message">Tervkorlát elérve!</string>
     <string name="app_version_alert_title">Új alkalmazásfrissítés</string>
-    <string name="app_version_alert_message">Elérhető egy új verzió a Paralino alkalmazásból, kérjük, frissítse az alkalmazást a jobb élmény érdekében!</string>
+    <string name="app_version_alert_message">Elérhető egy új verzió a Whereabouts alkalmazásból, kérjük, frissítse az alkalmazást a jobb élmény érdekében!</string>
     <string name="app_version_alert_title_mandatory">Kérjük, frissítsen</string>
     <string name="app_version_alert_message_mandatory">Ez az alkalmazásverzió elavult! \n\nAz alkalmazás folytatásához kérjük, frissítsen a legújabb verzióra!</string>
     <string name="app_version_alert_button_update">Frissítés</string>
@@ -1117,11 +1117,11 @@
     <string name="history_stats_elevation_gain">Emelkedés</string>
     <string name="history_stats_elevation_range">Emelkedési Tartomány</string>
     <string name="setting_notificationSocket_title">Push Értesítési Szolgáltatás</string>
-    <string name="setting_notificationSocket_info">Ez a szolgáltatás a háttérben figyeli a push értesítéseket, segítve, hogy még akkor is megkapja az értesítéseket, amikor az alkalmazás nem aktív. \nVálaszthat a nemet Paralino szolgáltatás és az egyik telepített UnifiedPush forgalmazó között, ha elérhető.</string>
+    <string name="setting_notificationSocket_info">Ez a szolgáltatás a háttérben figyeli a push értesítéseket, segítve, hogy még akkor is megkapja az értesítéseket, amikor az alkalmazás nem aktív. \nVálaszthat a nemet Whereabouts szolgáltatás és az egyik telepített UnifiedPush forgalmazó között, ha elérhető.</string>
     <string name="setting_notificationSocket_switch_title">Push Értesítési Szolgáltatás</string>
     <string name="setting_notificationSocket_switch_info_on">Tartsd fenn az aktív kapcsolatot a választott szolgáltatóval a push értesítések figyelésére.</string>
     <string name="setting_notificationSocket_switch_info_off">Nem fogja tudni megkeresni az eszközét kérésre, és nem fog időben megkapni a push értesítéseket.</string>
-    <string name="setting_notificationSocket_providerParalino_info">A Paralino folytatja a háttérszolgáltatás futtatását állandó rendszerértesítéssel.</string>
+    <string name="setting_notificationSocket_providerParalino_info">A Whereabouts folytatja a háttérszolgáltatás futtatását állandó rendszerértesítéssel.</string>
     <string name="setting_notificationSocket_providerUnifiedPush_tag">UnifiedPush</string>
     <string name="setting_notificationSocket_channelSettings_title">Rendszerértesítési beállítások</string>
     <string name="setting_notificationSocket_notificationPermission_error">Kérjük, engedélyezze a rendszerértesítések engedélyét a push értesítési szolgáltatás indítása előtt!</string>
@@ -1147,7 +1147,7 @@
     <string name="setting_notificationSocket_persistRegistration_info_on">Az UnifiedPush regisztráció és végpont nem változik. Ez hasznos lehet, ha rendszereznie kell a feliratkozásait, de ha az UnifiedPush terjesztő eltávolítja a regisztrációt, azt manuálisan újra létre kell hoznia.</string>
     <string name="notifications_socketService_message_lastSync">Utolsó frissítés: %s</string>
     <string name="licence_screen_title">Licenckulcs</string>
-    <string name="licence_screen_info">Ha rendelkezik licenckulccsal, itt adhatja meg, hogy prémium tervet kapcsoljon a Paralino fiókjához.</string>
+    <string name="licence_screen_info">Ha rendelkezik licenckulccsal, itt adhatja meg, hogy prémium tervet kapcsoljon a Whereabouts fiókjához.</string>
     <string name="licence_code_hint">Licenckulcs</string>
     <string name="licence_button_activate">Aktiválás</string>
     <string name="licence_success_message">A licensz sikeresen aktiválva</string>
@@ -1166,7 +1166,7 @@
     <string name="licence_loadingStep_planActive">Licenszterv ütközés</string>
     <string name="onboarding_step_options_second_title">Kényszertől mentes megosztás</string>
     <string name="onboarding_step_options_second_info">Ön mindig irányítja, hogy mit és hogyan oszt meg.</string>
-    <string name="app_version_alert_message_updateInstalled">Az új Paralino verzió telepítve van.</string>
+    <string name="app_version_alert_message_updateInstalled">Az új Whereabouts verzió telepítve van.</string>
     <string name="setting_mapInteractions_title">Térképinterakciók</string>
     <string name="setting_mapInteractions_info">Válassza ki, mi történjen a térkép vezérlőelemeivel, amikor elmozgatja vagy nagyítja/kicsinyíti a térképet.</string>
     <string name="setting_mapInteractions_deviceDefault_title">Eszköz alapértelmezett</string>

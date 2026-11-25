@@ -67,7 +67,7 @@ fun ServerSetupScreen(
         )
         Spacer(modifier = Modifier.size(8.dp))
         Text(
-            text = "Enter the URL of your Paralino backend. " +
+            text = "Enter the URL of your Whereabouts backend. " +
                 "Everything else (endpoint, project, plans) is detected automatically.",
             style = MaterialTheme.typography.body2,
             textAlign = TextAlign.Center

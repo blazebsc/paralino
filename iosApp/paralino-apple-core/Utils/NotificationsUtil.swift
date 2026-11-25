@@ -20,7 +20,7 @@ extension IPushNotificationPresenter.Payload {
             content.subtitle = formattedDate
             content.body = message
         } else {
-            content.title = "Paralino"
+            content.title = "Whereabouts"
             content.subtitle = formattedDate
             content.body = title
         }

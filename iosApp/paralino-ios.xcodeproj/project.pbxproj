@@ -1786,7 +1786,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "paralino-ios/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Paralino;
+				INFOPLIST_KEY_CFBundleDisplayName = Whereabouts;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = YES;
 				INFOPLIST_KEY_ITSEncryptionExportComplianceCode = "$(encryptionExportCompliance)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
@@ -1843,7 +1843,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "paralino-ios/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Paralino;
+				INFOPLIST_KEY_CFBundleDisplayName = Whereabouts;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = YES;
 				INFOPLIST_KEY_ITSEncryptionExportComplianceCode = "$(encryptionExportCompliance)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";

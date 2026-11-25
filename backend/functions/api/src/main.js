@@ -1,5 +1,5 @@
 /**
- * Paralino self-hosted `api` function — SINGLE-FUNCTION MODE.
+ * Whereabouts self-hosted `api` function — SINGLE-FUNCTION MODE.
  *
  * The upstream app splits its backend into 4 Appwrite functions (api, ping,
  * location-upload, history-upload). Appwrite Cloud's free tier allows only 2
@@ -119,7 +119,7 @@ const ROUTES = {
   "POST /keys/personal_code": personalCodeRestock,
   "POST /keys/space": keysUpdateSpace,
 
-  // personal codes ("Paralino IDs")
+  // personal codes ("Whereabouts codes")
   "POST /personal_code": personalCodeCreate,
   "POST /personal_code/read": personalCodeRead, // PERSONAL_CODE_READ_V2
   "PATCH /personal_code": personalCodeUpdate,

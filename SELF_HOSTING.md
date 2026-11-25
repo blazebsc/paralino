@@ -1,6 +1,6 @@
-# Self-Hosting Paralino
+# Self-Hosting Whereabouts
 
-Run the Paralino location sharing app entirely on your own infrastructure.
+Run the Whereabouts location sharing app entirely on your own infrastructure.
 No Google, no third-party servers, no billing — everything unlimited, E2EE.
 
 ## Prerequisites
@@ -13,7 +13,7 @@ No Google, no third-party servers, no billing — everything unlimited, E2EE.
 
 ```
 ┌──────────────┐     ┌─────────────────────────────────────────┐
-│  Paralino    │────▶│  Your Server                             │
+│  Whereabouts    │────▶│  Your Server                             │
 │  Android app │     │  ┌─────────────────────────────────┐    │
 │  (de-googled)│     │  │  Appwrite                        │    │
 │              │     │  │  ├── Auth (sessions, recovery)   │    │

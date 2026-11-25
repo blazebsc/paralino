@@ -36,19 +36,19 @@ android {
             val flavor = productFlavors[0].name.take(3)
             val buildType = buildType.name.take(1).uppercase()
             val versionName = versionName
-            val newApkName = "$name$sep" + "v$versionName$buildType.apk"
+            val newApkName = "Whereabouts$sep" + "v$versionName$buildType.apk"
             (this as BaseVariantOutputImpl).outputFileName = newApkName
         }
     }
 
     defaultConfig {
-        applicationId = "app.paralino.android"
+        applicationId = "app.whereabouts.android"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
-        base.archivesName = "Paralino_v$versionName($versionCode)"
+        base.archivesName = "Whereabouts_v$versionName($versionCode)"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
