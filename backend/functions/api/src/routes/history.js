@@ -15,7 +15,7 @@
  */
 
 import { ok, fail, readBody } from "../lib/envelope.js";
-import { newId, createDocument, deleteDocument, listDocuments, Query, ownerPermissions, toDocId } from "../lib/appwrite.js";
+import { newId, createDocument, deleteDocument, updateDocument, listDocuments, Query, ownerPermissions, toDocId } from "../lib/appwrite.js";
 
 const DB = "data_main";
 

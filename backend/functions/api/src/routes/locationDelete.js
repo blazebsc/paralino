@@ -13,7 +13,7 @@
  */
 
 import { ok, fail, readBody } from "../lib/envelope.js";
-import { deleteDocument, updateDocument, listDocuments, Query } from "../lib/appwrite.js";
+import { deleteDocument, updateDocument, listDocuments, Query, toDocId } from "../lib/appwrite.js";
 
 const DB = "data_main";
 
