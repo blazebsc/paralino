@@ -140,6 +140,41 @@ export async function memberCreate({ req, res, log, user }) {
     if (!upd.ok) log(`group perms update failed: ${upd.status}`);
   }
 
+  // 6. membership metadata is group-readable. Clients read each other's
+  // key material / member data / integrity blobs directly from the database
+  // to verify signatures and decrypt group keys — every member needs read
+  // on every member's docs. Secrets (encrypted group keys, personal keys)
+  // stay per-user.
+  const membersList = await listDocuments(DB, "group_members", [
+    Query.equal("groupId", [body.groupId]),
+    Query.limit(100),
+  ]);
+  const memberUserIds = [...new Set([
+    ...(membersList?.json?.documents ?? []).map((m) => m.data?.ownerUserId ?? m.ownerUserId),
+    user.id,
+  ])];
+  for (const col of ["group_member_keys", "group_members", "group_settings"]) {
+    const docs = await listDocuments(DB, col, [
+      Query.equal("groupId", [body.groupId]),
+      Query.limit(100),
+    ]);
+    for (const d of docs?.json?.documents ?? []) {
+      const perms = [...(d.$permissions ?? [])];
+      let changed = false;
+      for (const uid of memberUserIds) {
+        const readPerm = `read("user:${uid}")`;
+        if (!perms.includes(readPerm)) {
+          perms.push(readPerm);
+          changed = true;
+        }
+      }
+      if (changed) {
+        const upd = await updateDocument(DB, col, d.$id, {}, perms);
+        if (!upd.ok) log(`perm update failed: ${col} ${d.$id.slice(0, 8)} ${upd.status}`);
+      }
+    }
+  }
+
   log(`member ${userToAddId} added to ${body.groupId} by ${user.id} (memberKeyVersion ${memberKeyVersion})`);
   wakeDevices(log, [userToAddId]);
   return ok(res, {});
