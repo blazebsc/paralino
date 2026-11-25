@@ -54,8 +54,22 @@ class MemberCryptoKeyRotation(
         force: Boolean,
     ): Boolean {
 
+        // Invitee bootstrap: a fresh member's settings doc holds the owner's
+        // integrity blob, which they cannot decrypt, so self-verification
+        // fails with integrity errors until they upload their own. Rotating
+        // is the cure — key-material failures still abort inside
+        // rotateMemberKeysForGroup (Missing* exceptions) before any upload.
+        val selfErrors = (remoteGroup.members.firstOrNull { it.member.userId == appPrefs.userId }
+            ?.member?.verificationResult as? VerificationResult.Unverified)?.errors.orEmpty()
+        val integrityBootstrap = !remoteGroup.isGroupVerified && selfErrors.isNotEmpty() && selfErrors.all {
+            it == VerificationResultError.WRONG_MEMBER_INTEGRITY ||
+                it == VerificationResultError.MISSING_MEMBER_INTEGRITY ||
+                it == VerificationResultError.INVALID_MEMBER_INTEGRITY_FORMAT ||
+                it == VerificationResultError.MISSING_MEMBER_SETTINGS
+        }
+
         // if group is not verified (current member is not verified) skip key generation
-        if (!remoteGroup.isGroupVerified) {
+        if (!remoteGroup.isGroupVerified && !integrityBootstrap) {
             logg.tag("tag_crypto_key_group_member_rotation")
                 .w("Group ${remoteGroup.id} not verified")
             return false
@@ -73,14 +87,14 @@ class MemberCryptoKeyRotation(
         logg.tag("tag_crypto_key_group_member_rotation")
             .v("Group ${remoteGroup.id} integrity: $integrity")
 
-        if (integrity == IntegrityResult.CORRUPTED) {
+        if (integrity == IntegrityResult.CORRUPTED && !integrityBootstrap) {
             logg.tag("tag_crypto_key_group_member_rotation")
                 .w("Group ${remoteGroup.id} integrity corrupted, skipping key rotation")
             stopProcessing(remoteGroup.id)
             return false
         }
 
-        val shouldRotate = integrity.shouldChange(
+        val shouldRotate = integrityBootstrap || integrity.shouldChange(
             force = force,
             // assume true to always rotate member keys, for device keys we do the actual check
             // also, this flag is ignored for member keys anyway
