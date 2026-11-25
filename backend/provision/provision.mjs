@@ -143,7 +143,8 @@ const COLLECTIONS = [
       { type: "integer", key: "memberKeyVersion", required: true },
       { type: "string", key: "verification", size: 2000, required: true },
       { type: "string", key: "resourceData", size: 4000, required: true },
-      { type: "string", key: "paralinoId", size: 64, required: false },
+      // stores the ENCRYPTED paralino id blob + signature — not the short code
+      { type: "string", key: "paralinoId", size: 4000, required: false },
       { type: "string", key: "locationIds", size: 64, required: false, array: true },
     ],
   },

@@ -77,8 +77,10 @@ export async function createDocument(db, col, { documentId, data, permissions })
   });
 }
 
-export async function updateDocument(db, col, docId, data) {
-  return request("PATCH", `/databases/${db}/collections/${col}/documents/${docId}`, { data });
+export async function updateDocument(db, col, docId, data, permissions) {
+  const body = { data };
+  if (permissions) body.permissions = permissions;
+  return request("PATCH", `/databases/${db}/collections/${col}/documents/${docId}`, body);
 }
 
 export async function deleteDocument(db, col, docId) {
