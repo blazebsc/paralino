@@ -140,7 +140,37 @@ export async function memberCreate({ req, res, log, user }) {
     if (!upd.ok) log(`group perms update failed: ${upd.status}`);
   }
 
-  // 6. membership metadata is group-readable. Clients read each other's
+  // 6. the invitee's membership keypair backup (slot 0). The group key was
+  // encrypted against the pre-key consumed from their personal code — its
+  // encrypted keypair becomes their personal_group_keys v0 doc. The blob is
+  // already encrypted with the invitee's personal key; the backend just
+  // relocates it. Without this the invitee can never unlock the group key
+  // (InvalidPersonalKeyPair) and stays "unverified" forever.
+  const consumed = await listDocuments(DB, "personal_id_keys", [
+    Query.equal("keyId", [body.keyId]),
+    Query.limit(2),
+  ]);
+  const preKey = consumed?.json?.documents?.[0];
+  const preKeyBlob = preKey?.data?.encryptedUserKeys ?? preKey?.encryptedUserKeys;
+  if (preKeyBlob) {
+    const personalKey = await createDocument(DB, "personal_group_keys", {
+      documentId: toDocId(`pk${body.groupId.slice(0, 10)}${userToAddId.slice(0, 10)}v0`),
+      data: {
+        ownerUserId: userToAddId,
+        encryptedUserKeys: preKeyBlob,
+        groupId: body.groupId,
+        personalGroupKeyVersion: 0,
+        userKeyVersion: Number(preKey?.data?.userKeyVersion ?? preKey?.userKeyVersion ?? 0),
+        isArchived: false,
+      },
+      permissions: ownerPermissions(userToAddId),
+    });
+    if (!personalKey.ok) log(`invitee personal key create failed: ${personalKey.status}`);
+  } else {
+    log(`consumed pre-key not found for keyId ${body.keyId?.slice(0, 8)} — invitee personal key backup skipped`);
+  }
+
+  // 7. membership metadata is group-readable. Clients read each other's
   // key material / member data / integrity blobs directly from the database
   // to verify signatures and decrypt group keys — every member needs read
   // on every member's docs. Secrets (encrypted group keys, personal keys)
