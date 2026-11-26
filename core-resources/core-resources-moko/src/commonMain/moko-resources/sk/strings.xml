@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Predvolený SDK Google Maps s mapami ulíc a satelitnými mapami.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">SDK MapLibre s mapami OpenFreeMap. Iba ulice.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Žiadne satelitné mapy</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Žiadne satelitné mapy</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satelitné mapy nie sú k dispozícii s vybraným poskytovateľom. Prosím, zmeňte svojho poskytovateľa máp v nastaveniach.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

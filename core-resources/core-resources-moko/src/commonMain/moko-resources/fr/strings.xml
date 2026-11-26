@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">SDK Google Maps par défaut avec cartes routières et satellites.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">SDK MapLibre avec des cartes OpenFreeMap. Cartes routières uniquement.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Aucune carte satellite</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Aucune carte satellite</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Les cartes satellites ne sont pas disponibles avec le fournisseur sélectionné. Veuillez changer votre fournisseur de cartes dans les paramètres.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

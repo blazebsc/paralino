@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">SDK de Google Maps per defecte amb mapes de carrer i satèl·lit.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">SDK de MapLibre amb mapes d\'OpenFreeMap. Només mapes de carrer.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Sense mapes de satèl·lit</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Sense mapes de satèl·lit</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Els mapes per satèl·lit no estan disponibles amb el proveïdor seleccionat. Si us plau, canvieu el vostre proveïdor de mapes a la configuració.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Zadani Google Maps SDK s uličnim i satelitskim kartama.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK s OpenFreeMap kartama. Samo ulične karte.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Nema satelitskih karata</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Nema satelitskih karata</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satelitske karte nisu dostupne s odabranim pružateljem. Molimo promijenite svog pružatelja karata u postavkama.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Подразумевани Google Maps SDK са мапама улица и сателита.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK са OpenFreeMap мапама. Само мапе улица.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Без сателитских мапа</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Без сателитских мапа</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Сателитске мапе нису доступне са одабраним провајдером. Молимо промените свог провајдера мапа у поставкама.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

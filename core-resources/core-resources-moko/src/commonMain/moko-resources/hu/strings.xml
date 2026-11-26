@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Alapértelmezett Google Térképek SDK utcai és műholdas térképekkel.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Ingyenes</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK OpenFreeMap térképekkel. Csak utcai térképek.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Nincsenek műholdas térképek</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Nincsenek műholdas térképek</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">A kiválasztott szolgáltatóval nem elérhetők a műholdas térképek. Kérjük, módosítsa a térképszolgáltatót a beállításokban.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

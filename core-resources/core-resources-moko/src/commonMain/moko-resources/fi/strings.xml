@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Oletusarvoinen Google Maps SDK katu- ja satelliittikartoilla.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK OpenFreeMap-kartoilla. Vain katu- ja kartat.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Ei satelliittikarttoja</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Ei satelliittikarttoja</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satelliittikartat eivät ole saatavilla valitulla palveluntarjoajalla. Ole hyvä ja muuta karttapalveluntarjoajaa asetuksissa.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

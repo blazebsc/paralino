@@ -65,12 +65,10 @@ class MapsProviderViewModel(
 
             if (appConfigRepo.canUseMapLibre) {
                 add(MapsSDKProvider.MAPLIBRE.MAPLIBRE_FREE())
-                add(
-                    MapsSDKProvider.MAPLIBRE.MAPLIBRE_PREMIUM(
-                        mapTilerStyleToken = "",
-                        mapTilerSatelliteToken = ""
-                    )
-                )
+                // MapLibre Premium (BYO MapTiler token) is intentionally not
+                // offered: the fork has no token-entry UI, so selecting it
+                // silently fell back to Free. Re-add alongside a token field
+                // if BYO MapTiler is ever wanted.
             }
         }
 
@@ -104,11 +102,7 @@ class MapsProviderViewModel(
                                 description = it.description.localizedString(),
                                 tag = it.tag?.localizedString(),
                                 isTagWarning = true,
-                                isPremiumFeatureEnabled = if (it is MapsSDKProvider.MAPLIBRE.MAPLIBRE_PREMIUM) {
-                                    canUserHavePremiumMaps()
-                                } else {
-                                    true
-                                },
+                                isPremiumFeatureEnabled = true,
                                 isSelected = it.key == currentOption.key
                             )
                         }
@@ -128,13 +122,7 @@ class MapsProviderViewModel(
                             defaultId = currentOption.lightStyle.key,
                             keyId = "mapStyleLight",
                             items = MapStyle.Light.allLightStyles
-                                .filter {
-                                    if (canUserHavePremiumMaps()) {
-                                        !it.isPremium || currentOption.isPremium
-                                    } else {
-                                        true
-                                    }
-                                }
+                                .filter { !it.isPremium }
                                 .map {
                                     GroupOptionItem(
                                         key = it,
@@ -144,7 +132,7 @@ class MapsProviderViewModel(
                                         isSelected = it == currentOption.lightStyle,
                                         tag = null,
                                         isTagWarning = false,
-                                        isPremiumFeatureEnabled = !it.isPremium || canUserHavePremiumMaps(),
+                                        isPremiumFeatureEnabled = true,
                                     )
                                 }
                         )
@@ -177,13 +165,7 @@ class MapsProviderViewModel(
                             defaultId = currentOption.darkStyle.key,
                             keyId = "mapStyleDark",
                             items = MapStyle.Dark.allDarkStyles
-                                .filter {
-                                    if (canUserHavePremiumMaps()) {
-                                        !it.isPremium || currentOption.isPremium
-                                    } else {
-                                        true
-                                    }
-                                }
+                                .filter { !it.isPremium }
                                 .map {
                                     GroupOptionItem(
                                         key = it,
@@ -193,7 +175,7 @@ class MapsProviderViewModel(
                                         isSelected = it == currentOption.darkStyle,
                                         tag = null,
                                         isTagWarning = false,
-                                        isPremiumFeatureEnabled = !it.isPremium || canUserHavePremiumMaps(),
+                                        isPremiumFeatureEnabled = true,
                                     )
                                 }
                         )
@@ -339,7 +321,4 @@ class MapsProviderViewModel(
         return getMapSDKProvider.getProvider()
     }
 
-    private fun canUserHavePremiumMaps(): Boolean {
-        return userRepository.userPlans.value.highestValidPlanConfig.hasPremiumMapStyles && !(appPrefs.mapTilerStylesToken ?: appPrefs.mapTilerTokenV1).isNullOrBlank()
-    }
 }

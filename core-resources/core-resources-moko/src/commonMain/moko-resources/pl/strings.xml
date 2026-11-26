@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Domyślne SDK Google Maps z mapami ulicznymi i satelitarnymi.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">SDK MapLibre z mapami OpenFreeMap. Tylko mapy uliczne.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Brak map satelitarnych</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Brak map satelitarnych</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Mapy satelitarne nie są dostępne u wybranego dostawcy. Proszę zmienić dostawcę map w ustawieniach.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

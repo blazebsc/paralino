@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Προεπιλεγμένο SDK Google Maps με χάρτες δρόμων και δορυφόρων.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">SDK MapLibre με χάρτες OpenFreeMap. ΜΟΝΟ ΧΑΡΤΕΣ ΔΡΟΜΩΝ.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Χωρίς χάρτες δορυφόρων</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Χωρίς χάρτες δορυφόρων</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Οι χάρτες δορυφόρων δεν είναι διαθέσιμοι με τον επιλεγμένο πάροχο. Παρακαλώ αλλάξτε τον πάροχο χάρτη στις ρυθμίσεις.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

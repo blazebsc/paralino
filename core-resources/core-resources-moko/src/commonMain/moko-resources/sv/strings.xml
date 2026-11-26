@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Standard Google Maps SDK med gatu- och satellitkartor.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK med OpenFreeMap-kartor. Endast gatu kartor.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Inga satellitkartor</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Inga satellitkartor</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satellitkartor är inte tillgängliga med den valda leverantören. Vänligen ändra din kartleverantör i inställningarna.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

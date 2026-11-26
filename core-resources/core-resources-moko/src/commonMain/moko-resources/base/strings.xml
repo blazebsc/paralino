@@ -465,8 +465,8 @@
     <string name="setting_mapsProvider_googleMaps_title">Google Maps</string>
     <string name="setting_mapsProvider_googleMaps_info">Default Google Maps SDK with street and satellite maps.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
-    <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK with OpenFreeMap maps. Street maps only.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">No satellite maps</string>
+    <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK with OpenFreeMap maps. Includes keyless satellite imagery.</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">No satellite maps</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satellite maps are not available with selected provider. Please change your map provider in settings.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

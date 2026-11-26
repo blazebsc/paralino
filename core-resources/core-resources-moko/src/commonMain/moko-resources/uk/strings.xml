@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">За замовчуванням елемент Google Maps SDK з вуличними та супутниковими картами.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK з картами OpenFreeMap. Лише вуличні карти.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Без супутникових карт</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Без супутникових карт</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Супутникові карти недоступні з обраним провайдером. Будь ласка, змініть свого постачальника карт в налаштуваннях.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

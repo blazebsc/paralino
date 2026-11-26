@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Výchozí Google Maps SDK se silničními a satelitními mapami.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK s mapami OpenFreeMap. Pouze silniční mapy.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Žádné satelitní mapy</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Žádné satelitní mapy</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satelitní mapy nejsou k dispozici s vybraným poskytovatelem. Změňte prosím svého poskytovatele map v nastavení.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

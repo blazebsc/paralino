@@ -44,7 +44,8 @@ sealed interface MapsSDKProvider {
             override val title = MR.strings.setting_mapsProvider_mapLibreFree_title
             override val description = MR.strings.setting_mapsProvider_mapLibreFree_info
             override val tag = MR.strings.setting_mapsProvider_mapLibreFree_tag
-            override val hasSatelliteMaps = false
+            // keyless satellite available via the bundled ESRI raster style
+            override val hasSatelliteMaps = true
             override val isPremium = false
 
             override fun lightStyleUri(isSatelliteMaps: Boolean): String {
@@ -83,7 +84,8 @@ sealed interface MapsSDKProvider {
             override val title = MR.strings.setting_mapsProvider_mapLibrePremium_title
             override val description = MR.strings.setting_mapsProvider_mapLibrePremium_info
             override val tag = null
-            override val hasSatelliteMaps = mapTilerSatelliteToken.isNotBlank()
+            // with a satellite token: MapTiler hybrid; without: keyless ESRI raster
+            override val hasSatelliteMaps = true
             override val isPremium = true
 
             override fun lightStyleUri(isSatelliteMaps: Boolean): String {

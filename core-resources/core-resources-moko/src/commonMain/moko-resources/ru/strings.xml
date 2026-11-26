@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Стандартный SDK Google Карт с уличными и спутниковыми картами.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">SDK MapLibre с картами OpenFreeMap. Только уличные карты.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Нет спутниковых карт</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Нет спутниковых карт</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Карты спутников не доступны с выбранным провайдером. Пожалуйста, измените своего провайдера карт в настройках.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

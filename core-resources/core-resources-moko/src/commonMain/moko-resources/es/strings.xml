@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">SDK de Google Maps predeterminado con mapas de calles y satélites.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Gratis</string>
     <string name="setting_mapsProvider_mapLibreFree_info">SDK de MapLibre con mapas de OpenFreeMap. Solo mapas de calles.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">No hay mapas satelitales</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">No hay mapas satelitales</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Los mapas satelitales no están disponibles con el proveedor seleccionado. Por favor, cambie su proveedor de mapas en la configuración.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

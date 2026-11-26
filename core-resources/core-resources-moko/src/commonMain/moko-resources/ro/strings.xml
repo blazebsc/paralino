@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">SDK-ul Google Maps implicit cu hărți de stradă și satelit.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">SDK-ul MapLibre cu hărți OpenFreeMap. Hărți de stradă doar.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Fără hărți satelit</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Fără hărți satelit</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Hărțile pe satelit nu sunt disponibile cu furnizorul selectat. Vă rugăm să schimbați furnizorul de hărți în setări.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

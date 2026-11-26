@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Standaard Google Maps SDK met straat- en satellietkaarten.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Gratis</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK met OpenFreeMap-kaarten. Alleen straatkaarten.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Geen satellietkaarten</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Geen satellietkaarten</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satellietkaarten zijn niet beschikbaar bij de geselecteerde provider. Wijzig alstublieft uw kaartprovider in de instellingen.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

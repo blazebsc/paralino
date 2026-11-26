@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Standard Google Maps SDK med gade- og satellitkort.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Free</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK med OpenFreeMap kort. Kun gade kort.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Ingen satellitkort</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Ingen satellitkort</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satelitkort er ikke tilgængelige med den valgte udbyder. Venligst skift din kortudbyder i indstillingerne.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Sokak ve uydu haritalarıyla standart Google Haritalar SDK\'sı.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Ücretsiz</string>
     <string name="setting_mapsProvider_mapLibreFree_info">OpenFreeMap haritalarıyla MapLibre SDK. Sadece sokak haritaları.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Uydu haritası yok</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Uydu haritası yok</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Seçilen sağlayıcı ile uydu haritaları mevcut değil. Lütfen ayarlarda harita sağlayıcınızı değiştirin.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

@@ -447,7 +447,7 @@
     <string name="setting_mapsProvider_googleMaps_info">Privzeti Google Zemljevide SDK s cestnimi in satelitskimi zemljevidi.</string>
     <string name="setting_mapsProvider_mapLibreFree_title">MapLibre Prosto</string>
     <string name="setting_mapsProvider_mapLibreFree_info">MapLibre SDK z OpenFreeMap zemljepisi. Samo cestni zemljevidi.</string>
-    <string name="setting_mapsProvider_mapLibreFree_tag">Brez satelitskih zemljevidov</string>
+    <string name="setting_mapsProvider_mapLibreFree_tag">Free · satellite included</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_title">Brez satelitskih zemljevidov</string>
     <string name="setting_mapsProvider_mapLibreFree_warning_message">Satelitske karte niso na voljo izbranemu ponudniku. Prosimo, spremenite ponudnika zemljevidov v nastavitvah.</string>
     <string name="setting_mapsProvider_mapLibrePremium_title">MapLibre Premium</string>

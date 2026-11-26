@@ -65,6 +65,23 @@ import org.maplibre.compose.style.BaseStyle
 import org.maplibre.compose.util.MaplibreComposable
 import org.maplibre.spatialk.geojson.Position
 
+/** Keyless satellite: ESRI World Imagery raster, no API key needed. */
+private const val KEYLESS_SATELLITE_STYLE = """{
+  "version": 8,
+  "name": "Whereabouts Satellite",
+  "sources": {
+    "esri-imagery": {
+      "type": "raster",
+      "tiles": ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
+      "tileSize": 256,
+      "attribution": "Imagery © Esri, Maxar, Earthstar Geographics"
+    }
+  },
+  "layers": [
+    { "id": "esri-imagery", "type": "raster", "source": "esri-imagery" }
+  ]
+}"""
+
 @Composable
 fun rememberMapLibreMapState(
     mapsSDKProvider: MapsSDKProvider?,
@@ -77,10 +94,17 @@ fun rememberMapLibreMapState(
             ?: MapsSDKProvider.MAPLIBRE.MAPLIBRE_FREE()
     }
 
-    val mapStyle = if (isSystemInDarkTheme) {
-        BaseStyle.Uri(mapProvider.darkStyleUri(isSatelliteMaps = isSatelliteMode))
-    } else {
-        BaseStyle.Uri(mapProvider.lightStyleUri(isSatelliteMaps = isSatelliteMode))
+    val hasTilerSatellite = (mapProvider as? MapsSDKProvider.MAPLIBRE.MAPLIBRE_PREMIUM)
+        ?.mapTilerSatelliteToken?.isNotBlank() == true
+
+    val mapStyle = when {
+        // satellite with a MapTiler token: hybrid style from MapTiler
+        isSatelliteMode && hasTilerSatellite ->
+            BaseStyle.Uri(mapProvider.lightStyleUri(isSatelliteMaps = true))
+        // satellite without a token: keyless ESRI imagery
+        isSatelliteMode -> BaseStyle.Json(KEYLESS_SATELLITE_STYLE)
+        isSystemInDarkTheme -> BaseStyle.Uri(mapProvider.darkStyleUri(isSatelliteMaps = false))
+        else -> BaseStyle.Uri(mapProvider.lightStyleUri(isSatelliteMaps = false))
     }
 
     return rememberMapState(baseStyle = mapStyle, content = content)
