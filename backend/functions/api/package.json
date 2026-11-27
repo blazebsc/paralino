@@ -1,7 +1,0 @@
-{
-  "name": "paralino-api-function",
-  "version": "0.1.0",
-  "type": "module",
-  "main": "src/main.js",
-  "private": true
-}

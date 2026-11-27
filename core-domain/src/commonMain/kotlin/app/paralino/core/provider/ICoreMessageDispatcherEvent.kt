@@ -1,3 +1,0 @@
-package app.paralino.core.provider
-
-interface ICoreMessageDispatcherEvent

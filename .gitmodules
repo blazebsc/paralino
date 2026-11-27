@@ -1,9 +1,0 @@
-[submodule "parasodium"]
-	path = parasodium
-	url = ../parasodium.git
-[submodule "appwrite-android"]
-	path = appwrite-android
-	url = ../appwrite-android.git
-[submodule "iosApp/appwrite-apple"]
-	path = iosApp/appwrite-apple
-	url = ../appwrite-apple.git
