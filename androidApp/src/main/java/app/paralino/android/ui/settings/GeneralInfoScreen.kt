@@ -38,8 +38,8 @@ import java.util.concurrent.TimeUnit
 
 // Fork-specific: the self-hosted fork ships APKs from GitHub releases, not a
 // store, so updates are a manual check against the repo's releases.
-private const val RELEASES_LATEST_URL = "https://api.github.com/repos/blazebsc/paralino/releases/latest"
-private const val RELEASES_PAGE_URL = "https://github.com/blazebsc/paralino/releases"
+private const val RELEASES_LATEST_URL = "https://api.github.com/repos/blazebsc/whereabouts/releases/latest"
+private const val RELEASES_PAGE_URL = "https://github.com/blazebsc/whereabouts/releases"
 
 /** Parses "v2.7.1" / "2.7.1" into comparable ints. Returns null when unparsable. */
 internal fun parseVersion(raw: String): List<Int>? {
@@ -118,7 +118,7 @@ fun GeneralInfoScreen(
                 // hardcoded copy: fork-only row, base-locale only by design
                 SettingsActionItem(
                     name = "Check for updates",
-                    description = "Latest APK: github.com/blazebsc/paralino/releases",
+                    description = "Latest APK: github.com/blazebsc/whereabouts/releases",
                     icon = CoreAppIcons.DownloadArrow.asPainterResource(),
                     type = if (isCheckingUpdate) SettingsActionItemType.Loading else SettingsActionItemType.Link
                 ) {
