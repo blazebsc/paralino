@@ -38,7 +38,7 @@ import { placeCreate, placeUpdate, placeDelete, alertsPlacesUpdate } from "./rou
 import { keysUpdateGroup, keysUpdateMember, keysUpdateLocation, keysUpdateSpace } from "./routes/keyRotation.js";
 import { groupUpdate, groupDelete, groupBlock, memberBlock } from "./routes/groupLifecycle.js";
 import { accountDelete, accountChangeEmail, userDeviceDelete } from "./routes/account.js";
-import { alertsBatteryUpdateGroup, alertsBatteryUpdateSpace, pingEventsPlaces, pingEventsBatteryGroup, pingEventsBatterySpace } from "./routes/batteryAlerts.js";
+import { alertsBatteryUpdateGroup, alertsBatteryUpdateSpace } from "./routes/batteryAlerts.js";
 import { focusMember, focusGroup, focusDevice, focusSpace, refreshMember, refreshDevice } from "./routes/ping.js";
 import { eventsPlaces, eventsBatteryGroup, eventsBatterySpace } from "./routes/pingEvents.js";
 import { placesSearch } from "./routes/placesSearch.js";
