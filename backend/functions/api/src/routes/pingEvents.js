@@ -1,11 +1,11 @@
 /**
  * Event ping routes (places/battery) — client-detected events pushed to the group.
- * Without push infrastructure, these create push_notifications docs for
- * realtime pickup. Returns {} — the client only checks isSuccess.
+ * Recipients learn of these via UnifiedPush wake-ups fired by the client's other
+ * routes (ping/members/places) or periodic polling; these routes just log.
+ * Returns {} — the client only checks isSuccess.
  */
 
 import { ok, readBody } from "../lib/envelope.js";
-import { newId, createDocument, toDocId } from "../lib/appwrite.js";
 
 
 export async function eventsPlaces({ req, res, log, user }) {
