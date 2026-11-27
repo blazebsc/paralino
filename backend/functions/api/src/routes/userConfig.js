@@ -8,9 +8,13 @@
  *                 "mapTilerSatelliteToken"?: string|null}
  *
  * Fork behavior: billingCustomerId stays null (no billing). MapTiler tokens
- * null -> client uses free map style (its own user-entered token flow, if any,
- * still works client-side). The serverConnectionTest treats a non-null config
- * as "server OK", so a 2xx with empty data passes the check.
+ * come from the MAPTILER_TOKEN (and optional MAPTILER_SATELLITE_TOKEN) env
+ * vars — set once on the function, every client unlocks MapTiler styles +
+ * hybrid satellite automatically (the original server-delivered design; the
+ * device talks to api.maptiler.com directly, so the token is client-visible
+ * by design). Unset -> clients use the free OpenFreeMap + keyless ESRI stack.
+ * The serverConnectionTest treats a non-null config as "server OK", so a 2xx
+ * with empty data passes the check.
  *
  * Also grants the unlimited plan document (plans collection) on first call —
  * the client's UserPlans reads granted plans from there. Idempotent.
@@ -50,9 +54,12 @@ export async function userConfig({ req, res, log, user }) {
 
   await grantUnlimitedPlan(user, log);
 
+  const styleToken = process.env.MAPTILER_TOKEN || "";
+  const satelliteToken = process.env.MAPTILER_SATELLITE_TOKEN || styleToken;
+
   return ok(res, {
     billingCustomerId: null,
-    mapTilerStyleToken: null,
-    mapTilerSatelliteToken: null,
+    mapTilerStyleToken: styleToken || null,
+    mapTilerSatelliteToken: satelliteToken || null,
   });
 }

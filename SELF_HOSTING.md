@@ -78,7 +78,23 @@ The function needs `databases.read/write` and `users.read` scopes.
 Appwrite auto-injects a scoped ephemeral key per execution via the
 function's `scopes` config.
 
-### 7. Serve the config endpoint
+### 7. Optional: MapTiler premium maps
+
+Set a MapTiler token as a function environment variable to unlock MapTiler
+styles (streets, outdoor, dataviz) and labeled hybrid satellite for every
+user of your server:
+
+```
+Appwrite console → Functions → api → Variables → Add variable
+  Key:   MAPTILER_TOKEN
+  Value: <your MapTiler token>
+```
+
+Clients pick it up on their next config refresh and the "MapLibre Premium"
+provider + MapTiler styles appear in Settings → Map provider. Without the
+variable everyone gets the free OpenFreeMap styles and keyless satellite.
+
+### 8. Serve the config endpoint
 
 Copy `backend/public-api/config.json` to any static file server.
 It serves the unlimited plan definition and server connection info.

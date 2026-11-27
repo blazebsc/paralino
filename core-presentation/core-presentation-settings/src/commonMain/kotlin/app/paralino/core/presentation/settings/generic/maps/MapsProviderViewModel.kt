@@ -55,6 +55,10 @@ class MapsProviderViewModel(
         }
     }
 
+    private fun hasMapTilerToken(): Boolean {
+        return !(appPrefs.mapTilerStylesToken ?: appPrefs.mapTilerTokenV1).isNullOrBlank()
+    }
+
     override fun createInitialState(): GenericSettingsScreenState {
         val currentOption = currentMapProvider()
 
@@ -65,10 +69,17 @@ class MapsProviderViewModel(
 
             if (appConfigRepo.canUseMapLibre) {
                 add(MapsSDKProvider.MAPLIBRE.MAPLIBRE_FREE())
-                // MapLibre Premium (BYO MapTiler token) is intentionally not
-                // offered: the fork has no token-entry UI, so selecting it
-                // silently fell back to Free. Re-add alongside a token field
-                // if BYO MapTiler is ever wanted.
+                // MapLibre Premium (MapTiler) appears only when the server
+                // delivered a token via USER_CONFIG — self-hosters set it once
+                // as the function's MAPTILER_TOKEN env var.
+                if (hasMapTilerToken()) {
+                    add(
+                        MapsSDKProvider.MAPLIBRE.MAPLIBRE_PREMIUM(
+                            mapTilerStyleToken = appPrefs.mapTilerStylesToken ?: appPrefs.mapTilerTokenV1 ?: "",
+                            mapTilerSatelliteToken = appPrefs.mapTilerSatelliteToken ?: appPrefs.mapTilerTokenV1 ?: ""
+                        )
+                    )
+                }
             }
         }
 
@@ -122,7 +133,7 @@ class MapsProviderViewModel(
                             defaultId = currentOption.lightStyle.key,
                             keyId = "mapStyleLight",
                             items = MapStyle.Light.allLightStyles
-                                .filter { !it.isPremium }
+                                .filter { !it.isPremium || hasMapTilerToken() }
                                 .map {
                                     GroupOptionItem(
                                         key = it,
@@ -165,7 +176,7 @@ class MapsProviderViewModel(
                             defaultId = currentOption.darkStyle.key,
                             keyId = "mapStyleDark",
                             items = MapStyle.Dark.allDarkStyles
-                                .filter { !it.isPremium }
+                                .filter { !it.isPremium || hasMapTilerToken() }
                                 .map {
                                     GroupOptionItem(
                                         key = it,
