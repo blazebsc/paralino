@@ -20,6 +20,7 @@ androidApp/proguard-merged-config.txt
 androidApp/schemas/
 
 paralinoTestKey
+releaseKeystore.jks
 
 androidApp/playStoreGoogle/release/
 androidApp/direct/release/
