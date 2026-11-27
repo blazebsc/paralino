@@ -10,7 +10,7 @@ import shared
 
 public class CoreKoinSetup {
     
-    private static let initializationQueue = DispatchQueue(label: "app.paralino.ios.initialization")
+    private static let initializationQueue = DispatchQueue(label: "app.whereabouts.ios.initialization")
     
     public static var koinApp: Koin_coreKoin? {
         _koin
@@ -64,8 +64,8 @@ public class CoreKoinSetup {
         notificationStatusProvider: @escaping () -> INotificationStatusProvider
     ) -> [Koin_coreModule] {
         
-        let systemBundleId = Bundle.main.bundleIdentifier ?? "app.paralino.ios"
-        let bundleId = systemBundleId.starts(with: "app.paralino.ios.test") ? "app.paralino.ios.test" : "app.paralino.ios"
+        let systemBundleId = Bundle.main.bundleIdentifier ?? "app.whereabouts.ios"
+        let bundleId = systemBundleId.starts(with: "app.whereabouts.ios.test") ? "app.whereabouts.ios.test" : "app.whereabouts.ios"
         
         let appBuildConfig = AppBuildConfig(
             prodServerConfig: BackendResourceIDs.shared.productionServerConfig,

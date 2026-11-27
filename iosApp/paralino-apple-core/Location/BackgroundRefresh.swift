@@ -17,7 +17,7 @@ class BackgroundRefresh {
     static var placeActivityUploadEngine: PlaceActivityUploadEngine { KoinIOS.Instances.shared.placeActivityUploadEngine }
     
     static func scheduleAppRefresh() {
-        let request = BGAppRefreshTaskRequest(identifier: "app.paralino.ios.task.refresh.full")
+        let request = BGAppRefreshTaskRequest(identifier: "app.whereabouts.ios.task.refresh.full")
         request.earliestBeginDate = Date(timeIntervalSinceNow: 12 * 60 * 60)
         
         do {
@@ -29,7 +29,7 @@ class BackgroundRefresh {
     }
     
     static func registerAppRefresh() {
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "app.paralino.ios.task.refresh.full", using: nil) { task in
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "app.whereabouts.ios.task.refresh.full", using: nil) { task in
             Logr.i(tag:"delegate_tasks", message: "App refresh task start")
             self.scheduleAppRefresh()
             
@@ -52,7 +52,7 @@ class BackgroundRefresh {
     }
     
     static func scheduleNotificationsRefresh() {
-        let request = BGAppRefreshTaskRequest(identifier: "app.paralino.ios.task.refresh.notifications")
+        let request = BGAppRefreshTaskRequest(identifier: "app.whereabouts.ios.task.refresh.notifications")
         request.earliestBeginDate = Date(timeIntervalSinceNow: 2 * 60 * 60)
         
         do {
@@ -64,7 +64,7 @@ class BackgroundRefresh {
     }
     
     static func registerNotificationsRefresh() {
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "app.paralino.ios.task.refresh.notifications", using: nil) { task in
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "app.whereabouts.ios.task.refresh.notifications", using: nil) { task in
             Logr.i(tag:"delegate_tasks", message: "Notifications refresh task start")
             self.scheduleNotificationsRefresh()
             
@@ -77,11 +77,11 @@ class BackgroundRefresh {
     }
     
     static func cancelFullRefresh() {
-        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "app.paralino.ios.task.refresh.full")
+        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "app.whereabouts.ios.task.refresh.full")
     }
     
     static func cancelNotificationsRefresh() {
-        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "app.paralino.ios.task.refresh.notifications")
+        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "app.whereabouts.ios.task.refresh.notifications")
     }
     
     static func logout() {

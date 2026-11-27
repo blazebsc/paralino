@@ -14,7 +14,7 @@ public final class LocationLiveHandoffCoordinator: @unchecked Sendable {
     public static let shared = LocationLiveHandoffCoordinator()
     
     public static let darwinHandoffNotificationName = CFNotificationName(
-        "app.paralino.ios.locationLiveHandoff" as CFString
+        "app.whereabouts.ios.locationLiveHandoff" as CFString
     )
     
     private static let mainAppSessionIdleSeconds: UInt64 = 50

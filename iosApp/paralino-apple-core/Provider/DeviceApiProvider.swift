@@ -42,7 +42,7 @@ class DeviceApiProvider: IDeviceApiProvider {
     }
 
     override var packageName: String {
-        return Bundle.main.bundleIdentifier ?? "app.paralino.ios.undefined"
+        return Bundle.main.bundleIdentifier ?? "app.whereabouts.ios.undefined"
     }
 
     override var deviceOSVersion: String {
