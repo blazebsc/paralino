@@ -339,13 +339,14 @@ class GroupsRemoteSource constructor(
             }
 
             val settingsAsync = async {
+                // per-member settings docs (one per member since member create);
+                // take MY doc — never depend on the total doc count
                 api.listAllDocuments(
                     databaseType = BackendDatabaseType.DATA,
                     collectionId = appConfig.resourceIds.collectionGroupSettingsID,
                     queries = listOf(BackendQuery.Equals(key = "groupId", value = groupId))
                 ).map { it.parseGroupSettings() }
-                    .takeIf { it.size == 1 && it.first().ownerUserId == appPrefs.userId }
-                    ?.firstOrNull()
+                    .firstOrNull { it.ownerUserId == appPrefs.userId }
             }
 
             val locationsAsync = async {
