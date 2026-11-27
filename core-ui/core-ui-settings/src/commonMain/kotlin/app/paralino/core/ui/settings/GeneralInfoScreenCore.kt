@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,6 +54,8 @@ fun GeneralInfoScreenCore(
     onLicencesClick: () -> Unit,
     onShowOnboarding: () -> Unit,
     onContactSupport: () -> Unit,
+    // platform-specific rows (e.g. fork update check); rendered after error reporting
+    extraItems: @Composable ColumnScope.() -> Unit = {},
 ) {
     MessageDispatcherEffect(vm, appState)
     val uiState by vm.uiState.collectAsState()
@@ -143,6 +146,8 @@ fun GeneralInfoScreenCore(
             type = SettingsActionItemType.Switch(uiState.isErrorReportingEnabled),
             onClick = { vm.onEvent(GeneralInfoScreenStateUiEvent.ToggleCrashReporting) }
         )
+
+        extraItems()
 
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Text(

@@ -33,7 +33,7 @@ jobs:
           node-version: "22"
 
       - name: Run test suite
-        run: node --test test/
+        run: node --test test/*.test.mjs
 
   android:
     name: Debug APK build
@@ -57,5 +57,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Whereabouts-debug
-          path: androidApp/build/outputs/apk/debug/*.apk
+          path: androidApp/build/outputs/apk/**/debug/*.apk
           if-no-files-found: error
