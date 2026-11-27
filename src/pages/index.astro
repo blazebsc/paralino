@@ -1,4 +1,7 @@
 ---
+// Whereabouts landing page. Single static page, no JS, no frameworks.
+// Aesthetic: printed topographic survey map. Edit copy freely; the style
+// block at the bottom carries the whole design.
 ---
 
 <html lang="en">
@@ -6,11 +9,628 @@
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Whereabouts — self-hosted family location sharing</title>
+		<meta
+			name="description"
+			content="A self-hostable fork of Paralino. End-to-end encrypted family location sharing that runs on your server. No Google, no billing, no phone home."
+		/>
+		<meta property="og:title" content="Whereabouts" />
+		<meta property="og:description" content="Self-hosted, end-to-end encrypted family location sharing. Your server, your data." />
+		<meta property="og:type" content="website" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<header>
+			<div class="wrap strip">
+				<span class="brand">
+					<svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+						<path d="M9 1 L12 8 L9 17 L6 8 Z" fill="#d14b28"></path>
+						<circle cx="9" cy="9" r="8" stroke="#16262b" stroke-width="1.4"></circle>
+					</svg>
+					WHEREABOUTS
+				</span>
+				<span>SELF-HOSTED · E2E ENCRYPTED · NO GOOGLE</span>
+				<nav>
+					<a href="#features">Features</a>
+					<a href="#host">Self-host</a>
+					<a href="https://github.com/blazebsc/paralino">GitHub</a>
+				</nav>
+			</div>
+		</header>
+
+		<div class="wrap hero">
+			<svg class="rose" viewBox="0 0 100 100" fill="none">
+				<circle cx="50" cy="50" r="46" stroke="#16262b" stroke-width="1"></circle>
+				<circle cx="50" cy="50" r="34" stroke="#16262b" stroke-width="0.6" stroke-dasharray="3 4"></circle>
+				<path d="M50 6 L55 45 L50 94 L45 45 Z" fill="#16262b"></path>
+				<path d="M6 50 L45 55 L94 50 L45 45 Z" fill="#d14b28"></path>
+				<text x="50" y="4.5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="#16262b">N</text>
+			</svg>
+
+			<div class="coords">45.4642° N&nbsp;&nbsp;9.1900° E&nbsp;&nbsp;·&nbsp;&nbsp;DATUM: YOUR SERVER</div>
+
+			<h1>Family location sharing, <em>run by you.</em></h1>
+
+			<p class="lede">
+				Whereabouts is a self-hostable fork of Paralino, the end-to-end encrypted family tracker. Same app, same crypto. But
+				the server is a docker-compose file on your hardware, billing is gone, and nothing talks to Google.
+			</p>
+
+			<div class="cta-row">
+				<a class="btn primary" href="https://github.com/blazebsc/paralino/releases">Get the APK</a>
+				<a class="btn ghost" href="#host">Self-host it</a>
+			</div>
+		</div>
+
+		<div class="route"><span class="dot filled"></span><span class="dash"></span><span class="dot"></span></div>
+
+		<section id="features">
+			<div class="wrap">
+				<div class="kicker">Trail markers</div>
+				<h2>What the fork changes.</h2>
+
+				<div class="trail">
+					<div class="feature">
+						<span class="wp">01</span>
+						<div>
+							<h3>Your server holds the data</h3>
+							<p>
+								One Appwrite instance, one API function. Install it with docker-compose on any box, run the provisioning
+								script, and the backend is live. Locations, groups and keys live in your database, on your disk.
+							</p>
+						</div>
+					</div>
+
+					<div class="feature">
+						<span class="wp">02</span>
+						<div>
+							<h3>End-to-end encrypted, as designed</h3>
+							<p>
+								The fork keeps Paralino's crypto intact. Group keys travel through a pre-key handshake, locations are
+								encrypted on the device, and the server only ever stores ciphertext it cannot open.
+							</p>
+						</div>
+					</div>
+
+					<div class="feature">
+						<span class="wp">03</span>
+						<div>
+							<h3>De-Googled push</h3>
+							<p>
+								No FCM. Wake-ups ride UnifiedPush: <code>ntfy</code> or <code>Sunup</code>, with RFC 8291 WebPush
+								encryption. A WebSocket fallback covers devices without a distributor.
+							</p>
+						</div>
+					</div>
+
+					<div class="feature">
+						<span class="wp">04</span>
+						<div>
+							<h3>No plans, no billing, no locks</h3>
+							<p>
+								Every subscription flag the upstream app checks is off. Members, places, history, alerts: all of it works,
+								for everyone, forever. The billing routes return 501 and the billing UI is gone.
+							</p>
+						</div>
+					</div>
+
+					<div class="feature">
+						<span class="wp">05</span>
+						<div>
+							<h3>Maps you choose</h3>
+							<p>
+								Streets render on OpenFreeMap, keyless and unlimited. Satellite falls back to ESRI World Imagery. Want
+								MapTiler styles? Set one <code>MAPTILER_TOKEN</code> variable on your function and every device unlocks
+								Premium styles automatically.
+							</p>
+						</div>
+					</div>
+
+					<div class="feature">
+						<span class="wp">06</span>
+						<div>
+							<h3>Point it anywhere at setup</h3>
+							<p>
+								The app asks for your server URL on first launch, fetches <code>/config</code>, and configures itself. No
+								recompiling, no hardcoded endpoints.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="route"><span class="dot"></span><span class="dash"></span><span class="dot filled"></span></div>
+
+		<section id="host">
+			<div class="wrap">
+				<div class="kicker">The route</div>
+				<h2>Self-hosting in five stops.</h2>
+
+				<div class="steps">
+					<div class="step">
+						<h3>Install Appwrite</h3>
+						<p>
+							Any Linux box with Docker. Follow the
+							<a href="https://appwrite.io/docs/installation">official install guide</a>, or use Appwrite Cloud if you'd
+							rather not run hardware.
+						</p>
+					</div>
+					<div class="step">
+						<h3>Create a project</h3>
+						<p>New project in the Appwrite console, then register an Android platform with the app's package id.</p>
+					</div>
+					<div class="step">
+						<h3>Provision the schema</h3>
+						<p>
+							Run <code>backend/provision/provision.mjs</code> with your API key. It creates the databases, collections and
+							indexes the app expects.
+						</p>
+					</div>
+					<div class="step">
+						<h3>Deploy the function</h3>
+						<p>
+							Push <code>backend/functions/api</code> as a Node function and give it an API key. Optional: set
+							<code>MAPTILER_TOKEN</code> for premium maps.
+						</p>
+					</div>
+					<div class="step">
+						<h3>Install the APK</h3>
+						<p>
+							Grab the latest release, enter your function's URL at setup, done. The full walk-through is in
+							<a href="https://github.com/blazebsc/paralino/blob/main/SELF_HOSTING.md">SELF_HOSTING.md</a>.
+						</p>
+					</div>
+				</div>
+
+				<div class="crypto">
+					<div class="kicker" style="margin-bottom: 14px">Honesty note</div>
+					<p>
+						<strong>What the server can see:</strong> who exists, which groups exist, row sizes and timestamps, and push
+						endpoints. <strong>What it can't see:</strong> locations, place names, messages, key material. All of that
+						arrives encrypted and the server has no key.
+					</p>
+					<p>
+						<strong>What this fork is:</strong> AGPL-3.0, a community fork of
+						<a href="https://github.com/paralino/paralino">paralino/paralino</a>. It is not affiliated with or endorsed by
+						Paralino. If you want the hosted original, use their app and pay for it; it's good software.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<footer>
+			<div class="wrap foot">
+				<span>WHEREABOUTS · AGPL-3.0</span>
+				<span>
+					<a href="https://github.com/blazebsc/paralino">SOURCE</a> ·
+					<a href="https://github.com/blazebsc/paralino/releases">RELEASES</a> ·
+					<a href="https://github.com/blazebsc/paralino/blob/main/SELF_HOSTING.md">GUIDE</a>
+				</span>
+				<span>45.4642° N 9.1900° E · GRID REF: SELF</span>
+			</div>
+		</footer>
 	</body>
 </html>
+
+<style is:global>
+	:root {
+		--paper: #f2efe6;
+		--paper-deep: #e9e4d5;
+		--ink: #16262b;
+		--ink-soft: #3d5058;
+		--contour: #cfc7b2;
+		--sage: #6f8273;
+		--mark: #d14b28;
+		--mark-soft: #d14b2822;
+		--line: #16262b22;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		background: var(--paper);
+		color: var(--ink);
+		font-family: "Archivo", sans-serif;
+		font-size: 17px;
+		line-height: 1.6;
+		position: relative;
+		overflow-x: hidden;
+	}
+
+	/* contour lines across the whole page */
+	body::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='700' viewBox='0 0 900 700'%3E%3Cg fill='none' stroke='%23c9c2b0' stroke-width='1.1' opacity='0.55'%3E%3Cpath d='M-40 120 C 180 40, 320 200, 560 120 S 900 60, 960 140'/%3E%3Cpath d='M-40 180 C 190 100, 330 260, 570 180 S 910 120, 960 200'/%3E%3Cpath d='M-40 250 C 200 170, 340 330, 580 250 S 920 190, 960 270'/%3E%3Cpath d='M-40 500 C 220 590, 400 430, 620 520 S 880 600, 960 520'/%3E%3Cpath d='M-40 560 C 230 650, 410 490, 630 580 S 890 660, 960 580'/%3E%3Cpath d='M-40 620 C 240 710, 420 550, 640 640 S 900 720, 960 640'/%3E%3C/g%3E%3C/svg%3E");
+		background-size: 900px 700px;
+	}
+
+	.mono {
+		font-family: "IBM Plex Mono", monospace;
+	}
+
+	.wrap {
+		position: relative;
+		z-index: 1;
+		max-width: 1060px;
+		margin: 0 auto;
+		padding: 0 28px;
+	}
+
+	/* ---- survey strip header ---- */
+	header {
+		border-bottom: 1px solid var(--ink);
+		background: var(--paper);
+	}
+	.strip {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 14px 0;
+		font-family: "IBM Plex Mono", monospace;
+		font-size: 12px;
+		letter-spacing: 0.08em;
+		color: var(--ink-soft);
+		flex-wrap: wrap;
+	}
+	.strip .brand {
+		font-weight: 500;
+		color: var(--ink);
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 14px;
+	}
+	.brand svg {
+		display: block;
+	}
+	.strip nav {
+		display: flex;
+		gap: 22px;
+		flex-wrap: wrap;
+	}
+	.strip a {
+		color: var(--ink-soft);
+		text-decoration: none;
+	}
+	.strip a:hover {
+		color: var(--mark);
+	}
+
+	/* ---- hero ---- */
+	.hero {
+		padding: 96px 0 80px;
+		position: relative;
+	}
+
+	.hero .coords {
+		font-family: "IBM Plex Mono", monospace;
+		font-size: 12.5px;
+		letter-spacing: 0.12em;
+		color: var(--mark);
+		margin-bottom: 26px;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+	.hero .coords::after {
+		content: "";
+		flex: 0 1 180px;
+		border-top: 1px dashed var(--mark);
+	}
+
+	h1 {
+		font-family: "Fraunces", serif;
+		font-weight: 560;
+		font-variation-settings: "opsz" 110;
+		font-size: clamp(44px, 7.2vw, 86px);
+		line-height: 1.02;
+		letter-spacing: -0.015em;
+		max-width: 13ch;
+	}
+	h1 em {
+		font-style: italic;
+		font-weight: 480;
+		color: var(--sage);
+	}
+
+	.hero p.lede {
+		max-width: 52ch;
+		margin-top: 30px;
+		font-size: 19px;
+		color: var(--ink-soft);
+	}
+
+	.cta-row {
+		display: flex;
+		gap: 14px;
+		margin-top: 40px;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	a.btn {
+		display: inline-block;
+		padding: 13px 26px;
+		border: 1.5px solid var(--ink);
+		color: var(--ink);
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 15px;
+		background: var(--paper);
+		transition:
+			background 0.15s,
+			transform 0.15s,
+			box-shadow 0.15s;
+	}
+	a.btn.primary {
+		background: var(--mark);
+		border-color: var(--mark);
+		color: var(--paper);
+		box-shadow: 4px 4px 0 var(--ink);
+	}
+	a.btn.primary:hover {
+		transform: translate(-1px, -1px);
+		box-shadow: 5px 5px 0 var(--ink);
+	}
+	a.btn.ghost:hover {
+		background: var(--paper-deep);
+	}
+
+	/* ---- route line between sections ---- */
+	.route {
+		display: flex;
+		align-items: center;
+		gap: 0;
+		margin: 0 auto;
+		max-width: 1060px;
+		padding: 0 28px;
+	}
+	.route .dash {
+		flex: 1;
+		border-top: 2px dashed var(--ink);
+		opacity: 0.35;
+	}
+	.route .dot {
+		width: 13px;
+		height: 13px;
+		border: 2.5px solid var(--ink);
+		border-radius: 50%;
+		background: var(--paper);
+		flex: none;
+	}
+	.route .dot.filled {
+		background: var(--mark);
+		border-color: var(--mark);
+	}
+
+	/* ---- sections ---- */
+	section {
+		padding: 84px 0;
+	}
+
+	.kicker {
+		font-family: "IBM Plex Mono", monospace;
+		font-size: 12.5px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--sage);
+		margin-bottom: 18px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+	.kicker::before {
+		content: "";
+		width: 11px;
+		height: 11px;
+		background: var(--mark);
+		clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+		flex: none;
+	}
+
+	h2 {
+		font-family: "Fraunces", serif;
+		font-weight: 540;
+		font-size: clamp(30px, 4.2vw, 44px);
+		line-height: 1.08;
+		letter-spacing: -0.01em;
+		max-width: 22ch;
+	}
+
+	/* ---- feature waypoints ---- */
+	.trail {
+		margin-top: 54px;
+		position: relative;
+	}
+	.feature {
+		display: grid;
+		grid-template-columns: 84px 1fr;
+		gap: 26px;
+		padding: 30px 0;
+		border-top: 1px solid var(--line);
+		align-items: start;
+	}
+	.feature .wp {
+		font-family: "IBM Plex Mono", monospace;
+		font-size: 13px;
+		color: var(--mark);
+		border: 1.5px solid var(--mark);
+		width: 58px;
+		height: 58px;
+		display: grid;
+		place-items: center;
+		border-radius: 50%;
+		background: var(--paper);
+		box-shadow: 3px 3px 0 var(--mark-soft);
+	}
+	.feature h3 {
+		font-family: "Fraunces", serif;
+		font-weight: 580;
+		font-size: 22px;
+		margin-bottom: 6px;
+	}
+	.feature p {
+		color: var(--ink-soft);
+		max-width: 62ch;
+	}
+	.feature p code {
+		font-family: "IBM Plex Mono", monospace;
+		font-size: 0.86em;
+		background: var(--paper-deep);
+		border: 1px solid var(--contour);
+		padding: 1px 6px;
+		border-radius: 3px;
+	}
+
+	/* ---- hosting steps ---- */
+	.steps {
+		margin-top: 54px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+		gap: 22px;
+		counter-reset: step;
+	}
+	.step {
+		border: 1.5px solid var(--ink);
+		background: var(--paper);
+		padding: 24px 22px 22px;
+		position: relative;
+		box-shadow: 5px 5px 0 var(--paper-deep);
+	}
+	.step::before {
+		counter-increment: step;
+		content: "0" counter(step);
+		font-family: "IBM Plex Mono", monospace;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		color: var(--paper);
+		background: var(--ink);
+		padding: 3px 9px;
+		position: absolute;
+		top: -12px;
+		left: 18px;
+	}
+	.step h3 {
+		font-family: "Fraunces", serif;
+		font-size: 19px;
+		font-weight: 580;
+		margin-bottom: 8px;
+	}
+	.step p {
+		font-size: 15px;
+		color: var(--ink-soft);
+	}
+	.step p code {
+		font-family: "IBM Plex Mono", monospace;
+		font-size: 0.86em;
+		color: var(--mark);
+	}
+
+	/* ---- crypto note ---- */
+	.crypto {
+		border: 1.5px solid var(--ink);
+		background: var(--paper);
+		box-shadow: 6px 6px 0 var(--mark-soft);
+		padding: 38px 34px;
+		margin-top: 54px;
+		position: relative;
+	}
+	.crypto::before,
+	.crypto::after {
+		content: "+";
+		position: absolute;
+		font-family: "IBM Plex Mono", monospace;
+		color: var(--ink);
+		font-size: 15px;
+	}
+	.crypto::before {
+		top: -9px;
+		left: -7px;
+	}
+	.crypto::after {
+		bottom: -11px;
+		right: -7px;
+	}
+	.crypto p {
+		max-width: 68ch;
+		color: var(--ink-soft);
+	}
+	.crypto p + p {
+		margin-top: 14px;
+	}
+	.crypto strong {
+		color: var(--ink);
+	}
+
+	/* ---- footer ---- */
+	footer {
+		border-top: 1px solid var(--ink);
+		padding: 40px 0 60px;
+		background: var(--paper);
+	}
+	.foot {
+		display: flex;
+		justify-content: space-between;
+		gap: 24px;
+		flex-wrap: wrap;
+		font-family: "IBM Plex Mono", monospace;
+		font-size: 12.5px;
+		color: var(--ink-soft);
+		letter-spacing: 0.04em;
+	}
+	.foot a {
+		color: var(--ink);
+	}
+	.foot a:hover {
+		color: var(--mark);
+	}
+
+	/* compass rose watermark in hero */
+	.rose {
+		position: absolute;
+		right: -30px;
+		top: 40px;
+		width: 210px;
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	@media (max-width: 720px) {
+		.hero {
+			padding: 64px 0 56px;
+		}
+		.rose {
+			display: none;
+		}
+		.feature {
+			grid-template-columns: 58px 1fr;
+			gap: 16px;
+		}
+		.feature .wp {
+			width: 46px;
+			height: 46px;
+			font-size: 11px;
+		}
+	}
+</style>
