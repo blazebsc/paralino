@@ -169,8 +169,8 @@ android {
     productFlavors {
         create("direct") {
             dimension = "version"
-            versionCode = 108
-            versionName = "2.7.1"
+            versionCode = 109
+            versionName = "2.7.2"
             isDefault = true
 
             buildConfigField("String", "revenueCatApiKey", "null")
