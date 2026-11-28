@@ -62,6 +62,8 @@ data class MemberDeviceStatus constructor(
     val network: String? = null,
     val signal: Int? = null,
     val status: String? = null,
+    val wifiSsid: String? = null,
+    val carrier: String? = null,
 ) {
     val statusType: MemberDeviceStatusType? get() = MemberDeviceStatusType.fromFullKey(status)
     val networkType: NetworkType? get() = NetworkType.fromKey(network)

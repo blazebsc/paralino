@@ -156,4 +156,23 @@ class ConnectionStatusProvider constructor(
             return null
         }
     }
+
+    override suspend fun getCarrierName(): String? {
+        try {
+            val cm = context.getSystemService(Application.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val actNw = cm.getNetworkCapabilities(cm.activeNetwork ?: return null) ?: return null
+            if (!actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) return null
+
+            val hasDangerousPermission = ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+            val hasSystemPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_BASIC_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+            } else false
+            if (!hasDangerousPermission && !hasSystemPermission) return null
+
+            val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+            return telephonyManager.networkOperatorName?.takeIf { it.isNotBlank() }
+        } catch (e: Exception) {
+            return null
+        }
+    }
 }

@@ -928,6 +928,8 @@ fun FlowRowScope.GroupMemberDeviceDataRowContent(
         isBatteryCharging = state?.isBatteryCharging ?: false,
         networkType = state?.networkType,
         signalStrength = state?.signalStrength,
+        wifiSsid = state?.wifiSsid,
+        carrier = state?.carrier,
         speed = state?.speed,
         elevation = state?.elevation
     )
@@ -939,8 +941,10 @@ fun FlowRowScope.GroupMemberDeviceDataRowContent(
     isBatteryCharging: Boolean,
     networkType: NetworkType?,
     signalStrength: NetworkSignalStrength?,
-    speed: String?,
-    elevation: String?
+    wifiSsid: String? = null,
+    carrier: String? = null,
+    speed: String? = null,
+    elevation: String? = null
 ) {
     val isNetworkVisible = networkType != null
     val isSpeedVisible = speed != null
@@ -1004,7 +1008,13 @@ fun FlowRowScope.GroupMemberDeviceDataRowContent(
                         signalStrength = signalStrength
                     )
                     Text(
-                        text = networkType.networkName,
+                        text = when (networkType) {
+                            NetworkType.WIFI -> wifiSsid?.takeIf { it.isNotBlank() } ?: networkType.networkName
+                            else -> listOfNotNull(
+                                networkType.networkName.takeIf { it.isNotBlank() },
+                                carrier?.takeIf { it.isNotBlank() }
+                            ).joinToString(" · ")
+                        },
                         style = MaterialTheme.typography.overline.copy(letterSpacing = 0.1.sp)
                     )
                 }

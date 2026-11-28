@@ -64,6 +64,9 @@ abstract class IConnectionStatusProvider(
     protected abstract suspend fun getNetworkType(): NetworkType?
     abstract suspend fun getSignalStrength(): Int?
     open suspend fun getConnectedWifi(): ConnectedWifi? = null
+
+    /** Mobile carrier name (e.g. "Vodafone") when on cellular; null on wifi/offline. */
+    open suspend fun getCarrierName(): String? = null
 }
 
 data class ConnectedWifi(

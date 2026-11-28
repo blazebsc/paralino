@@ -6,6 +6,7 @@ import app.paralino.core.models.location.LocationSharingContract
 import app.paralino.core.models.location.MemberDeviceStatus
 import app.paralino.core.models.location.MemberDeviceStatusType
 import app.paralino.core.provider.IDeviceApiProvider
+import app.paralino.core.provider.NetworkType
 import app.paralino.core.provider.IValueFormatter
 import app.paralino.core.repo.LocationSharingManager
 import app.paralino.core.repo.location.LocationPerformanceManager
@@ -75,13 +76,21 @@ class MemberDeviceStatusProvider(
         val validContract = sharingContract?.asValidContract()
         val sharingBattery = validContract?.shareBattery == true
         val sharingNetwork = validContract?.shareNetwork == true
+        val connectionStatusProvider = deviceApiProvider.connectionStatusProvider
+        val networkType = if (sharingNetwork) connectionStatusProvider.initAndGetStatus().networkType else null
         return MemberDeviceStatus(
             timeUTC = valueFormatter.currentTimeForApi(),
             tz = TimeZone.currentSystemDefault().offsetAt(nowUTC()).toString(),
             batteryLevel = if (sharingBattery) deviceApiProvider.batteryLevel else null,
             isCharging = if (sharingBattery) deviceApiProvider.isCharging.takeIf { sharingBattery } else null,
-            network = if (sharingNetwork) deviceApiProvider.connectionStatusProvider.initAndGetStatus().networkType?.key else null,
-            signal = if (sharingNetwork) deviceApiProvider.connectionStatusProvider.getSignalStrength() else null,
+            network = networkType?.key,
+            signal = if (sharingNetwork) connectionStatusProvider.getSignalStrength() else null,
+            wifiSsid = if (sharingNetwork && networkType == NetworkType.WIFI) {
+                connectionStatusProvider.getConnectedWifi()?.ssid
+            } else null,
+            carrier = if (sharingNetwork && networkType != null && networkType != NetworkType.WIFI) {
+                connectionStatusProvider.getCarrierName()
+            } else null,
             status = getStatusType(groupId, sharingContract).fullKey
         )
     }
