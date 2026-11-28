@@ -64,7 +64,7 @@ class PlacesActivityProcessor(
 ) : IPlacesActivityProcessor() {
 
     override suspend fun processLocation(mappedLocations: List<MemberGroupId>) {
-        logg.v("place_activity", "Process new locations ${mappedLocations.size} in places")
+        logg.v("place_activity", "Process new locations ${mappedLocations.size} in places [groups: ${'$'}{mappedLocations.joinToString { it.groupId.id }}]")
 
         placeActivityUploadEngine.syncPendingEventsInBackground()
 
@@ -94,21 +94,29 @@ class PlacesActivityProcessor(
     private suspend fun shouldProcessPlaceForLocation(place: GroupPlace): Boolean {
 
         if (!place.canSendAlert) {
+            logg.v("place_activity", "Skip ${'$'}{place.id}: cannot alert")
             return false
         }
 
         val contract = locationSharingManager.currentSharingContractForGroup(place.groupOrSpaceId)
-            ?: return false
+            ?: run {
+                logg.v("place_activity", "Skip ${'$'}{place.id}: no sharing contract")
+                return false
+            }
 
         val approximateLocationRadiusCheck = contract.approximateLocationInMeters?.let {
             (place.data.data?.radiusMeters ?: 0) > it
         } ?: true
 
         if (!approximateLocationRadiusCheck) {
+            logg.v("place_activity", "Skip ${'$'}{place.id}: approximate location hides small place")
             return false
         }
 
-        return !isPlaceInPrivacyZone(place)
+        val notInPrivacyZone = !isPlaceInPrivacyZone(place)
+        if (!notInPrivacyZone) logg.v("place_activity", "Skip ${'$'}{place.id}: privacy zone")
+        logg.v("place_activity", "Processing ${'$'}{place.id} ok")
+        return notInPrivacyZone
     }
 
     private suspend fun isPlaceInPrivacyZone(place: GroupPlace): Boolean {
