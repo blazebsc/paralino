@@ -195,6 +195,7 @@ class MapHomeViewModel constructor(
     )
     private val groupsEmptyStateManager = GroupsInitEmptyStateManager(
         userRepo = userRepository,
+        remoteConfig = remoteConfig,
         personalCodesRepo = personalCodeRepo,
         groupLocalDataSource = groupRepo,
         deviceApiProvider = deviceApiProvider,

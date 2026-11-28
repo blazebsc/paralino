@@ -39,6 +39,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class GroupsInitEmptyStateManager(
     private val userRepo: UserRepository,
+    private val remoteConfig: app.paralino.core.repo.base.RemoteConfigRepository,
     private val personalCodesRepo: PersonalCodesRepository,
     private val groupLocalDataSource: UserGroupLocalDataSource,
     val deviceApiProvider: IDeviceApiProvider,
@@ -96,17 +97,21 @@ class GroupsInitEmptyStateManager(
                 add(ConditionErrorType.PermissionNotifications)
             }
 
-            user.data?.canVerifyEmail?.takeIf { it }?.let {
-                add(
-                    ConditionErrorType.EmailVerification(
-                        email = user.data?.email ?: "",
-                        isLoading = _uiState.value.errors
-                            .filterIsInstance<ConditionErrorType.EmailVerification>()
-                            .firstOrNull()
-                            ?.isLoading
-                            ?: false
+            // only nag about email verification when this server can actually send email
+            // (self-hosts without SMTP set emailEnabled=false in /config)
+            if (remoteConfig.getCachedConfigOnce().isEmailEnabled) {
+                user.data?.canVerifyEmail?.takeIf { it }?.let {
+                    add(
+                        ConditionErrorType.EmailVerification(
+                            email = user.data?.email ?: "",
+                            isLoading = _uiState.value.errors
+                                .filterIsInstance<ConditionErrorType.EmailVerification>()
+                                .firstOrNull()
+                                ?.isLoading
+                                ?: false
+                        )
                     )
-                )
+                }
             }
         }
 
