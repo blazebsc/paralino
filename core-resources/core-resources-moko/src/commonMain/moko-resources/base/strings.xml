@@ -735,6 +735,10 @@
     <string name="groups_sharing_setting_approximateLocation_alert_message">Your actual location will be hidden and other members will not be able to locate you precisely. Speed and elevation will not be available.</string>
     <string name="groups_sharing_setting_approximateLocation_speedElevation_unavailable">Speed and elevation are not available when **approximate location** sharing is enabled.</string>
     <string name="location_sharing_button_start_groups">Start sharing</string>
+    <string name="sos_button_trigger">SOS</string>
+    <string name="sos_confirm_title">Trigger SOS?</string>
+    <string name="sos_confirm_message">All group members will be alerted immediately. If configured, your emergency contacts will be texted your location.</string>
+    <string name="sos_confirm_confirm">Trigger SOS</string>
     <string name="location_sharing_button_start_personal">Start tracking</string>
     <string name="location_sharing_button_stop_groups">Stop sharing</string>
     <string name="location_sharing_button_stop_personal">Stop tracking</string>
@@ -987,6 +991,7 @@
     <string name="wifi_networks_notUsed">Not used for any place</string>
     <string name="wifi_networks_settings_entry_info">Used to filter out locations while connected to Wi-Fi</string>
     <string name="place_notification_enter" note="Used to tell that someone (person) has arrived at certain place as in: User arrived at Home">%1$s arrived at %2$s</string>
+    <string name="sos_notification_title" note="SOS alert title as in: SOS! Blake needs help">%1$s triggered SOS — they may need help</string>
     <string name="place_notification_exit" note="Used to tell that someone (person) has left some place as in: User left Home">%1$s left %2$s</string>
     <string name="place_notification_device_enter" note="Used to tell that device has arrived at certain place as in: Your device left Home">%1$s arrived at %2$s</string>
     <string name="place_notification_device_exit" note="Used to tell that device has left some place as in: Your device left Home">%1$s left %2$s</string>

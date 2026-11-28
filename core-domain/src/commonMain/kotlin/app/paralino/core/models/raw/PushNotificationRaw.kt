@@ -98,7 +98,9 @@ enum class PushNotificationType constructor(val key: String) {
     GROUP_MEMBER_DELETED("group_member_deleted"),
     LOCATION_STARTED("location_sharing_start"),
     LOCATION_REQUEST("location_request"),
-    LOCATION_FOCUS("location_focus");
+    LOCATION_FOCUS("location_focus"),
+
+    SOS("sos");
 
     companion object {
         fun fromKey(key: String?): PushNotificationType? {

@@ -1,9 +1,29 @@
 package app.paralino.android.ui.settings
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -11,25 +31,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import app.paralino.android.BuildConfig
+import app.paralino.android.safety.ISafetyManager
+import app.paralino.android.safety.SosReason
 import app.paralino.android.ui.main.MainAppState
 import app.paralino.android.ui.navigation.AppScreen
 import app.paralino.android.utils.extensions.contactSupport
 import app.paralino.core.app_update.AppUpdateStatus
 import app.paralino.core.app_update.IAppUpdateManager
+import app.paralino.core.db.AppPrefs
 import app.paralino.core.models.base.ConfigData
-import app.paralino.core.resources.moko.*
-import app.paralino.core.presentation.settings.general.GeneralInfoViewModel
 import app.paralino.core.resources.CoreAppIcons
 import app.paralino.core.resources.CoreAppIcons.asPainterResource
+import app.paralino.core.resources.moko.*
+import app.paralino.core.presentation.settings.SettingsActionItemType
+import app.paralino.core.presentation.settings.general.GeneralInfoViewModel
 import app.paralino.core.ui.components.DefaultToolbar
 import app.paralino.core.ui.components.SettingsActionItem
 import app.paralino.core.ui.components.ToolbarButtons
 import app.paralino.core.ui.settings.GeneralInfoScreenCore
-import app.paralino.core.presentation.settings.SettingsActionItemType
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -95,7 +123,7 @@ fun GeneralInfoScreen(
     vm: GeneralInfoViewModel = koinViewModel()
 ) {
     Scaffold(
-        modifier = Modifier.safeDrawingPadding().fillMaxSize(),
+        modifier = Modifier.safeDrawingPadding().fillMaxSize().background(MaterialTheme.colors.background),
         topBar = {
             DefaultToolbar(
                 title = stringResource(resource = MR.strings.settings_section_general_title),
@@ -107,6 +135,8 @@ fun GeneralInfoScreen(
         val uriHandler = LocalUriHandler.current
         val scope = rememberCoroutineScope()
         val appUpdateManager = remember { GlobalContext.get().get<IAppUpdateManager>() }
+        val safetyManager = remember { GlobalContext.get().get<ISafetyManager>() }
+        val appPrefs = remember { GlobalContext.get().get<AppPrefs>() }
         val updateStatus by appUpdateManager.updateState.collectAsState()
         var isCheckingUpdate by remember { mutableStateOf(false) }
 
@@ -124,7 +154,17 @@ fun GeneralInfoScreen(
                 context.contactSupport()
             },
             extraItems = {
-                // hardcoded copy: fork-only row, base-locale only by design
+                // crash countdown banner: when active, SOS escalates unless cancelled
+                val countdown by safetyManager.countdownState.collectAsState()
+                countdown?.let { cd ->
+                    SosCountdownBanner(
+                        secondsLeft = cd.secondsLeft,
+                        reason = cd.reason,
+                        onImOk = { safetyManager.cancelCountdown() }
+                    )
+                }
+
+                // hardcoded copy: fork-only rows, base-locale only by design
                 val rowName = when (val status = updateStatus) {
                     is AppUpdateStatus.Downloading -> {
                         val pct = status.progress
@@ -167,7 +207,111 @@ fun GeneralInfoScreen(
                         }
                     }
                 }
+
+                SosSmsSettingsRow(
+                    appPrefs = appPrefs,
+                    context = context,
+                    scope = scope
+                )
             }
         )
+    }
+}
+
+/** Red banner shown while a crash countdown is running. */
+@Composable
+private fun SosCountdownBanner(secondsLeft: Int, reason: SosReason, onImOk: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 12.dp)
+            .background(Color(0xFFD14B28).copy(alpha = 0.12f), RoundedCornerShape(12.dp))
+            .padding(16.dp)
+    ) {
+        Text(
+            text = if (reason == SosReason.CRASH) {
+                "Crash detected — SOS in ${secondsLeft}s"
+            } else {
+                "SOS in ${secondsLeft}s"
+            },
+            color = Color(0xFFD14B28),
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.subtitle1
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = if (reason == SosReason.CRASH) {
+                "You haven't responded after a possible crash. Your group members will be alerted."
+            } else {
+                "All your group members are being alerted."
+            },
+            style = MaterialTheme.typography.body2
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(onClick = onImOk) {
+            Text("I'm OK")
+        }
+    }
+}
+
+/** SOS & emergency SMS numbers editor (comma-separated), stored locally. */
+@Composable
+private fun SosSmsSettingsRow(appPrefs: AppPrefs, context: android.content.Context, scope: kotlinx.coroutines.CoroutineScope) {
+    var showEditor by remember { mutableStateOf(false) }
+    var numbers by remember { mutableStateOf(appPrefs.sosSmsNumbers) }
+
+    SettingsActionItem(
+        name = "SOS & emergency SMS",
+        description = if (appPrefs.sosSmsNumbers.isBlank()) {
+            "No emergency contacts set"
+        } else {
+            "Texts: ${appPrefs.sosSmsNumbers}"
+        },
+        icon = CoreAppIcons.Warning.asPainterResource(),
+        type = SettingsActionItemType.Link
+    ) {
+        showEditor = true
+    }
+
+    if (showEditor) {
+        androidx.compose.ui.window.Dialog(onDismissRequest = { showEditor = false }) {
+            Column(
+                modifier = Modifier
+                    .background(MaterialTheme.colors.surface, RoundedCornerShape(16.dp))
+                    .padding(22.dp)
+            ) {
+                Text("Emergency SMS numbers", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.subtitle1)
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    "Comma-separated phone numbers. On SOS or a confirmed crash, each number gets a text with your location.",
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                OutlinedTextField(
+                    value = numbers,
+                    onValueChange = { numbers = it },
+                    placeholder = { Text("+15551234567, +15557654321") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(14.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = androidx.compose.foundation.layout.Arrangement.End) {
+                    TextButton(onClick = { showEditor = false }) { Text("Cancel") }
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Button(onClick = {
+                        appPrefs.sosSmsNumbers = numbers
+                        showEditor = false
+                        // ask for SEND_SMS so escalation can actually text
+                        val activity = context as? Activity
+                        if (activity != null && numbers.isNotBlank()) {
+                            activity.startActivity(
+                                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${activity.packageName}"))
+                            )
+                        }
+                    }) { Text("Save") }
+                }
+            }
+        }
     }
 }

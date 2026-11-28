@@ -122,6 +122,7 @@ class AppPrefs(
         const val keyAppTappedOnReview = "prefs.device.appReviewOpened"
         const val keyPlaceSearchLocation = "prefs.device.pleaseSearchLocation"
         const val keyMapTilerToken = "prefs.device.mapsTilerToken"
+        const val keySosSmsNumbers = "prefs.device.sosSmsNumbers"
         const val keyMapTilerStylesToken = "prefs.device.mapTilerStylesToken"
         const val keySelfHostServerUrl = "prefs.device.selfHost.serverUrl"
         const val keySelfHostProjectId = "prefs.device.selfHost.projectId"
@@ -802,6 +803,17 @@ class AppPrefs(
                 provider.userSettings.remove(keyMapTilerToken)
             } else {
                 provider.userSettings.putString(keyMapTilerToken, value)
+            }
+        }
+
+    /** Emergency contact numbers (comma-separated) texted on SOS/crash escalation. */
+    var sosSmsNumbers: String
+        get() = provider.userSettings.getStringOrNull(keySosSmsNumbers) ?: ""
+        set(value) {
+            if (value.isBlank()) {
+                provider.userSettings.remove(keySosSmsNumbers)
+            } else {
+                provider.userSettings.putString(keySosSmsNumbers, value)
             }
         }
 

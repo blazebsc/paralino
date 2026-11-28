@@ -67,6 +67,8 @@ enum class ServerFunction constructor(
     BILLING_REDEEM_CODE(method = "POST", path = "/redeem_code"),
     USER_CONFIG(method = "POST", path = "/v2/user/config"),
 
+    SOS(method = "POST", path = "/sos"),
+
     EVENT_PLACES(method = "POST", path = "/ping/events/places"),
     EVENT_BATTERY_GROUP(method = "POST", path = "/ping/events/battery/group"),
     EVENT_BATTERY_SPACE(method = "POST", path = "/ping/events/battery/space"),

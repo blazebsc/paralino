@@ -33,5 +33,8 @@ abstract class IInfoMessagesNotificationPresenter(inAppLogger: InAppLogger) :
 abstract class IPlaceActivityNotificationPresenter(inAppLogger: InAppLogger) :
     IPushNotificationPresenter(inAppLogger)
 
+abstract class ISosNotificationPresenter(inAppLogger: InAppLogger) :
+    IPushNotificationPresenter(inAppLogger)
+
 abstract class IGroupActivityNotificationPresenter(inAppLogger: InAppLogger) :
     IPushNotificationPresenter(inAppLogger)

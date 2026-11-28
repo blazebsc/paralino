@@ -9,6 +9,7 @@ import app.paralino.android.data.PreCheckControl
 import app.paralino.android.domain.ExportPersonalLocationHistoryUseCase
 import app.paralino.android.domain.ImportPersonalLocationHistoryUseCase
 import app.paralino.android.notification.GroupActivityNotificationPresenter
+import app.paralino.android.notification.SosNotificationPresenter
 import app.paralino.android.notification.InfoMessagesNotificationPresenter
 import app.paralino.android.notification.LocationNotificationHandler
 import app.paralino.android.notification.NotificationSocketServiceLauncher
@@ -27,6 +28,7 @@ import app.paralino.android.provider.PushProviderManager
 import app.paralino.android.provider.UnifiedPushManager
 import app.paralino.android.provider.ValueFormatter
 import app.paralino.android.remote.appwrite.AppWriteRemoteModule
+import app.paralino.android.safety.SafetyManager
 import app.paralino.android.remote.appwrite.DocumentsApi
 import app.paralino.android.remote.appwrite.FunctionsApi
 import app.paralino.android.remote.appwrite.RealtimeApi
@@ -59,6 +61,7 @@ import app.paralino.core.domain.location.ReRegisterDeviceUseCase
 import app.paralino.core.domain.location.history.ILocationHistoryUploadEngine
 import app.paralino.core.domain.location.history.LocationHistoryUploadEngine
 import app.paralino.core.domain.notifications.IGroupActivityNotificationPresenter
+import app.paralino.core.domain.notifications.ISosNotificationPresenter
 import app.paralino.core.domain.notifications.IInfoMessagesNotificationPresenter
 import app.paralino.core.domain.notifications.IPlaceActivityNotificationPresenter
 import app.paralino.core.models.ApiServerConfig
@@ -181,6 +184,7 @@ object KoinSetup {
         single { GeofenceManager(androidApplication()) } bind IGeofenceManager::class
         factory { PlaceNotificationPresenter(androidContext(), get()) } bind IPlaceActivityNotificationPresenter::class
         factory { GroupActivityNotificationPresenter(androidContext(), get()) } bind IGroupActivityNotificationPresenter::class
+        factory { SosNotificationPresenter(androidContext(), get()) } bind ISosNotificationPresenter::class
         factory { InfoMessagesNotificationPresenter(androidContext(), get()) } bind IInfoMessagesNotificationPresenter::class
 
         single<IUserApi> { UserApi(get()) }
@@ -202,6 +206,7 @@ object KoinSetup {
         single { LocationServiceLauncher(androidApplication(), get(), get(), get(), get()) }
         single { NotificationSocketServiceLauncher(androidApplication(), get(), get(), get(), get(), get()) }
         single { LocationInitHandler(androidContext(), get(), get(), get()) }
+        single { SafetyManager(androidContext(), get(), get(), get(), get()) } bind app.paralino.android.safety.ISafetyManager::class
         factory { LocationNotificationHandler(androidContext()) }
         factory { PushServiceNotificationHandler(androidContext()) }
 

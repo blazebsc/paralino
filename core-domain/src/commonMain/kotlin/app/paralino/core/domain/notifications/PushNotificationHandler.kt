@@ -16,6 +16,7 @@ import app.paralino.core.domain.notifications.processors.PlaceDeletedNotificatio
 import app.paralino.core.domain.notifications.processors.PlaceUpdatedNotificationProcessor
 import app.paralino.core.domain.notifications.processors.PrivacyZoneCreatedNotificationProcessor
 import app.paralino.core.domain.notifications.processors.PrivacyZoneSyncNotificationProcessor
+import app.paralino.core.domain.notifications.processors.SosNotificationProcessor
 import app.paralino.core.domain.user.PersonalSpaceRefreshUseCase
 import app.paralino.core.logg
 import app.paralino.core.models.base.BackendDatabaseType
@@ -43,9 +44,11 @@ class PushNotificationHandler constructor(
     private val placeActivityNotification: PlaceActivityNotificationProcessor,
     private val locationRequestNotification: LocationRequestNotificationProcessor,
     private val lowBatteryNotificationProcessor: LowBatteryNotificationProcessor,
+    private val sosNotificationProcessor: SosNotificationProcessor,
     private val notificationPreCheck: NotificationPreCheckProcessor,
     private val placePresenter: IPlaceActivityNotificationPresenter,
     private val groupPresenter: IGroupActivityNotificationPresenter,
+    private val sosPresenter: ISosNotificationPresenter,
     private val docApi: IDocumentsApi,
     private val preRefreshUseCase: GroupPreRefreshUseCase,
     private val personalSpaceRefresh: PersonalSpaceRefreshUseCase,
@@ -254,6 +257,8 @@ class PushNotificationHandler constructor(
             PushNotificationType.LOCATION_STARTED -> sharingStartedNotification
             PushNotificationType.LOCATION_REQUEST -> locationRequestNotification
             PushNotificationType.LOCATION_FOCUS -> locationRequestNotification
+
+            PushNotificationType.SOS -> sosNotificationProcessor
         }
     }
 
@@ -281,6 +286,8 @@ class PushNotificationHandler constructor(
             PushNotificationType.LOCATION_STARTED -> groupPresenter
             PushNotificationType.LOCATION_REQUEST -> null
             PushNotificationType.LOCATION_FOCUS -> null
+
+            PushNotificationType.SOS -> sosPresenter
         }
     }
 }

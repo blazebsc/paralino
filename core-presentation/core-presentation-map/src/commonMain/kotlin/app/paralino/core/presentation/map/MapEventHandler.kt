@@ -290,6 +290,10 @@ class MapEventHandler(
                 eventChannel.trySend(MapHomeScreenEvent.OpenSettings)
             }
 
+            MapHomeScreenUiEvent.OnSosClick -> {
+                eventChannel.trySend(MapHomeScreenEvent.TriggerSos)
+            }
+
             MapHomeScreenUiEvent.OnSharingStartClick -> {
                 uiState.value.asReady()?.let {
                     eventChannel.trySend(OpenSharingStart(groupId = it.groupOrSpaceId.id))

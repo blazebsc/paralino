@@ -37,7 +37,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -49,7 +51,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import app.paralino.core.resources.moko.*
 import app.paralino.core.presentation.common.GroupMemberItemEvent
 import app.paralino.core.presentation.common.GroupMemberItemState
@@ -305,6 +309,9 @@ fun MapHomeSheetContent(
 
                 MapSheetSelectedContentType.MEMBERS -> {
                     membersList(
+                        onSosClick = {
+                            onEvent(MapHomeScreenUiEvent.OnSosClick)
+                        },
                         isPersonalSpace = readyState.isPersonalSpace,
                         canStopTracking = readyState.personalSpaceSharingContract != null && readyState.isPersonalSpace,
                         canStopSharing = readyState.selectedGroupSharingContract != null && !readyState.isPersonalSpace,
@@ -395,6 +402,7 @@ private fun SheetTabs(
 }
 
 private fun LazyListScope.membersList(
+    onSosClick: () -> Unit,
     isPersonalSpace: Boolean,
     canStopSharing: Boolean,
     canStopTracking: Boolean,
@@ -406,6 +414,9 @@ private fun LazyListScope.membersList(
     onOpenSettings: () -> Unit,
     stopLocationSharing: () -> Unit,
 ) {
+    this.item(key = "sos_button") {
+        SosButton(onClick = onSosClick)
+    }
     this.itemsIndexed(
         items = members,
         key = { index, item -> item.keyId }
@@ -711,4 +722,84 @@ private fun MapBottomSheetTab(
             )
         }
     }
+}
+
+/**
+ * SOS trigger row — red, deliberate, always visible above the member list.
+ * Tapping opens a confirmation dialog; accidental taps can't alert anyone.
+ */
+@Composable
+private fun SosButton(onClick: () -> Unit) {
+    var showConfirm by remember { androidx.compose.runtime.mutableStateOf(false) }
+
+    if (showConfirm) {
+        androidx.compose.ui.window.Dialog(onDismissRequest = { showConfirm = false }) {
+            Column(
+                modifier = Modifier
+                    .background(MaterialTheme.colors.surface, RoundedCornerShape(16.dp))
+                    .padding(22.dp)
+            ) {
+                Text(
+                    text = stringResource(MR.strings.sos_confirm_title),
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = stringResource(MR.strings.sos_confirm_message),
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    Text(
+                        text = stringResource(MR.strings.button_cancel),
+                        modifier = Modifier
+                            .clickable { showConfirm = false }
+                            .padding(10.dp),
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+                        fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = stringResource(MR.strings.sos_confirm_confirm),
+                        modifier = Modifier
+                            .clickable {
+                                showConfirm = false
+                                onClick()
+                            }
+                            .padding(10.dp),
+                        color = Color(0xFFD14B28),
+                        fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                    )
+                }
+            }
+        }
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 14.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color(0xFFD14B28).copy(alpha = 0.1f))
+            .clickable { showConfirm = true }
+            .padding(vertical = 14.dp, horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = CoreAppIcons.Warning.asPainterResource(),
+            contentDescription = null,
+            tint = Color(0xFFD14B28),
+            modifier = Modifier.size(22.dp)
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(
+            text = stringResource(MR.strings.sos_button_trigger),
+            color = Color(0xFFD14B28),
+            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+            style = MaterialTheme.typography.body1
+        )
+    }
+    Spacer(modifier = Modifier.height(8.dp))
 }

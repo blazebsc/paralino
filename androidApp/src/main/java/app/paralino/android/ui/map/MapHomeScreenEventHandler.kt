@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.LifecycleStartEffect
 import app.paralino.android.notification.rememberNotificationsPermissionHandler
+import app.paralino.android.safety.ISafetyManager
 import app.paralino.android.tracking.rememberLocationPermissionHandler
 import app.paralino.android.ui.main.MainAppState
 import app.paralino.android.ui.navigation.AppScreen
@@ -21,6 +22,7 @@ import app.paralino.core.ui.map.isFullyExpanded
 import app.paralino.core.utils.extensions.openNavigation
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.core.context.GlobalContext
 
 @Composable
 internal fun MapHomeScreenEventHandler(
@@ -150,6 +152,10 @@ internal fun MapHomeScreenEventHandler(
 
                 MapHomeScreenEvent.OpenSettings -> {
                     appState.navController.navigate(AppScreen.Settings.SettingsRoot)
+                }
+
+                MapHomeScreenEvent.TriggerSos -> {
+                    GlobalContext.get().get<ISafetyManager>().triggerSos()
                 }
 
                 MapHomeScreenEvent.OpenMapProviderSettings -> {

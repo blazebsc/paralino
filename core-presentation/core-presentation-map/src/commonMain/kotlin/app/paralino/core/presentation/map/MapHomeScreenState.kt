@@ -229,6 +229,7 @@ sealed class MapHomeScreenEvent {
     data object OpenPersonalCodes: MapHomeScreenEvent()
     data object OpenGroupCreateScreen : MapHomeScreenEvent()
     data object OpenSettings : MapHomeScreenEvent()
+    data object TriggerSos : MapHomeScreenEvent()
     data object OpenMapProviderSettings : MapHomeScreenEvent()
     data class OpenGroupPicker(val showPersonalSpace: Boolean) : MapHomeScreenEvent()
     data object OpenPersonalSpace : MapHomeScreenEvent()
@@ -285,6 +286,7 @@ sealed interface MapHomeScreenUiEvent {
     data object OnGroupDetailsClick : MapHomeScreenUiEvent
     data object OnSharingStartClick : MapHomeScreenUiEvent
     data object OnSettingsClick : MapHomeScreenUiEvent
+    data object OnSosClick : MapHomeScreenUiEvent
     data object OnMapModeClick : MapHomeScreenUiEvent
     data object OnMapModeLongClick : MapHomeScreenUiEvent
     data object OnCloseFocusedItemClick : MapHomeScreenUiEvent

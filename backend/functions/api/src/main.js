@@ -41,6 +41,7 @@ import { accountDelete, accountChangeEmail, userDeviceDelete } from "./routes/ac
 import { alertsBatteryUpdateGroup, alertsBatteryUpdateSpace } from "./routes/batteryAlerts.js";
 import { focusMember, focusGroup, focusDevice, focusSpace, refreshMember, refreshDevice } from "./routes/ping.js";
 import { eventsPlaces, eventsBatteryGroup, eventsBatterySpace } from "./routes/pingEvents.js";
+import { sosTrigger } from "./routes/sos.js";
 import { placesSearch } from "./routes/placesSearch.js";
 import { historyUpload, historyReadGroup, historyReadPersonal, historyUpdateGroup, historyUpdatePersonal, historyDeleteGroup, historyDeletePersonal } from "./routes/history.js";
 import { privacyZoneCreate, privacyZoneUpdate, privacyZoneDelete } from "./routes/privacyZones.js";
@@ -89,6 +90,7 @@ const ROUTES = {
   "POST /ping/focus/space": focusSpace,
   "POST /ping/refresh/device": refreshDevice,
   "POST /ping/events/places": eventsPlaces,
+  "POST /sos": sosTrigger,
   "POST /ping/events/battery/group": eventsBatteryGroup,
   "POST /ping/events/battery/space": eventsBatterySpace,
 
