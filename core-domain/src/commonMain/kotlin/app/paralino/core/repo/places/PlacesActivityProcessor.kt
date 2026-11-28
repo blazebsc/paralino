@@ -94,13 +94,13 @@ class PlacesActivityProcessor(
     private suspend fun shouldProcessPlaceForLocation(place: GroupPlace): Boolean {
 
         if (!place.canSendAlert) {
-            logg.v("place_activity", "Skip ${'$'}{place.id}: cannot alert")
+            logg.v("place_activity", "Skip " + place.id + ": cannot alert")
             return false
         }
 
         val contract = locationSharingManager.currentSharingContractForGroup(place.groupOrSpaceId)
             ?: run {
-                logg.v("place_activity", "Skip ${'$'}{place.id}: no sharing contract")
+                logg.v("place_activity", "Skip " + place.id + ": no sharing contract")
                 return false
             }
 
@@ -109,13 +109,13 @@ class PlacesActivityProcessor(
         } ?: true
 
         if (!approximateLocationRadiusCheck) {
-            logg.v("place_activity", "Skip ${'$'}{place.id}: approximate location hides small place")
+            logg.v("place_activity", "Skip " + place.id + ": approximate location hides small place")
             return false
         }
 
         val notInPrivacyZone = !isPlaceInPrivacyZone(place)
-        if (!notInPrivacyZone) logg.v("place_activity", "Skip ${'$'}{place.id}: privacy zone")
-        logg.v("place_activity", "Processing ${'$'}{place.id} ok")
+        if (!notInPrivacyZone) logg.v("place_activity", "Skip " + place.id + ": privacy zone")
+        logg.v("place_activity", "Processing " + place.id + " ok")
         return notInPrivacyZone
     }
 
@@ -344,7 +344,17 @@ class PlacesActivityProcessor(
             state = newState
         )
 
-        if (newState.isEnter == oldState?.isScheduledStateEnter || newState.isEnter == oldState?.isEnter) {
+        if (oldState == null) {
+            // first observation of this place — record it WITHOUT notifying, so the
+            // opposite transition later has a previous state to fire against
+            placeActivityRepo.updatePlaceActivity(
+                placeId = placeId,
+                state = newState
+            )
+            return
+        }
+
+        if (newState.isEnter == oldState.isScheduledStateEnter || newState.isEnter == oldState.isEnter) {
 //            logg.tag("place_activity")
 //                .d("Cancel place $activityTag notify - state did not change - $placeId")
             if (oldState.tryNotifyJob == null && oldState.isScheduledStateEnter != null) {
@@ -382,6 +392,7 @@ class PlacesActivityProcessor(
 //                .d("Cancel place $activityTag notify (state: ${oldState?.isEnter}) - $placeId")
             return
         }
+
 
         if (oldState.isLastNotifyStateEnter == enter && nowUTC().toEpochMilliseconds()
                 .minus(oldState.notifyTimeMillis ?: 0) < 1.hours.inWholeMilliseconds
