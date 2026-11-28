@@ -46,7 +46,8 @@ class AppUpdateManager(
         return url.startsWith("https://static.paralino.com/") ||
             url.startsWith("https://paralino.com/") ||
             url.startsWith("https://paralino.app/") ||
-            url.startsWith("https://github.com/paralino/")
+            url.startsWith("https://github.com/paralino/") ||
+            url.startsWith("https://github.com/blazebsc/whereabouts/")
     }
 
     private fun downloadAndInstall(url: String) {

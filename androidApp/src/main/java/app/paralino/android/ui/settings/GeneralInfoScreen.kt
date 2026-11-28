@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,6 +18,9 @@ import app.paralino.android.BuildConfig
 import app.paralino.android.ui.main.MainAppState
 import app.paralino.android.ui.navigation.AppScreen
 import app.paralino.android.utils.extensions.contactSupport
+import app.paralino.core.app_update.AppUpdateStatus
+import app.paralino.core.app_update.IAppUpdateManager
+import app.paralino.core.models.base.ConfigData
 import app.paralino.core.resources.moko.*
 import app.paralino.core.presentation.settings.general.GeneralInfoViewModel
 import app.paralino.core.resources.CoreAppIcons
@@ -34,12 +38,15 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.context.GlobalContext
 import java.util.concurrent.TimeUnit
 
 // Fork-specific: the self-hosted fork ships APKs from GitHub releases, not a
 // store, so updates are a manual check against the repo's releases.
 private const val RELEASES_LATEST_URL = "https://api.github.com/repos/blazebsc/whereabouts/releases/latest"
 private const val RELEASES_PAGE_URL = "https://github.com/blazebsc/whereabouts/releases"
+// stable asset name — every release carries an apk asset under this name
+private const val LATEST_APK_URL = "https://github.com/blazebsc/whereabouts/releases/latest/download/Whereabouts-latest.apk"
 
 /** Parses "v2.7.1" / "2.7.1" into comparable ints. Returns null when unparsable. */
 internal fun parseVersion(raw: String): List<Int>? {
@@ -99,6 +106,8 @@ fun GeneralInfoScreen(
         val context = LocalContext.current
         val uriHandler = LocalUriHandler.current
         val scope = rememberCoroutineScope()
+        val appUpdateManager = remember { GlobalContext.get().get<IAppUpdateManager>() }
+        val updateStatus by appUpdateManager.updateState.collectAsState()
         var isCheckingUpdate by remember { mutableStateOf(false) }
 
         GeneralInfoScreenCore(
@@ -116,24 +125,45 @@ fun GeneralInfoScreen(
             },
             extraItems = {
                 // hardcoded copy: fork-only row, base-locale only by design
+                val rowName = when (val status = updateStatus) {
+                    is AppUpdateStatus.Downloading -> {
+                        val pct = status.progress
+                        if (pct != null) "Downloading… ${(pct * 100).toInt()}%"
+                        else "Downloading… ${status.mb ?: ""}"
+                    }
+                    AppUpdateStatus.Installing -> "Installing…"
+                    else -> "Check for updates"
+                }
                 SettingsActionItem(
-                    name = "Check for updates",
+                    name = rowName,
                     description = "Latest APK: github.com/blazebsc/whereabouts/releases",
                     icon = CoreAppIcons.DownloadArrow.asPainterResource(),
-                    type = if (isCheckingUpdate) SettingsActionItemType.Loading else SettingsActionItemType.Link
+                    type = if (isCheckingUpdate || updateStatus !is AppUpdateStatus.Idle) {
+                        SettingsActionItemType.Loading
+                    } else {
+                        SettingsActionItemType.Link
+                    }
                 ) {
-                    if (isCheckingUpdate) return@SettingsActionItem
+                    if (isCheckingUpdate || updateStatus !is AppUpdateStatus.Idle) return@SettingsActionItem
                     isCheckingUpdate = true
                     scope.launch {
                         val remote = fetchLatestVersion()
                         isCheckingUpdate = false
                         when {
-                            remote == null -> Toast.makeText(context, "Couldn't reach GitHub. Check your connection.", Toast.LENGTH_SHORT).show()
+                            remote == null ->
+                                Toast.makeText(context, "Couldn't reach GitHub. Check your connection.", Toast.LENGTH_SHORT).show()
+
                             compareVersions(BuildConfig.VERSION_NAME, remote) > 0 -> {
-                                Toast.makeText(context, "Update available: $remote. Opening releases page.", Toast.LENGTH_LONG).show()
-                                uriHandler.openUri(RELEASES_PAGE_URL)
+                                Toast.makeText(context, "Downloading update $remote…", Toast.LENGTH_SHORT).show()
+                                // reuse the app's own self-update path: download with progress,
+                                // then hand the apk to the system installer (PackageInstaller)
+                                appUpdateManager.startUpdateProcess(
+                                    ConfigData(defaultPremiumPlan = "free", androidAppUrl = LATEST_APK_URL)
+                                )
                             }
-                            else -> Toast.makeText(context, "You're on the latest version (${BuildConfig.VERSION_NAME}).", Toast.LENGTH_SHORT).show()
+
+                            else ->
+                                Toast.makeText(context, "You're on the latest version (${BuildConfig.VERSION_NAME}).", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
